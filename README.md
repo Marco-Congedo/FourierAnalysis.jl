@@ -9,14 +9,16 @@ in the *frequency* domain and in the *time-frequency* domain.
 In the frequency domain *FourierAnalysis* computes **spectra**, linear and
 non-linear **cross-spectral matrices** and several linear and non-linear **coherence matrices** using the sliding windows Welch method.
 
-Time-frequency (TF) representations are obtained applying a *pass-band filter-bank* and the *Hilber transform*. This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration** (the non-linear version is a directional statistic known as **circular mean resultant length**), **amplitude co-modulation**, **coherence** (the non-linear version is a synchronization statistic known as **phase-locking values** or **phase coherence**), **comodulation** etc.
+Time-frequency representations are obtained applying a
+[filter-bank](https://en.wikipedia.org/wiki/Filter_bank) and the
+[Hilber transform](https://en.wikipedia.org/wiki/Hilbert_transform).
+This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration** (the non-linear version is a directional statistic known as **circular mean resultant length**), **amplitude comodulation** and **coherence** (the non-linear version of which is a synchronization statistic known as **phase-locking values** or **phase coherence**).
 
 A large panel of measures are provided in a simple and unified fashion,
 following the approach illustrated in
 [Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
 in the context of electroencephalography (EEG), for which all default settings
-have been tailored. The package has been written with the "do-it-with-one-line" spirit
-and with the aim of allowing full control over relevant options for the
+have been tailored. The package has been written with the "do-it-with-one-line" spirit and with the aim of allowing full control over relevant options for the
 Fourier analysis of multivariate time-series.
 
 *FourierAnalysis* is based on packages [FFTW](https://github.com/JuliaMath/FFTW.jl),
@@ -26,13 +28,14 @@ parts of them it uses.
 
 ## Installation
 
+The package is till under preliminary testing and is not registered.
 Execute the following command in Julia's REPL:
 
-    ]add FourierAnalysis
+    ]add https://github.com/Marco-Congedo/FourierAnalysis
 
 To obtain the latest development version execute instead
 
-    ]add FourierAnalysis#master
+    ]add https://github.com/Marco-Congedo/FourierAnalysis#master
 
 ## Disclaimer
 
@@ -43,4 +46,4 @@ Any independent reviewer is welcome.
 ## About the Author
 
 [Marco Congedo](https://sites.google.com/site/marcocongedo) is
-a research scientist of CNRS (Centre National de la Recherche Scientifique), working in Grenoble, France.
+a research scientist of CNRS (Centre National de la Recherche Scientifique), working in Grenoble, France. Contact: first name *dot* last name at gmail *dot* com
