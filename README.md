@@ -4,7 +4,8 @@
 
 **FourierAnalysis** is a [**Julia**](https://julialang.org/) package for
 performing the analysis of *real multivariate data* (e.g., time series)
-in the *frequency* domain and in the *time-frequency* domain.
+in the *frequency* domain and in the *time-frequency* domain. In this endeavour it complements the
+[DSP](https://github.com/JuliaDSP/DSP.jl) package, based on [FFTW](https://github.com/JuliaMath/FFTW.jl) and [AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl), for which it provids a simple interface.
 
 In the frequency domain *FourierAnalysis* computes **spectra**, *linear* and
 *non-linear* **cross-spectral matrices** and several *linear* and *non-linear* **coherence matrices** using the sliding-windows [Welch method](https://en.wikipedia.org/wiki/Welch%27s_method).
@@ -20,13 +21,9 @@ following the conceptual approach illustrated in
 in the context of electroencephalography (EEG), for which all default settings
 have been tailored. The package has been written with the "do-it-with-one-line" spirit and with the aim of allowing full control over relevant options.
 
-*FourierAnalysis* is based on packages [FFTW](https://github.com/JuliaMath/FFTW.jl),
-[AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl) and
-[DSP](https://github.com/JuliaDSP/DSP.jl), providing a simple interface to the parts of them it uses.
-
 ## Installation
 
-The package is till under preliminary testing and is not registered.
+The package is still under preliminary testing and is not registered.
 Execute the following command in Julia's REPL:
 
     ]add https://github.com/Marco-Congedo/FourierAnalysis
@@ -44,4 +41,4 @@ Independent reviewers are more then welcome.
 ## About the Author
 
 [Marco Congedo](https://sites.google.com/site/marcocongedo) is
-a research scientist of CNRS (Centre National de la Recherche Scientifique), working in Grenoble, France. Contact: first name *dot* last name at gmail *dot* com
+a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working at [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble, France. **Contact**: first name *dot* last name at gmail *dot* com
