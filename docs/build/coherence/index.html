@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>coherence.jl · FourierAnalysis</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="../index.html"><img class="logo" src="../assets/logo.png" alt="FourierAnalysis logo"/></a><h1>FourierAnalysis</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../MainModule/">MainModule</a></li><li class="current"><a class="toctext" href>coherence.jl</a><ul class="internal"><li><a class="toctext" href="#coherence-estimates-1">coherence estimates</a></li><li><a class="toctext" href="#Coherence-1">Coherence</a></li></ul></li><li><a class="toctext" href="../crossspectra/">crossspectra.jl</a></li><li><a class="toctext" href="../fftw/">fftw.jl</a></li><li><a class="toctext" href="../filters/">filters.jl</a></li><li><a class="toctext" href="../goertzel/">goertzel.jl</a></li><li><a class="toctext" href="../hilbert/">hilbert.jl</a></li><li><a class="toctext" href="../">FourierAnalysis Documentation</a></li><li><a class="toctext" href="../plots/">plots.jl</a></li><li><a class="toctext" href="../spectra/">spectra.jl</a></li><li><a class="toctext" href="../tapers/">tapers.jl</a></li><li><a class="toctext" href="../timefrequency/">timefrequency.jl</a></li><li><a class="toctext" href="../timefrequencybi/">timefrequencybi.jl</a></li><li><a class="toctext" href="../timefrequencyuni/">timefrequencyuni.jl</a></li><li><a class="toctext" href="../tools/">tools.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href>coherence.jl</a></li></ul></nav><hr/><div id="topbar"><span>coherence.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="coherence.jl-1" href="#coherence.jl-1">coherence.jl</a></h1><p><em>FourierAnalysis</em> estimates coherence both in the <em>frequency domain</em>, in this unit, and in the <em>time-frequency domain</em>, in unit <a href="../timefrequencybi/#timefrequencybi.jl-1">timefrequencybi.jl</a>.</p><h3><a class="nav-anchor" id="Notation-1" href="#Notation-1">Notation</a></h3><p>The following notation will be used:</p><table><tr><th style="text-align: center">symbol</th><th style="text-align: center">meaning</th><th style="text-align: center">Julia function</th></tr><tr><td style="text-align: center">superscript <span>$^*$</span></td><td style="text-align: center">complex conjugate</td><td style="text-align: center">conj()</td></tr><tr><td style="text-align: center">superscript <span>$^H$</span></td><td style="text-align: center">complex conjugate transpose</td><td style="text-align: center">&#39;</td></tr><tr><td style="text-align: center"><span>$\mid \cdot \mid$</span></td><td style="text-align: center">modulus</td><td style="text-align: center">abs()</td></tr><tr><td style="text-align: center"><span>$\Bbb R(\cdot)$</span></td><td style="text-align: center">real part of the argument</td><td style="text-align: center">real()</td></tr><tr><td style="text-align: center"><span>$\Bbb C(\cdot)$</span></td><td style="text-align: center">imaginary part of the argument</td><td style="text-align: center">imag()</td></tr><tr><td style="text-align: center"><span>$\left&lt;\cdot\right&gt;$</span></td><td style="text-align: center">an average across argument&#39;s elements</td><td style="text-align: center">mean()</td></tr></table><h2><a class="nav-anchor" id="coherence-estimates-1" href="#coherence-estimates-1">coherence estimates</a></h2><p><strong>frequency domain (FD)</strong></p><p>In the FD, the input is a continuous multivariate data matrix <span>$X=[x_1 ... x_n]$</span>, where each column is a series (e.g., a time-series). Coherence estimates take the form of a <span>$n$</span>x<span>$n$</span> coherence matrix <span>$C(f)$</span> for each discrete Fourier frequency <span>$f$</span>. Those are normalized versions of the <span>$n$</span>x<span>$n$</span> <em>cross-spectral matrices</em> <span>$S(f)$</span> at corresponding frequencies.</p><p>Cross-spectral matrices are estimated via a <a href="https://en.wikipedia.org/wiki/Welch%27s_method">Welch procedure</a>, that is, they are averaged across windows sliding over <span>$X$</span>. The windows may be overlapping or not. Let <span>$Y_l(f)$</span> be the discrete Fourier transform at discrete Fourier frequency <span>$f$</span> of the <span>$l^{th}$</span> window of <span>$X$</span>. The cross-spectral matrix estimation at frequency <span>$f$</span> is then given by</p><p><span>$S(f)=\left&lt;Y(f)Y(f)^H\right&gt;$</span>,</p><p>where the average is across a number of sliding windows.</p><p>Therefore, coherence matrices in the FD measure the <em>synchronization between all <span>$n$</span> series of <span>$X$</span> taken pair-wise</em>, resulting in a symmetric matrix, for each discrete Fourier frequency.</p><p><strong>time-frequency domain (TFD)</strong></p><p>There exist many time-frequency representation, e.g., those obtained using <a href="https://en.wikipedia.org/wiki/Wavelet">wavelets</a>, <a href="https://en.wikipedia.org/wiki/Short-time_Fourier_transform">short-time Fourier transform</a>, etc. In <em>FourierAnalysis</em> time-frequency representations are obtained passing a univariate signal through a <a href="https://en.wikipedia.org/wiki/Filter_bank">filter bank</a> and computing the <a href="https://en.wikipedia.org/wiki/Analytic_signal">analytic signal</a> of the filter output via the <a href="https://en.wikipedia.org/wiki/Hilbert_transform">Hilbert transform</a>. This results in a matrix with the band-pass regions of the filer bank in rows and the <span>$t$</span> time samples in columns (see <a href="../filters/#FourierAnalysis.filterbank"><code>filterbank</code></a> and <a href="../hilbert/#FourierAnalysis.analyticsignal"><code>analyticsignal</code></a> for details).</p><p>For estimating coherence in the TFD, the input is composed of two sets of <span>$k$</span> univariate data vectors <span>$𝐱_a=\{x_{a1}, x_{a2},...,x_{ak}\}$</span> and <span>$𝐱_b=\{x_{b1}, x_{b2},...,x_{bk}\}$</span>, where each element of the set is to be understood as a single window holding <span>$t$</span> samples and the element in corresponding positions forms pairs. Let <span>$Y_r(a)$</span> and <span>$Y_r(b)$</span> be the time-frequency analytic signal of realizations <span>$x_{ar}$</span> and <span>$x_{ar}$</span>, respectively, with <span>$r=1...k$</span>. Coherence estimates also have a time-frequency representation. They are a normalized version of crossed analytic signals, which is analogous to cross-spectra,and in a time-frequency plane is given by</p><p><span>$Z=\left&lt;Y(a) \odot Y(b)^*\right&gt;$</span>,</p><p>where the average is across the <span>$k$</span> realizations.</p><p>Therefore, the coherence matrix in the TFD measures the <em>synchronization between corresponding elements of the set <span>$𝐱_a$</span> and <span>$𝐱_b$</span></em>, for each point in the time-frequency plane.</p><h3><a class="nav-anchor" id="kinds-of-coherence-1" href="#kinds-of-coherence-1">kinds of coherence</a></h3><p><em>FourierAnalysis</em> estimates several kinds of <em>linear</em> and <em>non-linear</em> squared coherences, simply referred to as <em>coherence</em>. For simplicity of notation, let <span>$i$</span> and <span>$j$</span> indicate two series in the <em>frequency domain</em> and two sets of series in the <em>time-frequency domain</em>, as explained in the previous section. Let then <span>$\left&lt;s_{ij}\right&gt;$</span> be an average cross-spectrum between <span>$i$</span> and <span>$j$</span>, and <span>$\left&lt;s_{i}\right&gt;$</span>, <span>$\left&lt;s_{j}\right&gt;$</span> be the auto-spectrum of <span>$i$</span> , <span>$j$</span>. In the frequency domain those are function of frequency, whereas in the time-frequency domain they are functions of both time and frequency.</p><p>Finally, let <span>$w$</span> denote non-negative weights normalized so that their average is 1. Those are weights for the windows on which the averages are computed. Setting all weights equal to 1, gives the unweighted version of all measures, which is the only supported option in the FD, since therein windows segmentation is arbitrary and weighting windows is usually meaningless.</p><p>All kinds of coherences estimated in <em>FourierAnalysis</em> are summarized in the following table:</p><table><tr><th style="text-align: right">kind</th><th style="text-align: center">linear</th><th style="text-align: center">non-linear</th></tr><tr><td style="text-align: right"><em>total</em></td><td style="text-align: center"><span>$\left&lt;w\mid s_{ij} \mid^2\right&gt;\big /\left&lt;ws_is_j\right&gt;$</span></td><td style="text-align: center"><span>$\left&lt;w\mid s_{ij} \mid^2\right&gt;$</span></td></tr><tr><td style="text-align: right"><em>real</em></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb R(s_{ij}) \mid^2\right&gt;\big/\left&lt;ws_is_j\right&gt;$</span></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb R(s_{ij})\mid^2\right&gt;$</span></td></tr><tr><td style="text-align: right"><em>imaginary</em></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb C(s_{ij}) \mid^2\right&gt;\big/\left&lt;ws_is_j\right&gt;$</span></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb C(s_{ij}) \mid^2\right&gt;$</span></td></tr><tr><td style="text-align: right"><em>instantaneous</em></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb R(s_{ij}) \mid^2\right&gt;\big/\left&lt;w(s_is_j-\mid \Bbb C(s_{ij}) \mid^2)\right&gt;$</span></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb R(s_{ij}) \mid^2\right&gt;\big/\left&lt;w(1-\mid \Bbb C(s_{ij}) \mid^2)\right&gt;$</span></td></tr><tr><td style="text-align: right"><em>lagged</em></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb C(s_{ij}) \mid^2\right&gt;\big/\left&lt;w(s_is_j-\mid \Bbb R(s_{ij}) \mid^2)\right&gt;$</span></td><td style="text-align: center"><span>$\left&lt;w\mid \Bbb C(s_{ij}) \mid^2\right&gt;\big/\left&lt;w(1-\mid \Bbb R(s_{ij}) \mid^2)\right&gt;$</span></td></tr></table><p>The <em>linear</em> <strong>total</strong>  coherence is the classical <em>squared coherence</em> measure and its <em>non-linear</em> counterpart is known as <em>phase-locking value</em> or <em>phase coherence</em>.</p><p>The <strong>real</strong> coherence (Pascual-Marqui, 2007) and the <strong>imaginary</strong> coherence (Nolte <em>et al.</em>, 2004), sum up to the total coherence.</p><p>The <strong>lagged</strong> coherence has been proposed by Pascual-Marqui (2007). As a completion of the table, we here also define the <strong>instantaneous</strong> coherence in an analogous way.</p><p>Corresponding <em>linear</em> and <em>non-linear</em> measures are the same, but are computed on linear and non-linear cross-spectra in the FD and crossed analytic-signal in the TFD, respectively. In fact, the non-linear expressions are obtained setting <span>$s_i=s_j=1$</span>, which is the case for non-linear cross-spectra and analytic signals. See <a href="../crossspectra/#CrossSpectra-1">CrossSpectra</a> and <a href="../timefrequency/#TFAnalyticSignal-1">TFAnalyticSignal</a>. For further explanations on the linearity of those objects, see Congedo (2018).</p><h3><a class="nav-anchor" id="interpreting-coherence-1" href="#interpreting-coherence-1">interpreting coherence</a></h3><p>The real part of the cross-spectrum, named the <em>co-spectrum</em>, describes the <em>synchronous</em> synchronization, that is, in-phase synchronization or out-of-phase synchronization. The imaginary part, named the <em>quadrature spectrum</em>, describes the <em>asynchronous</em> synchronization, that is, with a quarter of a cycle lead or lag (see Congedo, 2018). Consequently,</p><ul><li>the <em>total</em> coherence is sensitive to all kinds of synchronization,</li><li>the <em>real</em> coherence is sensitive only to synchronous synchronization,</li><li>the <em>instantaneous</em> coherence is sensitive to all but asynchronous synchronization,</li><li>the <em>imaginary</em> coherence is sensitive only to asynchronous synchronization,</li><li>the <em>lagged</em> coherence is sensitive to all but synchronous synchronization.</li></ul><h2><a class="nav-anchor" id="Coherence-1" href="#Coherence-1">Coherence</a></h2><p><strong>Categories</strong>: <a href="../MainModule/#data-objects-1">data objects</a>, <a href="../MainModule/#FDobjects-1">FDobjects</a></p><p>In the time-frequency domain coherence estimates are given as Julia Matrix objects. In the frequency-domain they are encapsulated in the following structure:</p><pre><code class="language-none">struct Coherence
+   &lt;same fields of the CrossSpectra structure&gt;
+end</code></pre><p>This object has the same structure of the <a href="../crossspectra/#CrossSpectra-1">CrossSpectra</a> object, with the difference that its <code>.y</code> data field holds real matrices, whereas for cross-spectra holds complex matrices.</p><p>By convention the diagonal elements of all FD coherence matrices are filled with 1.0. Note that the FFT coefficients for the DC level and the Nyquist frequency are real, therefore for those frequencies the identity matrix is returned for the <em>imaginary</em> and <em>lagged</em> coherence. Also, note that at these frequencies the <em>instantaneous</em> coherence is equal to the <em>real</em> coherence. In the time-frequency domain, we do not have discrete frequencies but a filter bank, thus no special behavior appears at the edges.</p><p>A vector of <em>Coherence</em> objects is of type <a href="../MainModule/#CoherenceVector-1">CoherenceVector</a>.</p><p><strong>Methods for Coherence and CoherenceVector objects</strong></p><table><tr><th style="text-align: left">method</th><th style="text-align: center">Coherence</th><th style="text-align: center">CoherenceVector</th></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.bands"><code>bands</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.extract"><code>extract</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#Statistics.mean"><code>mean</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.sameParams"><code>sameParams</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr></table><p><strong>Generic Constructors</strong>:</p><p>In order to construct a <em>Coherence</em> object in the frequency domain from multivariate data, <em>FourierAnalysis</em> provides two <a href="#FourierAnalysis.coherence"><code>coherence</code></a> constuctors from raw data two constuctors building coherence matrices from <a href="../crossspectra/#CrossSpectra-1">CrossSpectra</a> and <a href="../MainModule/#CrossSpectraVector-1">CrossSpectraVector</a> objects. Those are what you will use in practice most of the time.</p><p>Manual constructors are also possible, for which you have to provide appropriate arguments. Generic constructors follow exactly the same syntax as the generic constructors of <a href="../crossspectra/#CrossSpectra-1">CrossSpectra</a> objects.</p><p>In order to estimate coherence in the time-frequency domain from sets of univariate data, <em>FourierAnalysis</em> provides two more <a href="#FourierAnalysis.coherence"><code>coherence</code></a> functions.</p><p><strong>Constructors from data</strong>:</p><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="FourierAnalysis.coherence" href="#FourierAnalysis.coherence"><code>FourierAnalysis.coherence</code></a> — <span class="docstring-category">Function</span>.</div><div><div><pre><code class="language-julia">(1)
+function coherence(𝙎    :: CrossSpectra;
+               allkinds :: Bool = false)
+
+(2)
+function coherence(𝓢    :: CrossSpectraVector;
+               allkinds :: Bool = false,
+               check    :: Bool = true)
+
+(3)
+function coherence(X  :: Matrix{T},
+                   sr :: Int,
+                   wl :: Int;
+               tapering  :: Union{Taper, TaperKind} = harris4,
+               planner   :: Planner                 = getplanner,
+               slide     :: Int                     = 0,
+               DC        :: Bool                    = false,
+               nonlinear :: Bool                    = false,
+               smoothing :: Smoother                = noSmoother,
+               tril      :: Bool                    = false,
+               allkinds  :: Bool                    = false,
+               ⏩       :: Bool                    = true) where T&lt;:Real
+
+(4)
+function coherence(𝐗 :: Vector{Matrix{T}},
+              &lt; same argument sr, ..., ⏩ of method (3) &gt; where T&lt;:Real
+
+</code></pre><p><strong>alias</strong>: coh</p><p>(1) Construct a <a href="#Coherence-1">Coherence</a> object from a <a href="../crossspectra/#CrossSpectra-1">CrossSpectra</a> object, allowing coherence estimates using the Welch method. All non-data fields are copied from the cross-spectra object, i.e., all fields but <code>.y</code>, which holds the coherence matrices that are computed by this function.</p><p>If <code>𝙎.tril</code> is true, only the lower triangular part of the coherence matrices is computed and the matrices in <code>.y</code> are LowerTriangular matrices, otherwise the full matrices are computed and <code>.y</code> will hold Hermitian matrices (see <a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#Linear-Algebra-1">LinearAlgebra</a>).</p><p>If optional keyword argument <code>allkinds</code> is true all five <a href="#kinds-of-coherence-1">kinds of coherence</a> are returned. In this case the output is a 5-tuple of Coherence objects, in the order:</p><ul><li><em>total</em> coherence,</li><li><em>real</em> coherence,</li><li><em>instantaneous</em> coherence</li><li><em>imaginary</em> coherence,</li><li><em>lagged</em> coherence.</li></ul><p>If <code>allkinds</code> is false (default) only the <em>total</em> (classical) coherence is returned as a single Coherence object.</p><p>(2) Construct a <a href="../MainModule/#CoherenceVector-1">CoherenceVector</a> object from the input <a href="../MainModule/#CrossSpectraVector-1">CrossSpectraVector</a> object <code>𝓢</code>, allowing coherence estimates using the Welch method. This method calls method (1) for all objects in <code>𝓢</code>.</p><p>The <code>allkinds</code> optional keyword parameter has the same meaning as in method (1). In this method if the argument is passed as true the outputis a 5-tuple of CoherenceVector objects.</p><p>If optional keyword argument <code>check</code> is true (default), it is checked that all CrossSpectra objects in <code>𝓢</code> have the same value in the <code>.sr</code>, <code>.wl</code>, <code>.DC</code>, <code>.taper</code>, <code>.nonlinear</code> and <code>.smoothing</code> field. If this is not the case, an error message is printed pointing to the first field that is not identical in all objects and <code>Nothing</code> is returned.</p><p>(3) Given a multivariate time series data matrix <code>X</code> of dimension <span>$t$</span> x <span>$n$</span>, where <span>$t$</span> is the number of samples (rows) and <span>$n$</span> the number of series (columns), sampling rate <code>sr</code> and epoch length <code>wl</code>, compute the squared coherence matrices of <code>X</code>, that is, the coherence matrices at all Fourier discrete frequencies obtained from the Welch (sliding window) average cross-spectra.</p><p><strong>optioal keyword arguments</strong>:</p><p><code>sr</code>, <code>wl</code>, <code>tapering</code>, <code>planner</code> and <code>slide</code> have the same meaning as for the <a href="../spectra/#FourierAnalysis.spectra"><code>spectra</code></a> function.</p><p><code>DC</code>, <code>nonlinear</code>, <code>smoothing</code>, <code>tril</code> and <code>⏩</code> have the same meaning as for the <a href="../crossspectra/#FourierAnalysis.crossSpectra"><code>crossSpectra</code></a> function, to which they apply for estimating the cross-spectra.</p><p>The <code>allkinds</code> optional keyword parameter has the same meaning as in method (1).</p><p>(4) Construct a <a href="../MainModule/#CoherenceVector-1">CoherenceVector</a> object from a vector of real multivariate data matrices. Compute the coherence matrices from the cross-spectral matrices estimated using the Welch method as per method (3) for all <span>$k$</span> data matrices in <code>𝐗</code>.</p><p>The <span>$k$</span> matrices in <code>𝐗</code> must have the same number of columns (i.e., the same number of series), but may have any number of (at least <code>wl</code>) rows (samples). All other arguments have the same meaning as in the previous method, with the following difference:</p><p><code>⏩</code>: if true (default), the method is run in multi-threaded mode across the <span>$k$</span> data matrices if <span>$k$</span> is at least twice the number of threads Julia is instructed to use, otherwise this method attempts to run each coherence estimation in multi-threaded mode across series as per method (1). See <a href="../MainModule/#Threads-1">Threads</a>.</p><p>If a <code>planner</code> is not explicitly passed as an argument, the FFTW plan is computed once and applied for all coherence estimations.</p><p><strong>note for methods (1) and (3)</strong>:</p><p>If <code>tril</code> is false (default), the output coherence object(s) is of type <code>Array{Hermitian,1}</code>, which is the <code>ℍVector</code> type used in package <a href="https://github.com/Marco-Congedo/PosDefManifold.jl">PosDefManifold</a>. Since coherence estimates are symmetric positive definite, they can be straightaway used as argument to PosDefManifold&#39;s functions, e.g., for computing matrix moves on <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#Geodesic-equations-1">geodesics</a>, matrix <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#PosDefManifold.distance">distances</a>, etc. and the the whole vector output to compute matrix <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#Means-1">means</a>, <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#PosDefManifold.spectralEmbedding">spectral embedding</a> and more.</p><p>If <code>tril</code> is true, the output is of type <code>Array{LowerTriangular,1}</code>, which is the <code>𝕃Vector</code> type used in PosDefManifold, that is, only the lower triangle of the coherencee is computed in order to save time and memory.</p><p><strong>note for methods (2) and (4)</strong>:</p><p>If <code>tril</code> is false, the output is of type <code>Array{Array{Hermitian,1},1}</code>, which is the <code>ℍVector₂</code> type used in <a href="https://github.com/Marco-Congedo/PosDefManifold.jl">PosDefManifold</a>.</p><p>If <code>tril</code> is true, the output is of type <code>Array{Array{LowerTriangular,1},1}</code>, which is the <code>𝕃Vector₂</code> type used in PosDefManifold.</p><p><strong>See</strong>: <a href="../crossspectra/#crossspectra.jl-1">crossspectra.jl</a>, <a href="../spectra/#Spectra-1">Spectra</a>, <a href="../plots/#RecipesBase.plot"><code>plot</code></a>, <a href="#Coherence-1">Coherence</a>.</p><p><strong>Examples</strong>:</p><pre><code class="language-none">## common code for methods (1)-(4)
+
+using FourierAnalysis, Plots, LinearAlgebra
+
+function generateSomeData(sr::Int, t::Int; noise::Real=1.)
+    # four sinusoids of length t samples and sr sampling rate
+    # peak amplitude: 0.7, 0.6, 0.5, 0.4
+    # frequency:        5,   7,  13,  27
+    # phase:            0, π/4, π/2,   π
+    v1=sinusoidal(0.7, 5,  sr, t, 0)
+    v2=sinusoidal(0.6, 7,  sr, t, π/4)
+    v3=sinusoidal(0.5, 13, sr, t, π/2)
+    v4=sinusoidal(0.4, 27, sr, t, π)
+    return hcat(v1, v2, v3, v4) + (randn(t, 4)*noise)
+end
+
+sr, wl, t = 128, 512, 8192
+
+# (1)
+
+X=generateSomeData(sr, t) # multivariate data matrix 8192x4
+
+# cross-spectra using default harris4 tapering window
+S=crossSpectra(X, sr, wl)
+
+# Only classical coherence
+C=coherence(S)
+
+# All 5 kinds of coherence
+Ctot, C2real, C3inst, C4imag, C5lag=coherence(S, allkinds=true);
+Ctot
+
+# (2)
+
+# generate 3 multivariate data matrices 8192x4
+X=[generateSomeData(sr, t) for i=1:3]
+
+# cross-spectra using default harris4 tapering window
+S=crossSpectra(X, sr, wl)
+
+# Only classical coherence
+C=coherence(S)
+
+# All 5 kinds of coherence
+Ctot, C2real, C3inst, C4imag, C5lag=coherence(S, allkinds=true);
+Ctot
+
+# (3)
+
+X=generateSomeData(sr, t) # multivariate data matrix 8192x4
+
+# coherence using default harris4 tapering window
+C=coherence(X, sr, wl)
+
+# check the coherence matrix at frequency 5Hz
+C.y[f2b(5, sr, wl)]
+
+# coherence using hamming tapering window
+C=coherence(X, sr, wl; tapering=hamming)
+
+# using Slepian&#39;s multi-tapering
+C=coherence(X, sr, wl; tapering=slepians(sr, wl))
+
+# compute non-linear coherence (phase-locking value)
+C=coherence(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
+
+# compute only the lower triangle of coherence matrices
+C=coherence(X, sr, wl; tapering=slepians(sr, wl), tril=true)
+
+# compute all five kinds of coherence
+Ctot, Creal, Cinst, Cimag, Clag=coherence(X, sr, wl;
+    tapering=slepians(sr, wl), tril=true, allkinds=true);
+Ctot
+
+# smooth a-posteriori the coherence
+C2=smooth(blackmanSmoother, C)
+
+# or compute coherence already smoothed
+C=coherence(X, sr, wl;
+            tapering=slepians(sr, wl), tril=true, smoothing=blackmanSmoother)
+
+# mean coherence matrix in 8Hz-12Hz range
+M=mean(C, (8, 12)) # or also M=mean(C, (8.0, 12.0))
+
+# extract all coherence matrices in 8Hz-12Hz range
+E=extract(C, (8, 12))
+
+# coherence matrices averaged in 2Hz band-pass regions
+B=bands(C, 2)
+
+# (4)
+
+# generate 3 multivariate data matrices 8192x4
+X=[generateSomeData(sr, t) for i=1:3]
+
+# The examples here below use exactly the same syntax as method (3).
+# However, since the input here is a vector of data matrices
+# and not a single data matrix, the examples here below create a vector
+# of the object created by the examples of method (3).
+# For example:
+
+# coherence using the default harris4 tapering window
+# this creates a CoherenceVector object
+C=coherence(X, sr, wl)
+
+# check the first Coherence object
+C[1]
+
+# check the coherence matrix at fr. 5Hz for the first Coherence object
+C[1].y[f2b(5, sr, wl)]
+
+# coherence using Hamming&#39;s tapering window
+C=coherence(X, sr, wl; tapering=hamming)
+
+# using Slepian&#39;s multi-tapering
+C=coherence(X, sr, wl; tapering=slepians(sr, wl))
+
+# compute non-linear coherence
+C=coherence(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
+
+# compute only the lower triangle of coherence matrices
+C=coherence(X, sr, wl; tapering=slepians(sr, wl), tril=true)
+
+# compute all five kinds of coherence
+Ctot, Creal, Cinst, Cimag, Clag=coherence(X, sr, wl;
+    tapering=slepians(sr, wl), tril=true, allkinds=true);
+Ctot
+
+# smooth a-posteriori all coherence objects in S
+C2=smooth(blackmanSmoother, C)
+
+# or compute them all already smoothed
+C=coherence(X, sr, wl; tapering=parzen, smoothing=blackmanSmoother)
+
+# mean coherence matrix in 8Hz-12Hz range for all coherence objects
+M=mean(C, (8, 12)) # or also M=mean(C, (8.0, 12.0))
+
+# grand-average mean of the above across all Coherence objects
+meanM=mean(mean(C, (8, 12)))
+
+# extract all coherence matrices in 8Hz-12Hz range for all coherence objects
+E=extract(C, (8, 12))
+
+# grand average of coherence matrices in 8Hz-12Hz range for all coh. objects
+meanE=mean(extract(C, (8, 12)))
+
+# coherence matrices averaged in 2Hz band-pass regions for all coh. objects
+B=bands(C, 2)
+
+# Pre-compute a FFT planner and pass it as argument
+# (this interesting if the function is to be called repeatedly).
+plan=Planner(plan_exhaustive, 10.0, wl, eltype(X[1])) # wait 10s
+C=coherence(X, sr, wl; planner=plan)
+...
+...</code></pre></div></div><div><div><pre><code class="language-none">(5)
+function coherence(𝐙₁     :: TFAnalyticSignalVector,
+                   𝐙₂     :: TFAnalyticSignalVector,
+                   frange :: fInterval,
+                   trange :: tInterval;
+              nonlinear :: Bool     = false,
+              allkinds  :: Bool     = false,
+              mode      :: Function = extract,
+              func      :: Function = identity,
+              w         :: Vector   = [],
+              check     :: Bool     = true)
+
+(6)
+function coherence(𝐱₁        :: Vector{Vector{T}},
+                   𝐱₂        :: Vector{Vector{T}},
+                   sr        :: Int,
+                   wl        :: Int,
+                   frange    :: fInterval,
+                   trange    :: tInterval,
+                   bandwidht :: IntOrReal = 2;
+              nonlinear  :: Bool         = false,
+              allkinds   :: Bool         = false,
+              mode       :: Function     = extract,
+              func       :: Function     = identity,
+              w          :: Vector       = [],
+              filtkind   :: FilterDesign = Butterworth(2),
+              fmin       :: IntOrReal    = bandwidht,
+              fmax       :: IntOrReal    = sr÷2,
+              fsmoothing :: Smoother     = noSmoother,
+              tsmoothing :: Smoother     = noSmoother,
+              planner    :: Planner      = getplanner,
+              ⏩        :: Bool         = true) where T&lt;:Real
+</code></pre><p><strong>alias</strong>: coh</p><p>If optional keyword parameter <code>nonlinear</code> is false (default), estimate linear <a href="../timefrequencybi/#(weighted)-coherence-1">(weighted) coherence</a> measure, otherwise estimate the the <a href="../timefrequencyuni/#(weighted)-phase-concentration-1">(weighted) phase concentration</a> measure.</p><p>If optional keyword argument <code>allkinds</code> is true all five <a href="#kinds-of-coherence-1">kinds of coherence</a> are returned. In this case the output is a 5-tuple of Coherence matrices, in the order:</p><ul><li><em>total</em> coherence,</li><li><em>real</em> coherence,</li><li><em>instantaneous</em> coherence</li><li><em>imaginary</em> coherence,</li><li><em>lagged</em> coherence.</li></ul><p>If <code>allkinds</code> is false (default) only the <em>total</em> (classical) coherence is returned as a single Coherence matrix.</p><p>(5) The desired measure is obtained averaging across the <a href="../timefrequency/#TFAnalyticSignal-1">TFAnalyticSignal</a> objects in <code>𝐙</code>. Since this method uses pre-computed analytic signal objects, their <code>.nonlinear</code> field must agree with the <code>nonlinear</code> argument passed to this function.</p><p><code>frange</code>, <code>trange</code>, <code>w</code>, <code>mode</code> and <code>func</code> have the same meaning as in the <a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a> function, however keep in mind that the two possible <code>mode</code> functions, i.e., <a href="../tools/#FourierAnalysis.extract"><code>extract</code></a> and <a href="../tools/#Statistics.mean"><code>mean</code></a>, in this function operate on complex numbers.</p><p>The checks performed in the <a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a> function are performed here too. In addition, if <code>check</code> is true, also check that</p><ul><li>if <code>nonlinear</code> is true, all objects in <code>𝐙</code> are nonlinear;</li><li>if <code>nonlinear</code> is false, all objects in <code>𝐙</code> are linear.</li></ul><p>If either check fails, print an error message and return <code>Nothing</code>.</p><p>(6) Estimate the analytic signal of all data vectors in <code>𝐱</code> calling the <a href="../timefrequency/#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constructor and then use method (1) to obtained the desired measure.</p><p><code>frange</code>, <code>trange</code>, <code>mode</code>, <code>func</code>, <code>w</code> and <code>check</code> have the same meaning as in the <a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a> function. The other arguments are passed to the <a href="../timefrequency/#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constructor, to which the reader is referred for understanding their action.</p><p><strong>See also</strong>: <a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a>, <a href="../timefrequencyuni/#FourierAnalysis.meanDirection"><code>meanDirection</code></a>, <a href="../timefrequencybi/#timefrequencybi.jl-1">timefrequencybi.jl</a>.</p><p><strong>Examples</strong>: see the examples of <a href="../timefrequencybi/#FourierAnalysis.comodulation"><code>comodulation</code></a> function.</p></div></div></section><p><strong>References</strong>:</p><p>M. Congedo (2018), <a href="https://hal.archives-ouvertes.fr/hal-01868538">Non-Parametric Synchronization Measures used in EEG and MEG</a>, Technical Report. GIPSA-lab, CNRS, University Grenoble Alpes, Grenoble INP.</p><p>G. Nolte <em>et al.</em> (2004), <a href="https://www.researchgate.net/file.PostFileLoader.html?id=55e56d5260614bed268b45e5&amp;assetKey=AS%3A273843090853888%401442300689008">Identifying true brain interaction from EEG data using the imaginary part of coherency</a>. Clin Neurophysiol, 115(10), 2292-307.</p><p>R. Pascual-Marqui (2007), <a href="https://arxiv.org/ftp/arxiv/papers/0711/0711.1455.pdf">Instantaneous and lagged measurements of linear and nonlinear dependence between groups of multivariate time series: frequency decomposition</a>, arXiv:0711.1455.</p><footer><hr/><a class="previous" href="../MainModule/"><span class="direction">Previous</span><span class="title">MainModule</span></a><a class="next" href="../crossspectra/"><span class="direction">Next</span><span class="title">crossspectra.jl</span></a></footer></article></body></html>
