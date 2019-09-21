@@ -41,9 +41,9 @@ The cross-spectral matrix estimation at frequency ``f`` is then given by
 
 where the average is across a number of sliding windows.
 
-Therefore, coherence matrices in the FD measure the
+Therefore, coherence matrices in the FD is a measure of the
 *synchronization between all ``n`` series of ``X`` taken pair-wise*,
-resulting in a symmetric matrix, for each discrete Fourier frequency.
+resulting in a symmetric matrix for each discrete Fourier frequency.
 
 **time-frequency domain (TFD)**
 
@@ -75,9 +75,8 @@ is analogous to cross-spectra,and in a time-frequency plane is given by
 
 where the average is across the ``k`` realizations.
 
-Therefore, the coherence matrix in the TFD measures the
-*synchronization between corresponding elements of the set ``𝐱_a`` and ``𝐱_b``*,
-for each point in the time-frequency plane.
+Therefore, the coherence matrix in the TFD is a measure of the
+*synchronization between corresponding elements of the set ``𝐱_a`` and ``𝐱_b``* for each point in the time-frequency plane.
 
 ### kinds of coherence
 
