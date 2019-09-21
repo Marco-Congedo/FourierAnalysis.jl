@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
 
 **FourierAnalysis** is a [**Julia**](https://julialang.org/) package for
-performing the analysis of *real multivariate data* (e.g., time series)
+performing the analysis of *real multivariate data* (e.g., multivariate time series)
 in the *frequency* domain and in the *time-frequency* domain. In this endeavour it complements the
 [DSP](https://github.com/JuliaDSP/DSP.jl) package, based on [FFTW](https://github.com/JuliaMath/FFTW.jl) and [AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl), for which it provids a simple interface.
 
