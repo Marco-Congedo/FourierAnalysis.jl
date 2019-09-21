@@ -39,7 +39,7 @@ deploydocs(
    osname = "linux",
    julia = "nightly",
    # deps = Deps.pip("pygments", "mkdocs"),
-   devbranch = "master",
-   devurl = "dev",
-   versions = ["stable" => "v^", "v#.#", devurl => devurl]
+   # devbranch = "master",
+   # devurl = "dev",
+   # versions = ["stable" => "v^", "v#.#", devurl => devurl],
 )
