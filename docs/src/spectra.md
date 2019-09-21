@@ -1,7 +1,6 @@
 # spectra.jl
 
-Spectra objects created by *FourierAnalysis* are incapsulated in
-the following structure:
+Spectra objects created by *FourierAnalysis* are incapsulated in the following structure:
 
 ## Spectra
 
@@ -120,6 +119,11 @@ calling the constructor here above for all [`crossSpectra`](@ref) objects
 hold by `𝙎`.
 
 **Constructors from data**:
+
+!!! note Goertzel's algorithms
+    When the spectrum is recquired only at one or a few
+    discrete Fourier coefficients, Goertzel's algorithhms
+    may be a more efficient option. See unit [goertzel.jl](@ref).
 
 ```@docs
 spectra

@@ -132,7 +132,7 @@ the FFTW plan is computed once and applied for all spectral estimations.
 
 **See**: [Spectra](@ref), [`plot`](@ref)
 
-**See also**: [`crossSpectra`](@ref), [`coherence`](@ref).
+**See also**: [`crossSpectra`](@ref), [`coherence`](@ref), [goertzel.jl](@ref).
 
 **Examples**:
 ```

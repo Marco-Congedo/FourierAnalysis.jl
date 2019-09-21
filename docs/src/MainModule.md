@@ -4,7 +4,7 @@
 
 This is the main unit containing the **PosDefManifold** *module*.
 
-## Dependencies
+## dependencies
 
 | standard Julia packages |     external packages    |
 |:-----------------------:|:-----------------------:|
