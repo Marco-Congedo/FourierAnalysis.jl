@@ -3,28 +3,41 @@ using Documenter, FourierAnalysis
 
 makedocs(
    sitename="FourierAnalysis",
+   authors="Marco Congedo, CNRS, France",
    modules=[FourierAnalysis],
    pages =  [
       "index.md",
-      "MainModule.md",
-      "tapers.md",
-      "spectra.md",
-      "crossspectra.md",
-      "coherence.md",
-      "timefrequency.md",
-      "timefrequencyuni.md",
-      "timefrequencybi.md",
-      "plots.md",
-      "tools.md",
-      "fftw.md",
-      "goertzel.md",
-      "filters.md",
-      "hilbert.md",
+      "Main Module" => "MainModule.md",
+      "Tapering Window" => "tapers.md",
+      "frequency domain" => Any[
+                           "Spectral Estimations" => "spectra.md",
+                           "Cross-Spectral Matrices" => "crossspectra.md",
+                           "Coherence Matrices" => "coherence.md",
+                           "Goertzel's Algorithms" => "goertzel.md",
+      ],
+      "time-frequency(TF) domain" => Any[
+                           "TF Representations" => "timefrequency.md",
+                           "TF Univariate Measures" => "timefrequencyuni.md",
+                           "TF Bivariate Measures " => "timefrequencybi.md",
+      ],
+      "utilities" => Any[
+                        "Plots" => "plots.md",
+                        "Tools" => "tools.md",
+                        "FFTW planners"  => "fftw.md",
+                        "Filter Banks" => "filters.md",
+                        "Hilbert Transform" => "hilbert.md",
+      ]
    ]
 )
 
-#deploydocs(
-#    repo = "github.com/Marco-Congedo/PosDefManifold.jl.git",
-#    target = "build",
-#    devurl = "dev",
-#)
+
+deploydocs(
+   # root
+   target = "build", # add this folder to .gitignore!
+   repo = "github.com/Marco-Congedo/FourierAnalysis.jl.git",
+   branch = "gh-pages",
+   latest = "dev",
+   osname = "linux",
+   julia = "nightly",
+   deps = Deps.pip("pygments", "mkdocs")
+)

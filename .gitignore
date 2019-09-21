@@ -1,0 +1,4 @@
+# ignore documentation html files built at every commit!
+docs/build/
+
+# to check what is ignored use 'git status' in git Bash

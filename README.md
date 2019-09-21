@@ -1,8 +1,10 @@
 # FourierAnalysis
 
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev)
 
-**FourierAnalysis** is a [**Julia**](https://julialang.org/) package for
+**FourierAnalysis** is a signal-processing [**Julia**](https://julialang.org/) package for
 performing the analysis of *real multivariate data* (e.g., multivariate time series)
 in the *frequency* domain and in the *time-frequency* domain. In this endeavour it complements the
 [DSP](https://github.com/JuliaDSP/DSP.jl) package, based on [FFTW](https://github.com/JuliaMath/FFTW.jl) and [AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl), for which it provids a simple interface.
@@ -19,7 +21,7 @@ Such large panel of measures is provided in a simple and unified fashion,
 following the conceptual approach illustrated in
 [Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
 in the context of electroencephalography (EEG), for which all default settings
-have been tailored. The package has been written with the "do-it-with-one-line" spirit and with the aim of allowing full control over relevant options.
+have been tailored. The package has been written with the *do-it-with-one-line* spirit and with the aim of allowing full control over relevant options.
 
 ## Installation
 
@@ -27,10 +29,6 @@ The package is still under preliminary testing and is not registered.
 Execute the following command in Julia's REPL:
 
     ]add https://github.com/Marco-Congedo/FourierAnalysis
-
-To obtain the latest development version execute instead
-
-    ]add https://github.com/Marco-Congedo/FourierAnalysis#master
 
 ## Disclaimer
 
@@ -41,4 +39,5 @@ Independent reviewers are more then welcome.
 ## About the Author
 
 [Marco Congedo](https://sites.google.com/site/marcocongedo) is
-a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working at [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble, France. **Contact**: first name *dot* last name at gmail *dot* com
+a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working at [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble, France.
+ **Contact**: first name *dot* last name *at* gmail *dot* com

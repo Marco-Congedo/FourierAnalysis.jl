@@ -1,29 +1,21 @@
 # FourierAnalysis Documentation
 
-## Requirements
+## Requirements & Installation
 
 **Julia** version ≥ 1.1.1
 
-**Packages:**
-[FFTW](https://github.com/JuliaMath/FFTW.jl),
-[DSP](https://github.com/JuliaDSP/DSP.jl),
-[Plots](https://github.com/JuliaPlots/Plots.jl).
+**Packages:** see the [dependencies](@ref) of the main module.
 
-## Installation
+The package is still not registered. To install it
+execute the following command in Julia's REPL:
 
-Execute the following command in Julia's REPL:
-
-    ]add FourierAnalysis
-
-To obtain the latest development version execute instead
-
-    ]add FourierAnalysis#master
+    ]add https://github.com/Marco-Congedo/FourierAnalysis
 
 ## Disclaimer
 
 This package is still in a preliminary stage.
 It needs throughout testing.
-Any independent reviewer is welcome.
+Any independent reviewer for both the code and the documentation is welcome.
 
 ## About the Author
 
@@ -45,24 +37,19 @@ and window length ``wl``, the **discrete Fourier frequencies** are
 and ``q=wl÷2`` (integer division).
 The 0 (zero) frequency corresponds to the DC level.
 
-Time-frequency (TF) representations are obtained applying a *pass-band filter-bank* and the *Hilber transform*. This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration** (the non-linear version is a directional statistic known as **circular mean resultant length**), **amplitude co-modulation**, **coherence** (the non-linear version is a synchronization statistic known as **phase-locking values** or **phase coherence**), etc.
+Time-frequency (TF) representations are obtained applying a *pass-band filter-bank* and the *Hilber transform*. This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration**, the non-linear version of which is a directional statistic known as **circular mean resultant length**, **amplitude co-modulation**, **coherence**, the non-linear version of which is a synchronization statistic known as **phase-locking values** or **phase coherence**, etc.
 
-A large panel of measures are provided in a simple and unified fashion,
+Cush a large panel of measures is provided in a simple and unified fashion,
 following the approach illustrated in
 [Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
 in the context of electroencephalography (EEG), for which all default settings
-have been tailored. The package has been written with the "do-it-with-one-line" spirit
-and with the aim of allowing full control over relevant options for the
+have been tailored. The package has been written with the *do-it-with-one-line*
+spirit and with the aim of allowing full control over relevant options for the
 Fourier analysis of multivariate time-series.
-
-*FourierAnalysis* is based on packages [FFTW](https://github.com/JuliaMath/FFTW.jl),
-[AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl) and
-[DSP](https://github.com/JuliaDSP/DSP.jl) providing a simple interface to the
-parts of them it uses.
 
 For starting using this package, browse the code units listed here below and
 execute the many **code examples** you will find therein or execute
-the example .jl units collected in the "example" folder distributed
+the 'example.jl' units collected in the "example" folder distributed
 in the github repository.
 
 ## Code units
@@ -71,21 +58,21 @@ in the github repository.
 
 | Main API Units   | Description |
 |:----------|:----------|
-| [MainModule](@ref) | (FourierAnalysis.jl) constants, types, structs, aliases, tips & tricks |
+| [MainModule](@ref) | (FourierAnalysis.jl) constants, types, some structs, tips & tricks |
 | [tapers.jl](@ref) | tapering windows for spectral, cross-spectral and coherence analysis |
 | [spectra.jl](@ref) | spectra of a series set or of a multivariate time series set |
 | [crossspectra.jl](@ref) | cross-spectral matrices of a multivariate time series set |
 | [coherence.jl](@ref) | coherence matrices of a multivariate time series set |
+| [goertzel.jl](@ref) | Goertzel's algorithms for estimating a single DFT coefficient |
 | [timefrequency.jl](@ref) | analytic signal, instantaneous amplitude and phase of a series set |
 | [timefrequencyuni.jl](@ref) | univariate measures of a series set |
 | [timefrequencybi.jl](@ref) | bivariate measures of a series set |
 | [plots.jl](@ref) | simple interface to Plots.jl to plot spectra and time-frequency representations |
-| [tools.jl](@ref) | collecton of useful functions |
+| [tools.jl](@ref) | collection of useful functions |
 
 | Other API Units  | Description |
 |:----------|:----------|
 | [fftw.jl](@ref) | simple interface to FFTW.jl to obtain forward and backward FFT planners |
-| [goertzel.jl](@ref) | Goertzel's algorithm for estimating a single DFT coefficient |
 | [filters.jl](@ref) | simple interface to DSP.jl to apply band-pass filter-banks |
 | [hilbert.jl](@ref) | computation of the analytic signal via Hilbert transform |
 

@@ -3,8 +3,13 @@ uuid = "e7e9c730-dc46-11e9-3633-f1ab55cc17e1"
 authors = ["Marco-Congedo <marco.congedo@gmail.com>"]
 version = "0.1.0"
 
+[compat]
+julia = "1"
+
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
 DSP = "717857b8-e6f2-59f4-9121-6e50c889abd2"
 FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
