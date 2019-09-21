@@ -1,6 +1,6 @@
 # FourierAnalysis
 
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
+[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest) **doc still to be built**
 
 **FourierAnalysis** is a [**Julia**](https://julialang.org/) package for
 performing Fourier analysis of *real multivariate data* (e.g., time series)
