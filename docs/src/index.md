@@ -52,7 +52,7 @@ following the approach illustrated in
 [Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
 in the context of electroencephalography (EEG), for which all default settings
 have been tailored. The package has been written with the "do-it-with-one-line" spirit
-and with the aim of allowing full control over relevat options for the
+and with the aim of allowing full control over relevant options for the
 Fourier analysis of multivariate time-series.
 
 *FourierAnalysis* is based on packages [FFTW](https://github.com/JuliaMath/FFTW.jl),
