@@ -36,8 +36,10 @@ deploydocs(
    target = "build", # add this folder to .gitignore!
    repo = "github.com/Marco-Congedo/FourierAnalysis.jl.git",
    branch = "gh-pages",
-   latest = "dev",
    osname = "linux",
    julia = "nightly",
-   deps = Deps.pip("pygments", "mkdocs")
+   # deps = Deps.pip("pygments", "mkdocs"),
+   devbranch = "master",
+   devurl = "dev",
+   versions = ["stable" => "v^", "v#.#", devurl => devurl]
 )
