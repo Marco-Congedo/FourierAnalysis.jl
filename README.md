@@ -3,28 +3,26 @@
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
 
 **FourierAnalysis** is a [**Julia**](https://julialang.org/) package for
-performing Fourier analysis of *real multivariate data* (e.g., time series)
+performing the analysis of *real multivariate data* (e.g., time series)
 in the *frequency* domain and in the *time-frequency* domain.
 
-In the frequency domain *FourierAnalysis* computes **spectra**, linear and
-non-linear **cross-spectral matrices** and several linear and non-linear **coherence matrices** using the sliding windows Welch method.
+In the frequency domain *FourierAnalysis* computes **spectra**, *linear* and
+*non-linear* **cross-spectral matrices** and several *linear* and *non-linear* **coherence matrices** using the sliding-windows [Welch method](https://en.wikipedia.org/wiki/Welch%27s_method).
 
 Time-frequency representations are obtained applying a
 [filter-bank](https://en.wikipedia.org/wiki/Filter_bank) and the
 [Hilber transform](https://en.wikipedia.org/wiki/Hilbert_transform).
-This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration** (the non-linear version is a directional statistic known as **circular mean resultant length**), **amplitude comodulation** and **coherence** (the non-linear version of which is a synchronization statistic known as **phase-locking values** or **phase coherence**).
+This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration**, the non-linear version of which is a directional statistic known as **circular mean resultant length**, **comodulation** and **coherence**, the non-linear version of which is a synchronization statistic known as **phase-locking values** or **phase coherence**.
 
-A large panel of measures are provided in a simple and unified fashion,
-following the approach illustrated in
+Such large panel of measures is provided in a simple and unified fashion,
+following the conceptual approach illustrated in
 [Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
 in the context of electroencephalography (EEG), for which all default settings
-have been tailored. The package has been written with the "do-it-with-one-line" spirit and with the aim of allowing full control over relevant options for the
-Fourier analysis of multivariate time-series.
+have been tailored. The package has been written with the "do-it-with-one-line" spirit and with the aim of allowing full control over relevant options.
 
 *FourierAnalysis* is based on packages [FFTW](https://github.com/JuliaMath/FFTW.jl),
 [AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl) and
-[DSP](https://github.com/JuliaDSP/DSP.jl) providing a simple interface to the
-parts of them it uses.
+[DSP](https://github.com/JuliaDSP/DSP.jl), providing a simple interface to the parts of them it uses.
 
 ## Installation
 
@@ -41,7 +39,7 @@ To obtain the latest development version execute instead
 
 This package is still in a preliminary stage.
 It needs throughout testing.
-Any independent reviewer is welcome.
+Independent reviewers are more then welcome.
 
 ## About the Author
 
