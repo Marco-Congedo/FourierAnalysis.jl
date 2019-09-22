@@ -40,6 +40,6 @@ deploydocs(
    # osname = "linux",
    # deps = Deps.pip("pygments", "mkdocs"),
    # devbranch = "dev",
-   # devurl = "dev",
+   devurl = "dev",
    # versions = ["stable" => "v^", "v#.#", devurl => devurl],
 )
