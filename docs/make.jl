@@ -38,7 +38,7 @@ deploydocs(
    # branch = "gh-pages",
    # osname = "linux",
    # deps = Deps.pip("pygments", "mkdocs"),
-   # devbranch = "master",
+   devbranch = "dev",
    devurl = "dev",
    # versions = ["stable" => "v^", "v#.#", devurl => devurl],
 )
