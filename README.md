@@ -1,8 +1,7 @@
 # FourierAnalysis
 
 
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable)
+[![](https://img.shields.io/badge/docs-latest-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev)
 
 
