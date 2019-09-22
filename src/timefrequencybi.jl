@@ -53,6 +53,7 @@ function comodulation(𝐱₁        :: Vector{Vector{T}},
 **alias**: com
 
 (1)
+
 Given a pair of [TFAmplitudeVector](@ref) objects, estimate their
 [(weighted) comodulation](@ref) measure. `𝐀₁` and `𝐀₂` must hold the
 same number of objects and the time-frequency planes
@@ -73,6 +74,7 @@ each pair of input objects. By default the unweighted version of the measure
 is computed.
 
 (2)
+
 Given a pair of [TFAnalyticSignalVector](@ref) object,
 compute the amplitude of all objects and estimate the
 [(weighted) comodulation](@ref) as per method (1).
@@ -85,6 +87,7 @@ print an error and return `Nothing`. The checks on `frange` and `trange`
 performed by method (1) are also performed by this method.
 
 (3)
+
 Estimate the amplitude of all data vectors in `𝐱₁` and `𝐱₂` calling the
 [`TFamplitude`](@ref) constructor and then estimate the
 [(weighted) comodulation](@ref) measure across the constructed
@@ -298,7 +301,7 @@ otherwise estimate the the [(weighted) phase concentration](@ref) measure.
 
 If optional keyword argument `allkinds` is true all five
 [kinds of coherence](@ref) are returned. In this case the output
-is a 5-tuple of Coherence matrices, in the order:
+is a 5-tuple of `Coherence` matrices, in the order:
 - *total* coherence,
 - *real* coherence,
 - *instantaneous* coherence
@@ -306,7 +309,7 @@ is a 5-tuple of Coherence matrices, in the order:
 - *lagged* coherence.
 
 If `allkinds` is false (default) only the *total* (classical) coherence
-is returned as a single Coherence matrix.
+is returned as a single `Coherence` matrix.
 
 (5)
 The desired measure is obtained averaging across the
@@ -329,7 +332,7 @@ If either check fails, print an error message and return `Nothing`.
 
 (6)
 Estimate the analytic signal of all data vectors in `𝐱` calling the
-[`TFanalyticsignal`](@ref) constructor and then use method (1)
+[`TFanalyticsignal`](@ref) constructor and then use method (5)
 to obtained the desired measure.
 
 `frange`, `trange`, `mode`, `func`, `w` and `check` have the same meaning as

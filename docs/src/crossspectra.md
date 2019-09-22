@@ -35,8 +35,8 @@ estimated.
 
 `DC`: if true, the first matrix holds the cross-spectra of the *DC level*,
 otherwise it holds the cross-spectra of the first positive frequency.
-Thus, if `DC` is false, the number of matrices in `y` is equal to wl÷2
-(integer division), otherwise it is equal to (wl÷2)+1 (see [Overview](@ref)).
+Thus, if `DC` is false, the number of matrices in `y` is equal to ``wl÷2``
+(integer division), otherwise it is equal to ``(wl÷2)+1`` (see [Overview](@ref)).
 In all constructors it is false by default.
 
 `taper`: the time-domain *tapering window* used for FFT computation,
@@ -46,7 +46,7 @@ See [tapers.jl](@ref).
 `flabels`: a vector holding all Fourier discrete frequencies in Hz.
 Those are the *frequency labels* for the matrices in `y`. If `DC` is true,
 the first label is ``0``, otherwise it is the first positive frequency,
-which is equal to the frequency resolution sr/wl.
+which is equal to the frequency resolution ``sr/wl``.
 
 `nonlinear`: if true, the amplitude information has been eliminated from the
 DFT coefficients, that is, the coefficients have been normalized by their
@@ -56,7 +56,7 @@ Pascual-Marqui 2007) where the diagonal elements of the cross-spectral matrices
 (the spectra) are 1.0 for all frequencies. In all constructors it is false
 by default.
 
-`smoothing`: a [Smoother::Enumerated Type](@ref). A flag indicating
+`smoothing`: a [Smoother](@ref) flag indicating
 whether the cross-spectral matrices have been smoothed across adjacent
 frequencies. If no smoothing has been applied, it is equal to `noSmoother`,
 which is the default in all constructors.
@@ -66,8 +66,8 @@ otherwise they are `LowerTriangular` matrices holding only the lower triangles
 of the cross-spectra. In all constructors it is false by default.
 
 **Note**: In Julia the fields are accessed by the usual dot notation, e.g.,
-you may verify that for *CrossSpectra* object S, length(S.flabels) == length(S.y)
-== (S.wl/2)+S.DC.
+you may verify that for *CrossSpectra* object `S`,
+```length(S.flabels) == length(S.y)== (S.wl/2)+S.DC```.
 
 A vector of *CrossSpectra* objects is of type [CrossSpectraVector](@ref).
 

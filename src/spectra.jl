@@ -53,11 +53,12 @@ function spectra( 𝐗   :: Vector{Matrix{T}},
 ```
 
 (1)
+
 Construct a [Spectra](@ref) object from real univariate or
 multivariate data. Given sampling rate `sr` and epoch length `wl`,
 compute the Welch power spectra of a vector (univariate) or of a data matrix
 (multivariate) `X` of dimension ``t``x``n``, where ``t`` is the
-number of samples (rows) and ``n`` is the number of series (columns).
+number of samples (rows) and ``n`` is the number of time-series (columns).
 
 The spectra are hold in the `.y` field of the created object.
 If `X` is a vector, `.y` is a vector, whereas if `X` is a matrix,
@@ -69,18 +70,18 @@ as reported in the documentation of the [Spectra](@ref) structure.
 **Optional Keyword Arguments**:
 
 `tapering`: this is a tapering object of type [Taper](@ref) or a tapering
-window kind of type [TaperKind::Enumerated Type](@ref).
+window kind of type [TaperKind](@ref).
 By default the *harris4* tapering window is used.
 If no tapering is sought, pass as argument `tapering=rectangular`.
 This same syntax is the most convenient way to specify all simple
 tapering window, e.g., `tapering=hann`, `tapering=hamming`, etc.
 For *discrete prolate spheroidal sequences (dpss)* multi-tapering,
 use instead the [`slepians`](@ref) constructor, e.g.,
-pass as argument something like `tapering=slepians(sr, wl, 2)`.
+pass as argument something like ```tapering=slepians(sr, wl, 2)```.
 
 `planner`: this is an instance of the [`Planner`](@ref) object, holding the
 forward FFTW plan used to compute the FFTs.
-By default the planner is computed by this function,
+By default the planner is computed by this method,
 but it can be passed as an
 argumet here if it is pre-computed. This is interesting if this
 function is to be invoked repeatedly.
@@ -88,10 +89,10 @@ function is to be invoked repeatedly.
 `slide`: this is the number of samples the windows slide on (Welch method).
 By default the number of samples is chosen to allow 50% overlap.
 
-`DC`: if true the spectrum/a of the DC level is returned
-in the first row of `y` (see the fields of the [CrossSpectra](@ref)
+`DC`: if true, the spectrum/a of the DC level is returned
+in the first row of `y` (see the fields of the [Spectra](@ref)
 object), otherwise (default) the rows in `y` start with the first positive
-discrete frequency, that is, sr/wl Hz.
+discrete frequency, that is, ``sr/wl`` Hz.
 
 `func`: this is a function that operate element-wise to transfrom the power
 spectra before returning them, including anonymous functions.
@@ -102,7 +103,7 @@ Common choices are:
 By default no function is applied and the power spectra are returned.
 If smoothing has been requested (see below), it is applied after the function.
 
-`smoothing`: it applies a smoothing function of type [Smoother::Enumerated Type](@ref)
+`smoothing`: it applies a smoothing function of type [Smoother](@ref)
 to the spectra across adjacent frequencies. By default no smoothing is applied.
 
 `⏩`: if true (default), the method run in multi-threaded mode
@@ -110,6 +111,7 @@ across the series in `X` if the number of series is at least twice
 the number of threads Julia is instructed to use. See [Threads](@ref).
 
 (2)
+
 Construct a [SpectraVector](@ref) object from a vector of real
 univariate (vectors) or multivariate data (matrices).
 Compute the spectra as per method (1)

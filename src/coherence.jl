@@ -59,18 +59,19 @@ function coherence(𝐗 :: Vector{Matrix{T}},
 **alias**: coh
 
 (1)
+
 Construct a [Coherence](@ref) object from a [CrossSpectra](@ref) object,
 allowing coherence estimates using the Welch method.
 All non-data fields are copied from the cross-spectra object, i.e.,
-all fields but `.y`, which holds the coherence matrices that are computed
+all fields but `y`, which holds the coherence matrices that are computed
 by this function.
 
 If `𝙎.tril` is true, only the lower triangular part of the coherence matrices
-is computed and the matrices in `.y` are LowerTriangular matrices,
-otherwise the full matrices are computed and `.y` will hold Hermitian
+is computed and the matrices in `y` are LowerTriangular matrices,
+otherwise the full matrices are computed and `y` will hold Hermitian
 matrices (see [LinearAlgebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/#Linear-Algebra-1)).
 
-If optional keyword argument `allkinds` is true all five
+If optional keyword argument `allkinds` is true, all five
 [kinds of coherence](@ref) are returned. In this case the output
 is a 5-tuple of Coherence objects, in the order:
 - *total* coherence,
@@ -79,29 +80,31 @@ is a 5-tuple of Coherence objects, in the order:
 - *imaginary* coherence,
 - *lagged* coherence.
 
-If `allkinds` is false (default) only the *total* (classical) coherence
-is returned as a single Coherence object.
+If `allkinds` is false (default), only the *total* (classical) coherence
+is returned as a single `Coherence` object.
 
 (2)
+
 Construct a [CoherenceVector](@ref) object from the input
 [CrossSpectraVector](@ref) object `𝓢`, allowing coherence estimates
 using the Welch method. This method calls method (1) for all
 objects in `𝓢`.
 
 The `allkinds` optional keyword parameter has the same meaning
-as in method (1). In this method if the argument is passed as true
-the outputis a 5-tuple of CoherenceVector objects.
+as in method (1). In this method if the argument is passed as true,
+the output is a 5-tuple of `CoherenceVector` objects.
 
 If optional keyword argument `check` is true (default), it is checked that all
-CrossSpectra objects in `𝓢` have the same value in the `.sr`, `.wl`, `.DC`,
+`CrossSpectra` objects in `𝓢` have the same value in the ``.sr`, `.wl`, `.DC`,
 `.taper`, `.nonlinear` and `.smoothing` field. If this is not the case,
 an error message is printed pointing to the first field that is not
 identical in all objects and `Nothing` is returned.
 
 (3)
+
 Given a multivariate time series data matrix `X` of dimension ``t`` x ``n``,
 where ``t`` is the number of samples (rows) and ``n`` the number of
-series (columns), sampling rate `sr` and epoch length `wl`,
+time-series (columns), sampling rate `sr` and epoch length `wl`,
 compute the squared coherence matrices of `X`, that is,
 the coherence matrices at all Fourier discrete frequencies
 obtained from the Welch (sliding window) average cross-spectra.
@@ -119,24 +122,25 @@ The `allkinds` optional keyword parameter has the same meaning
 as in method (1).
 
 (4)
+
 Construct a [CoherenceVector](@ref) object from a vector of
 real multivariate data matrices. Compute the coherence matrices
 from the cross-spectral matrices estimated using the Welch method
 as per method (3) for all ``k`` data matrices in `𝐗`.
 
 The ``k`` matrices in `𝐗` must have the same number of columns
-(i.e., the same number of series), but may have any number of (at least
+(*i.e.*, the same number of time-series), but may have any number of (at least
 `wl`) rows (samples).
-All other arguments have the same meaning as in the previous method,
+All other arguments have the same meaning as in method (3),
 with the following difference:
 
 `⏩`: if true (default), the method is run in multi-threaded mode across the
 ``k`` data matrices if ``k`` is at least twice the number of threads Julia
 is instructed to use, otherwise this method attempts to run each coherence
-estimation in multi-threaded mode across series as per method (1).
+estimation in multi-threaded mode across series as per method (3).
 See [Threads](@ref).
 
-If a `planner` is not explicitly passed as an argument,
+If a `Planner` is not explicitly passed as an argument,
 the FFTW plan is computed once and applied for all coherence estimations.
 
 **note for methods (1) and (3)**:

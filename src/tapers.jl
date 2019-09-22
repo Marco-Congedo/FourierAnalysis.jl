@@ -56,16 +56,16 @@ end
 ###############################################################################
 """
 ```
-function taper( kind :: TaperKind,
-                wl   :: Int;
-            α        :: Real    = 2.,
-            n        :: Int     = ceil(Int, 2*α)-1,
-            padding  :: Int     = 0,
-            type     :: Type{T} = Float64) where T<:Union{Real, Complex}
+function taper( kind  :: TaperKind,
+                wl    :: Int;
+            α       :: Real    = 2.,
+            n       :: Int     = ceil(Int, 2*α)-1,
+            padding :: Int     = 0,
+            type    :: Type{T} = Float64) where T<:Union{Real, Complex}
 
 ```
 Universal constructor of [Taper](@ref) objects, given a tapering window
-`kind`, of type [TaperKind::Enumerated Type](@ref) and the window length `wl`.
+`kind`, of type [TaperKind](@ref) and the window length `wl`.
 
 Return a vector of length `wl` for all types of tapers, but for the dpss
 (Slepian multi-tapers), for which return a matrix of size `wl` x `n`.
@@ -77,26 +77,26 @@ The `type` optional keyword argument can be use to specify the the type of
 elements of the typering window. By default, this is the `Float64` type.
 
 Optional keywords arguments `α` and `n` currently apply only for slepian
-multi-tapering:
+multi-tapering (*discrete prolate spheroidal sequences*):
 
 `α` is the *half bandwidth* (hbw) parameter as per the DSP.jl package.
-In many dpss implementations this unit s used and it is often reported
+This unit is used in many dpss implementations and it is often reported
 that "typical values" for `α` are 2, 2.5, 3, 3.5 or 4.
 However, the optimal smoothing increases with the ratio between window length
 and sampling rate, thus these values in absolute terms are not useful.
+In fact, the larger the *hbw* and the higher `n`, the smoother the
+spectra will be (variance reduction). In order to overcome these
+difficulties, for Slepian's multitapering
+*FourirAnalysis* implements the [`slepians`](@ref) constructor,
+which allows the bandwidth parameter to be given in Hz and the
+number of tapering windows to be chosen automatically.
 
 `n` is the number of tapering windows. For slepian tapers this is
-the number of the dpss. As in the DSP package, by default it is set to
+the number of the discrete prolate spheroidal sequences.
+As in the DSP package, by default it is set to
 `ceil(Int, 2*α)-1`, however, depending on how large this number is,
-to the last dps sequences may corresponds low eigenvalues and therefore
+low eigenvalues may correspond to the last sequences, therefore
 those should be discarded.
-
-The larger the hbw and the higher `n`, the smoother the
-spectra (variance reduction). In order to overcome the aforementioned
-difficulties, for Slepian's multitapering
-**FourirAnalysis** implements the [`slepians`](@ref) constructor,
-whch allows the bandwidth parameter to be given in Hz and the
-number of tapering windows to be chosen automatically.
 
 **See**: [`slepians`](@ref)
 
@@ -184,7 +184,8 @@ function taper( kind :: TaperKind,
 end
 
 """
-Construct a [Taper](@ref) objects holding Slepian's multi-tapering sequences,
+Construct a [Taper](@ref) objects holding Slepian's multi-tapering
+*discrete prolate spheroidal sequences*,
 given sampling rate `sr`, window length `wl` and
 the `bandwidht` argument in Hz.
 For EEG data, 1<=bandwidht<=2 is an adequate choice.
@@ -237,8 +238,9 @@ Return the name of the
 tapering window(s) encapsulated in the [Taper](@ref) object
 as a string.
 
-Only for Slepian's dpss, their parameters, namely, ``α`` (half-bandwidth)
-and ``n`` (number of windows), are reported withinh parentheses as well.
+Only for Slepian's discrete prolate spheroidal sequences (dpss),
+their parameters, namely, ``α`` (half-bandwidth)
+and ``n`` (number of windows), are reported within parentheses as well.
 
 **Examples**:
 ```

@@ -55,6 +55,7 @@ function meanAmplitude( 𝐱      :: Vector{Vector{T}},
 **alias**: mamp
 
 (1)
+
 Given a [TFAmplitudeVector](@ref) object, estimate the
 [(weighted) mean amplitude](@ref) measure across those objects.
 The time-frequency planes of all the objects in `𝐀` should be congruent.
@@ -94,6 +95,7 @@ If either check fails, print an error message and return `Nothing`.
 No other range checks are performed.
 
 (2)
+
 Given a [TFAnalyticSignalVector](@ref) object, compute the amplitude
 of all objects in `𝐙` and estimate the [(weighted) mean amplitude](@ref)
 measure across those objects as per method (1). In addition,
@@ -103,6 +105,7 @@ print an error and return `Nothing`. The checks on `frange` and `trange`
 performed by method (1) are also performed by this method.
 
 (3)
+
 Estimate the amplitude of all data vectors in `𝐱` calling the
 [`TFamplitude`](@ref) constructor and then estimate the
 [(weighted) mean amplitude](@ref) measure across the constructed
@@ -427,7 +430,7 @@ as the two corresponding methods of the [`concentration`](@ref) function.
 All arguements have exactly the same meaning as therein.
 Only the output differs:
 
-If optional keyword parameter `nonlinear` is false (default),
+if optional keyword parameter `nonlinear` is false (default),
 estimate the [(weighted) mean direction](@ref) measure,
 otherwise estimate the [(weighted) phase mean direction](@ref) measure.
 
