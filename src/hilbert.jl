@@ -27,6 +27,7 @@
 ```
 
 (1)
+
 Compute the analytic signal(AS) of vector `X` or of
 all column vectors of matrix `X` via the FFT and iFFT procedure,
 as explained in Marple(1999).
@@ -48,16 +49,16 @@ The Welch-like AS allows an efficient estimation of the AS for vectors and
 matrices of any length, that is, even if they are very large; it proceeds
 computing the AS on 50% sliding overlapping windows and forming the AS
 by retaining the central half of each window. The number of points effectively
-used to obtain the final estimation is wl/2
-if `wl` is even, wl/2+1 otherwise. Using the central half of the
-AS computed at each window eliminates edge effects in the range wl/2:end-wl/2.
-Before running the procedure, wl/2 zeros are padded at the beginning
+used to obtain the final estimation is ``wl÷2`` (integer division)
+if `wl` is even, ``wl÷2+1`` otherwise. Using the central half of the
+AS computed at each window eliminates edge effects in the range ``wl÷2:end-wl÷2``.
+Before running the procedure, ``wl÷2`` zeros are padded at the beginning
 and at the end of `X` and trimmed on exiting the function,
 in order to reduce edge effects at the beginning
 and end of `X`. This procedure does not eliminate these edge effects
-completely, thus the first and last wl/2 samples of the AS estimation
+completely, thus the first and last ``wl÷2`` samples of the AS estimation
 should be discarded. In practice, one requires the AS of a larger data
-segment and trims at least wl/2 samples at the beginning and end of
+segment and trims at least ``wl÷2`` samples at the beginning and end of
 the estimation. This is done automatically by the [`TFanalyticsignal`](@ref)
 function.
 
@@ -82,13 +83,14 @@ is ``1.0`` at all points. This allow non-linear univariate and bivariate estimat
 and backward FFTW plans used to compute the FFTs and the iFFTs.
 By default the planner is computed, but it can be passed as an
 argumet here if it is pre-computed. This is interesting if the
-*analyticsignal* function is to be invoked repeatedly.
+`analyticsignal` function is to be invoked repeatedly.
 
 if `⏩` is true, the method is run in multi-threaded mode across the series in `X`
 if the number of series is at least twice the number of threads Julia
 is instructed to use. See [Threads](@ref).
 
 (2)
+
 Compute the analytic signal for all ``k``
 multivariate data matrices given as a vector of matrices `𝐗`.
 Return a vector of matrices hodling the corresponding analytic signals

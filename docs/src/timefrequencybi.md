@@ -16,7 +16,7 @@ The implemented measures are:
 
 #### (weighted) comodulation
 
-``(w)Com=\left<wr_1r_2\right>\big /\sqrt{\left<wr_1^2\right>}\sqrt{\left<wr_2^2\right>}``.
+``(w)Com=\left<wr_1r_2\right>\big /\sqrt{\left<wr_1^2\right>\left<wr_2^2\right>}``.
 
 This is the bivariate extension of univariate [(weighted) mean amplitude](@ref)
 measure.

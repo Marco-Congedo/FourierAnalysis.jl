@@ -33,8 +33,8 @@ while objects based on the analytic signal (time-frequency domain objects)
 need both a forward (`.p `) and a backward (`.ip `) plan (complex iFFT).
 
 Argument `flags` must be one of the constants here above.
-Basic usage of the flags involves a trade-off between time needed to compute
-the planner and its efficacy for computing the FFTs. The following flags
+Basic usage of the flags involves a trade-off between the time needed to compute
+the planner and the efficacy for computing the FFTs. The following flags
 are sorted in ascending order of time needed to be computed and efficacy:
 `plan_estimate`, `plan_measure`, `plan_patient`,
 `plan_exhaustive`.
@@ -50,8 +50,8 @@ no time limits.
 
 FFTW plans are computed for a given window length `wl` and data type `type`.
 
-Planners objects may be passed as an argument to constructors of
-[FDobjects](@ref) and [TFobjects](@ref) by using one of the Planner constuctor
+`Planners` objects may be passed as an argument to constructors of
+[FDobjects](@ref) and [TFobjects](@ref) by using one of the `Planner` constuctor
 here below.
 
 **Constructors**

@@ -90,7 +90,7 @@ a frequency `f` (in Hz), given sampling rate `sr` and window length `wl`.
 The frequency can be given either as an integer or as a real number.
 
 If the requested `f` is exactly in between two Fourier discrete frequencies,
-then the smallest of the two equidistant frequancies is returned.
+then the smallest of the two equidistant frequencies is returned.
 
 The FFT vector is assumed to be 1-based (as always in Julia).
 If `DC` is false, the first discrete frequency is assumed to be at bin 1,
@@ -164,8 +164,8 @@ function fdf(sr :: Int,
 Return a vector with all **F**ourier **d**iscrete **f**requencies for a real-FFT,
 given sampling rate `sr` and window length `wl`.
 If `DC` is false, the first discrete frequency starts at bin (position) 1 and
-the length of the vector is wl÷2, otherwise the DC level is at position 1.
-and the length of the vector is (wl÷2)+1.
+the length of the vector is ``wl÷2`` (integer division), otherwise the DC level is at position 1.
+and the length of the vector is ``(wl÷2)+1``.
 
 **See also**: [`f2b`](@ref), [`fres`](@ref), [`b2f`](@ref), [`brange`](@ref).
 
@@ -191,7 +191,8 @@ function brange(wl :: Int;
 Return a range of bins for a real-FFT vector covering all Fourier discrete
 frequencies given window length `wl`.
 
-If `DC` is false, the range is 1:(wl÷2), otherwise it is 1:(wl÷2)+1.
+If `DC` is false, the range is ``1:(wl÷2)`` (integer division),
+otherwise it is ``1:(wl÷2)+1``.
 
 **See also**: [`f2b`](@ref), [`fres`](@ref), [`b2f`](@ref), [`fdf`](@ref).
 
@@ -215,7 +216,7 @@ function bbands(sr :: Int,
 
 Return a vector of integers holding the limits of all `bandwidht`-spaced
 band-pass regions of a real-FFT, in bins of discrete Fourier frequencies,
-from one to `wl`÷2.
+from one to ``wl÷2`` (integer division).
 
 This is used by function [`bands`](@ref).
 
@@ -275,12 +276,14 @@ fbands(sr        :: Int,
 
 
 """
-    (1)
-    function dB(S :: Union{Real, AbstractArray{T}}) where T<:Real
+```
+(1)
+function dB(S :: Union{Real, AbstractArray{T}}) where T<:Real
 
-    (2)
-    function dB(S1 :: Union{Real, AbstractArray{T}},
-                S2 :: Union{Real, AbstractArray{T}}) where T<:Real
+(2)
+function dB(S1 :: Union{Real, AbstractArray{T}},
+            S2 :: Union{Real, AbstractArray{T}}) where T<:Real
+```
 
 Convert (1) a measure `S`, or (2) a ratio between two measures `S1`./`S2`
 into deciBels.
@@ -328,23 +331,27 @@ function amplitude(𝐀::TFAnalyticSignalVector;
                         func::Function=identity)
 ```
 (1)
-Return the aamplitude (modulus) of a complex number.
+
+Return the amplitude (modulus) of a complex number.
 This corresponds to Julia's
 [abs](https://docs.julialang.org/en/v1/base/math/#Base.abs) function.
 It is here provided for syntactic consistency with the following methods.
 
 (2)
+
 Return the amplitude of a complex array `Z`.
 Typically, `Z` holds analytic signal, in which case the output is
 the analytic (instantaneous) amplitude (also known as envelope).
 The output is a real array of the same size as `Z`.
 
 (3)
+
 Return a real matrix with the analytic (instantaneous) amplitude of the
 [TFAnalyticSignal](@ref) object `Z`. The output is of the same
 size as the data field `Z.y`.
 
 (4)
+
 As (3), but return a vector of amplitude matrices for all
 [TFAnalyticSignal](@ref) objects in 𝐀
 
@@ -448,12 +455,14 @@ function phase(𝐙::TFAnalyticSignalVector;
 
 ```
 (1)
+
 Return the phase (argument) of a complex number.
 This corresponds to a standard
 [atan2](https://en.wikipedia.org/wiki/Atan2) function.
 It is here provided for syntactic consistency with the following methods.
 
 (2)
+
 Return the phase of a complex array `Z`.
 Typically, `Z` holds analytic signal, in which case the output is
 the analytic (instantaneous) phase.
@@ -464,6 +473,7 @@ along the `unwrapdims` dimension of the array. For example, if `Z` is a matrix,
 passing `unwrapdims=1` unwrap the phase indipendently along its columns.
 
 (3)
+
 Return a real matrix with the analytic (instantaneous) phase of the
 [TFAnalyticSignal](@ref) object `Z`. The output is of the same
 size as the data field `Z.y`.
@@ -472,6 +482,7 @@ If optional keyword argument `unwrapped` is true, return the unwrapped phase
 along the time dimension of the analytic signal (dims=2).
 
 (4)
+
 As (3), but return a vector of phase matrices for all
 [TFAnalyticSignal](@ref) objects in 𝚯.
 
@@ -484,7 +495,7 @@ it is applied to the phase. For example
 - passing `func=x->x/π` will return the phase in [-1, 1],
 - passing `func=sin` will return the sine of the phase.
 
-!!! note Nota Bene
+!!! note "Nota Bene"
     If in method (2) `unwrapdims` is >0 or in method (3) and (4)
     `unwrapped` is true, the function `func` is applied to the unwrapped phase.
 
@@ -519,16 +530,19 @@ function polar(Z::TFAnalyticSignal)
 ```
 
 (1)
+
 Return the amplitude (modulus) and phase (argument)
 of a complex number as a 2-tuple.
 
 (2)
+
 Return the amplitude and phase of a complex array `Z`.
 Typically, `Z` holds analytic signal, in which case return
 the analytic (instantaneous) amplitude and phase.
 The output is a tuple of two real arrays of the same size as data field `Z.y`.
 
 (3)
+
 Return the analytic (instantaneous) amplitude
 and phase of the [TFAnalyticSignal](@ref) object `Z`.
 The output is a tuple of two real arrays of the same size as data field `Z.y`.
@@ -575,23 +589,27 @@ unwrapPhase(ϴ::TFPhase) [constructor of a TFPhase object]
 unwrapPhase(𝚯::TFPhaseVector) [constructor of a TFPhaseVector object]
 ```
 (1)
+
 If optional keyword argument `unwrapdims` is > 0, compute the phase
 (argument) from a *complex* array and unwrap it along the `unwrapdims`
 dimension, otherwise (default) return `Z`.
 Typically, `Z` holds analytic signal.
 
 (2)
+
 If optional keyword argument `unwrapdims` is > 0, unwrap along the
 `unwrapdims` dimension a *real* array holding phase data in [−π, π],
 otherwise return `ϴ`.
 
 (3)
+
 Construct a [TFPhase](@ref) object by unwrapping its phase along the time
 dimension and copying all other fields from the `ϴ` object. If `ϴ.func`
 is different from the `identity` (do nothing) function,
 return instead an error message.
 
 (4)
+
 As (3), but conctruct a [TFPhaseVector](@ref) holding
 [TFPhase](@ref) objects in 𝚯 with the phase unwrapped.
 `ϴ.func` must be the identity function for all ϴ ∈ 𝚯.
@@ -700,6 +718,8 @@ Return true if all objects in `𝒀` are linear.
 By definition, [Spectra](@ref) and [TFAmplitude](@ref) objects are linear.
 [CrossSpectra](@ref), [Coherence](@ref), [TFAnalyticSignal](@ref)
 and [TFPhase](@ref) objects may be linear or non-linear.
+
+**See**:[FDobjectsVector](@ref), [TFobjectsVector](@ref).
 """
 isLinear(𝒀::FDobjectsVector) =
    𝒀 isa SpectraVector ? true : sum(Y.nonlinear for Y ∈ 𝒀)==0
@@ -715,6 +735,9 @@ Return true if all objects in `𝒀` are non-linear.
 By definition, [Spectra](@ref) and [TFAmplitude](@ref) objects are linear.
 [CrossSpectra](@ref), [Coherence](@ref), [TFAnalyticSignal](@ref)
 and [TFPhase](@ref) objects may be linear or non-linear.
+
+**See**:[FDobjectsVector](@ref), [TFobjectsVector](@ref).
+
 """
 isNonLinear(𝒀::FDobjectsVector) =
    𝒀 isa SpectraVector ? false : sum(Y.nonlinear for Y ∈ 𝒀)==length(𝒀)
@@ -811,20 +834,22 @@ _smooth(smoother::Smoother, 𝓢::Union{CrossSpectraVector, CoherenceVector}, γ
 
 
 """
-    (1)
-    function smooth(smoother :: Smoother,
-                           S :: Union{Vector{<:Real}, Vector{<:Complex}})
+```
+(1)
+function smooth(smoother :: Smoother,
+                       S :: Union{Vector{<:Real}, Vector{<:Complex}})
 
-    (2)
-    function smooth(smoother :: Smoother,
-                           S :: Union{FDobjects, FDobjectsVector})
+(2)
+function smooth(smoother :: Smoother,
+                       S :: Union{FDobjects, FDobjectsVector})
 
-    (3)
-    function smooth(fsmoothing :: Smoother,
-                    tsmoothing :: Smoother,
-                             Y :: Union{TFobjects, TFobjectsVector})
+(3)
+function smooth(fsmoothing :: Smoother,
+                tsmoothing :: Smoother,
+                         Y :: Union{TFobjects, TFobjectsVector})
+```
 
-Apply a smoothing function of type [Smoother::Enumerated Type](@ref) to
+Apply a smoothing function of type [Smoother](@ref) to
 - (1) a vector of real or complex numbers,
 - (2) a [FDobjects](@ref) or all objects in a [FDobjectsVector](@ref),
 - (3) a [TFobjects](@ref) or all objects in a [TFobjectsVector](@ref).
@@ -882,7 +907,7 @@ For 3-point smoothers, the first point is smoothed as
 
 ``x_{1}=\\frac{c}{b+c}x_{1} + \\frac{b}{b+c}x_{2}``
 
-and the last (the ``k^(th)``) as
+and the last (the ``k^{th}``) as
 
 ``x_{k}=\\frac{c}{b+c}x_{k} + \\frac{b}{b+c}x_{k-1}``.
 
@@ -902,7 +927,7 @@ and the last as
 
 ``x_{k}=\\frac{a}{a+b+c}x_{k-2} + \\frac{b}{a+b+c}x_{k-1} + \\frac{c}{a+b+c}x_{k}``.
 
-**See**: [Smoother::Enumerated Type](@ref)
+**See**: [Smoother](@ref)
 
 **Examples**:
 ```
@@ -1128,7 +1153,7 @@ frequency and more than one sample is reported in the following table:
 |(4.1)| [TFAnalyticSignalVector](@ref)| a vector of matrices of type (3.1)|
 |(4.2)| [TFAmplitudeVector](@ref)     | a vector of matrices of type (3.2)|
 |(4.3)| [TFPhaseVector](@ref)         | a vector of matrices of type (3.3)|
-Legend: ¹ *each column refers to a series on which the spectra have been computed.*
+Legend: ¹ *each column refers to a time-series on which the spectra have been computed.*
 ² *depending on how the objects has been created, the matrices may be either
 Hermitian or LowerTriangular. See the documentation of [CrossSpectra](@ref) and [Coherence](@ref).
 
@@ -1149,8 +1174,9 @@ numbers of objects hold in the input [FDobjectsVector](@ref) or
 [TFobjectsVector](@ref). `w` is a vector of weights for the regions extracted from
 the input objects. By default, no weights are assigned.
 
-`check`, a boolean. If it is true, it is checked that the non-data fields
+`check`, a boolean. If it is true (default), it is checked that the non-data fields
 of the input objects are all the same (for example, sampling rate, bandwidht, etc.).
+Set it to false to improve speed.
 
 **See also**: [`mean`](@ref).
 
@@ -1274,7 +1300,7 @@ The complete input/output types for this function is reported in the following t
 |(4.1)| [TFAnalyticSignalVector](@ref) | a vector of numbers of type (3.1)|
 |(4.2)| [TFAmplitudeVector](@ref)      | a vector of numbers of type (3.2)|
 |(4.3)| [TFPhaseVector](@ref)          | a vector of numbers of type (3.3)|
-legend: ¹*each element of the vector refers to a series on which the spectra have been computed.*
+legend: ¹*each element of the vector refers to a time-series on which the spectra have been computed.*
 ² *depending on how the objects has been created, the matrices may be either
 Hermitian or LowerTriangular.*
 
@@ -1285,7 +1311,7 @@ numbers of objects hold in the input [FDobjectsVector](@ref) or
 [TFobjectsVector](@ref). `w` is a vector of weights for the means extracted from
 the input objects. By default, no weights are assigned.
 
-`check`, a boolean. If it is true, it is checked that the non-data fields
+`check`, a boolean. If it is true (default), it is checked that the non-data fields
 of the input objects are all the same (for example, sampling rate, bandwidht, etc.).
 
 **See also**: [`extract`](@ref).
@@ -1470,7 +1496,7 @@ in equally spaced band-pass regions with the given `bandwidht`.
 `bandwidht` can be given as an integer or as a real number. See [`bbands`](@ref)
 for details on the definition of band-pass regions.
 
-Band-pass average is not supported for TimeFrequency objects as for those
+Band-pass average is not supported for time-frequency objects as for those
 objects a similar averaging is natively avaiable using argument `bandwidht`
 in their constructors.
 

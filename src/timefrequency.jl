@@ -34,6 +34,7 @@ function TFanalyticsignal(𝐱         :: Vector{Vector{T}},
 
 ```
 (1)
+
 Given sampling rate `sr`, construct a [TFAnalyticSignal](@ref) object
 from univariate data `x`, that is, a time-frequency representation of real
 vector `x`.
@@ -72,6 +73,7 @@ is at least twice the number of threads Julia is instructed to use.
 See [Threads](@ref).
 
 (2)
+
 Given sampling rate `sr`, construct a
 [TFAnalyticSignalVector](@ref) object from a vector of univariate data `𝐱`,
 that is, from the time-frequency representations of the vectors in `𝐱`.
@@ -87,7 +89,7 @@ threads Julia is instructed to use, otherwise this method attempts to run
 each analytic signal estimation in multi-threaded mode like in method (1).
 See [Threads](@ref).
 
-If a `planner` is not explicitly passed as an argument,
+If a `Planner` is not explicitly passed as an argument,
 the FFTW plan is computed once and applied for all analytic signal
 estimations.
 
@@ -442,6 +444,7 @@ function TFamplitude(𝐱 :: Vector{Vector{T}},
 ```
 
 (1)
+
 Construct a [TFAmplitude](@ref) object computing the amplitude of
 [TFAnalyticSignal](@ref) object `Z`.
 Optional keyword argument `func` is a function to be applied
@@ -449,15 +452,17 @@ element-wise to the data matrix of the output. By default,
 the `identity` (do nothing) function is applied.
 
 (2)
+
 Construct a [TFAmplitudeVector](@ref) object from a
 [TFAnalyticSignalVector](@ref) object executing method (1)
 for all [TFAnalyticSignal](@ref) objects in `𝐙`
 
 (3)
+
 Call [`TFanalyticsignal`](@ref) to obtain the time-frequency
 analytic signal of real signal vector `x` and construct a [TFAmplitude](@ref)
-object holding the time-frequency amplitude (mudulus, often
-referred to as *envelope*) of `x`.
+object holding the time-frequency amplitude (the mudulus, often
+referred to as the *envelope*) of `x`.
 
 All arguments are used for regulating the estimation of the analytic signal,
 with the exception of `func`, `fsmoothing` and `fsmoothing`:
@@ -472,7 +477,7 @@ Arguments `fsmoothing` and `fsmoothing` are then used to smooth the amplitude.
 
 In order to obtain amplitude estimations on smoothed analytic signal instead,
 create a [TFAnalyticSignal](@ref) object passing a
-[Smoother::Enumerated Type](@ref) to the [`TFanalyticsignal`](@ref)
+[Smoother](@ref) to the [`TFanalyticsignal`](@ref)
 constructor and then use method (1) to obtain the amplitude.
 Such amplitude estimation can be further smoothed
 using the [`smooth`](@ref) function, as shown in the examples.
@@ -481,6 +486,7 @@ For the meaning of all other arguments, which are passed to function
 [`TFanalyticsignal`](@ref), see the documentation therein.
 
 (4)
+
 Construct a [TFAmplitudeVector](@ref) object from a
 vector of real signal vectors `𝐱`, executing method (3) for all of them.
 In order to estimate the time-frequency analytic signal for a
@@ -604,12 +610,13 @@ function TFphase(𝐱 :: Vector{Vector{T}},
 ```
 
 (1)
+
 Construct a [TFPhase](@ref) object computing the phase of
 [TFAnalyticSignal](@ref) object `Z`. By default the phase is
 represented in ``[−π, π]``.
 
-If optional keyword argument `unwrapped` is true, the phase is
-unwrapped, that is, it holds the cumulative sum of the phase
+If optional keyword argument `unwrapped` is true (false by defalut),
+the phase is unwrapped, that is, it holds the cumulative sum of the phase
 along the time dimension once this is represented in ``[0, 2π]``.
 
 Optional keyword argument `func` is a function to be applied
@@ -618,11 +625,13 @@ the `identity` (do nothing) function is applied. If `unwrapped`
 is true, the function is applied on the unwrapped phase.
 
 (2)
+
 Construct a [TFPhaseVector](@ref) object from a
 [TFAnalyticSignalVector](@ref) object executing method (1)
 for all [TFAnalyticSignal](@ref) objects in `𝐙`
 
 (3)
+
 Call [`TFanalyticsignal`](@ref) to obtain the time-frequency
 analytic signal of real signal vector `x` and construct a [TFPhase](@ref)
 object holding the time-frequency phase (argument) of `x`.
@@ -644,13 +653,14 @@ is true.
 
 In order to obtain phase estimations on smoothed analytic signal instead,
 create a [TFAnalyticSignal](@ref) object passing a
-[Smoother::Enumerated Type](@ref) to the [`TFanalyticsignal`](@ref)
+[Smoother](@ref) to the [`TFanalyticsignal`](@ref)
 constructor and then use method (1) to obtain the phase.
 
 For the meaning of all other arguments, which are passed to function
 [`TFanalyticsignal`](@ref), see the documentation therein.
 
 (4)
+
 Construct a [TFPhaseVector](@ref) object from a
 vector of real signal vectors `𝐱`, executing method (3) for all of them.
 In order to estimate the time-frequency analytic signal for a

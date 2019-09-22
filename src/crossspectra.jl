@@ -45,13 +45,14 @@ function crossSpectra( 𝐗    :: Vector{Matrix{T}},
 ```
 
 (1)
+
 Construct a [CrossSpectra](@ref) objects from real multivariate data
 using the Welch method.
 
 Given sampling rate `sr` and epoch length `wl`, compute the cross-spectral
 matrices of dimension ``n``x``n`` for a multivariate data matrix
 `X` of dimension ``t``x``n``, where ``t`` is the number of samples (rows) and
-`n>1` is the number of series (columns).
+`n>1` is the number of time-series (columns).
 
 The cross-spectral matrices are hold in the `.y` vector field of the created
 object. The length of `.y` depends upon
@@ -65,7 +66,7 @@ the `wl` argument and `DC` optional keyword argument (see below).
 `DC`: if true the cross-spectral matrix of the DC level is returned
 in the first position of `y` (see the fields of the [CrossSpectra](@ref)
 object), otherwise (default) the matrices in `y` start with the first positive
-discrete frequency, that is, sr/wl Hz.
+discrete frequency, that is, ``sr/wl`` Hz.
 
 `nonlinear`: if true, the amplitude information is eliminated from the
 DFT coefficients, that is, they are normalized by their modulus before being
@@ -74,7 +75,7 @@ This leads to non-linear estimates (Congedo, 2018;
 Pascual-Marqui 2007) where the diagonal elements of the cross-spectral matrices
 (the spectra) are 1.0 for all frequencies. By default, it is false.
 
-`smoothing`: apply a smoothing function of type [Smoother::Enumerated Type](@ref)
+`smoothing`: apply a smoothing function of type [Smoother](@ref)
 to the cross-spectral matrices across frequencies.
 By default no smoothing is applied.
 
@@ -105,15 +106,16 @@ lower triangle of the cross-spectra is computed in order to save time
 and memory.
 
 (2)
+
 Construct a [CrossSpectraVector](@ref) object from a vector of
 real multivariate data matrices. Compute the cross-spectral matrices
-using the Welch method as per the previous method for all ``k`` data
+using the Welch method as per method (1) for all ``k`` data
 matrices in `𝐗`.
 
 The ``k`` matrices in `𝐗` must have the same number of columns
-(i.e., the same number of series), but may have any number of (at least
+(i.e., the same number of time-series), but may have any number of (at least
 `wl`) rows (samples).
-All other arguments have the same meaning as in the previous method,
+All other arguments have the same meaning as in method (1),
 with the following difference:
 
 `⏩`: if true (default), the method is run in multi-threaded mode across the

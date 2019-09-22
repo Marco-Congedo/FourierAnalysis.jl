@@ -36,7 +36,7 @@ Return 2-tuple `(f, Y)`, where `f` is a vector holding the center
 frequencies of the filter bank band-pass regions
 and `Y` a matrix holding in the ``i^{th}`` column the signal `x`
 band-pass iltered by the ``i^{th}`` band-pass filter.
-Hence, size(Y, 1)=length(x) and size(Y, 2)=length(f).
+Hence, ```size(Y, 1)=length(x)``` and ```size(Y, 2)=length(f)```.
 
 The filter bank is designed by means of argument `bandwidth`
 and optional keyword arguments `fmin` and `fmax`.

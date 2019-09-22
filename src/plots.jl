@@ -13,20 +13,11 @@
 
 """
 ```
-(1)
 plot( h      :: Taper,
     showkind :: Bool = false;
    args...)
-
-(2)
-plot(S      :: Spectra;
-    maxf    :: Union{Real, Int} = 0,
-    space   :: Int              = 4,
-    ylabel  :: String = "Power (\\muV²)",
-   args...)
 ```
 
-(1)
 Plot the data of a [Taper](@ref) object, that is, the tapering
 window(s) hold in its `.y` field.
 This is a single tapering window for all kind of tapering windows,
@@ -37,7 +28,39 @@ If optional keyword argument `showkind` is true, the output of the
 [`taperinfo`](@ref) function is printed as title of the plot.
 By defaut `showkind` is false.
 
-(2)
+The function allows to pass any other optional keyword argument
+of the standard Julia plot function.
+
+**Examples**:
+```
+using FourierAnalysis, Plots
+sr, t = 128, 128
+H=taper(hamming, t)
+
+# plot tapering window
+plot(H; title="my own title") # title is a Plot.jl argument
+plot(H; showkind=true)
+
+# plot Slepian's dpss
+plot(slepians(sr, t*4, 2); showkind=true)
+plot(slepians(sr, t*16, 1); title="my own title")
+```
+"""
+plot( h      :: Taper;
+    showkind :: Bool = false,
+   args...)  =
+  plot(h.y;
+    title=showkind ? taperinfo(h) : "", gridcolor=:white, labels="", args...)
+
+
+"""
+```
+plot(S      :: Spectra;
+    maxf    :: Union{Real, Int} = 0,
+    space   :: Int              = 4,
+    ylabel  :: String = "Power (\\muV²)",
+   args...)
+```
 Produce the line plot of the data in a [Spectra](@ref) object,
 that is, plot all its spectra with separate lines.
 
@@ -47,7 +70,7 @@ to the given frequency (in Hz).
 Optional keyword argument `space` (in Hz) determines the spacing between
 frequency ticks and labels (x-axis).
 
-Both method (1) and (2) allow to pass any other optional kyword argument
+The function allows to pass any other optional keyword argument
 of the standard Julia plot function.
 
 **See also**: [`bar`](@ref)
@@ -64,10 +87,6 @@ X=broadcast(+, v, randn(t*16, 3)) * randn(3, 3)
 H=taper(hamming, t)
 S=spectra(X, sr, t; tapering=H)
 
-# plot tapering window
-plot(H; title="my own title") # title is a Plot.jl argument
-plot(H; showkind=true)
-
 # plot spectra
 plot(S)
 plot(S; maxf=32)
@@ -77,17 +96,8 @@ plot(S; maxf=32, space=2)
 S=spectra(X, sr, t; tapering=H, func=sqrt)
 plot(S; maxf=32, space=2, ylabel="Amplitude (\\muV)")
 
-# plot Slepian's dpss
-plot(slepians(sr, t*4, 2); showkind=true)
-plot(slepians(sr, t*16, 1); title="my own title")
 ```
 """
-plot( h      :: Taper;
-    showkind :: Bool = false,
-   args...)  =
-  plot(h.y;
-    title=showkind ? taperinfo(h) : "", gridcolor=:white, labels="", args...)
-
 plot(S      :: Spectra;
     maxf    :: Union{Real, Int} = 0,
     space   :: Int              = 4,
@@ -111,10 +121,10 @@ plot(S      :: Spectra;
 ```
 
  Produce the bar plot of the data in a [Spectra](@ref) object,
- that is, plot all its spectra with separate lines.
+ that is, plot all its spectra with separate bars.
  Use the same syntax as the [`plot`](@ref) fuction,
  which produces a line plot instead.
- Bar plots for spectra can be used insted of the line plots
+ Bar plots for spectra should be used insted of the line plots
  only for univariate spectra.
 
  **See**: [`plot`](@ref)
@@ -169,7 +179,7 @@ function heatmap(Y    :: TFAnalyticSignal,
             args...)
 ```
 
-Generate heatmaps from a [`TFAnalyticSignal`] object.
+Generate heatmaps from a [`TFAnalyticSignal`](@ref) object.
 Since the analytic signal (AS) is complex, a function `func`
 must be specified and must transform the AS data
 matrix into a real matrix. Typical functions are:
@@ -181,8 +191,8 @@ matrix into a real matrix. Typical functions are:
 
 Note:
 
-Appropriate colors for plotting analytic signal and phase are :pu_or, :bluesreds.
-Appropriate colors for plotting amplitude are :amp, :fire, :dimgray, :gwv.
+Appropriate colors for plotting analytic signal and phase are `:pu_or`, `:bluesreds`.
+Appropriate colors for plotting amplitude are `:amp`, `:fire`, `:dimgray`, `:gwv`.
 
 **Examples**:
 ```
@@ -238,7 +248,7 @@ function heatmap(Y :: TFAmplitude;
 
 Generate heatmaps of the data in a [TFAmplitude](@ref) object.
 
-Note: appropriate colors for plotting amplitude are :amp, :fire, :dimgray, :gwv.
+Note: appropriate colors for plotting amplitude are `:amp`, `:fire`, `:dimgray`, `:gwv`.
 
 **Examples**:
 ```
@@ -275,13 +285,13 @@ function heatmap(Y :: TFPhase;
               args...)
 ```
 Generate heatmaps of the data in a [TFPhase](@ref) object.
-Default colors for the heatmap are c=:amp if the phase object is unwrapped,
-c=:bluesreds otherwise.
+Default colors for the heatmap are `c=:amp` if the phase object is unwrapped,
+`c=:bluesreds` otherwise.
 
 Note:
 
-Appropriate colors for plotting phase: :pu_or, :bluesreds
-Appropriate colors for plotting unwrapper phase are :amp, :fire, :dimgray, :gwv.
+Appropriate colors for plotting phase: `:pu_or`, `:bluesreds`
+Appropriate colors for plotting unwrapped phase are `:amp`, `:fire`, `:dimgray`, `:gwv`.
 
 **See also**: [`isUnwrapped`](@ref)
 
