@@ -34,7 +34,7 @@ makedocs(
 
 deploydocs(
    # root
-   # target = "build", # add this folder to .gitignore!
+   target = "build", # add this folder to .gitignore!
    repo = "github.com/Marco-Congedo/FourierAnalysis.jl.git",
    # branch = "gh-pages",
    # osname = "linux",
