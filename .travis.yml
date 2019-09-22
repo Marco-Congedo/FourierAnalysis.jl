@@ -1,8 +1,5 @@
 language: julia
 
-notifications:
-  email: false
-
 jobs:
   include:
     - stage: "Documentation"

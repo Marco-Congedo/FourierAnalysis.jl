@@ -34,8 +34,9 @@ It is adopted the convention that a sine wave starts at zero.
 ```
 using FourierAnalysis, Plots
 
-# create and plot a sinusoidal wave
-v=sinusoidal(1., 32, 64, π/2)
+# create and plot a sinusoidal wave of 128 samples with
+# peak amplitude 1, frequency 12Hz, sr=64, phase=π/2
+v=sinusoidal(1., 12, 64, 128, π/2)
 plot(v)
 
 # estimate amplitude of a sinusoidal wave using Goertzel algorithm
