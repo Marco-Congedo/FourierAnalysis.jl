@@ -11,7 +11,7 @@ plot(H; showkind=true)
 
 # plot Slepian&#39;s dpss
 plot(slepians(sr, t*4, 2); showkind=true)
-plot(slepians(sr, t*16, 1); title=&quot;my own title&quot;)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/e8a3a2e95347340711d068f8d9a98482bf848245/src/plots.jl#L14-L48">source</a><div><div><pre><code class="language-none">plot(S      :: Spectra;
+plot(slepians(sr, t*16, 1); title=&quot;my own title&quot;)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/818814744ab7ce9ea329e692d3c1474554971908/src/plots.jl#L14-L48">source</a><div><div><pre><code class="language-none">plot(S      :: Spectra;
     maxf    :: Union{Real, Int} = 0,
     space   :: Int              = 4,
     ylabel  :: String = &quot;Power (\muV²)&quot;,
@@ -33,11 +33,11 @@ plot(S; maxf=32, space=2)
 # compute and plot amplitude spectra
 S=spectra(X, sr, t; tapering=H, func=sqrt)
 plot(S; maxf=32, space=2, ylabel=&quot;Amplitude (\muV)&quot;)
-</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/e8a3a2e95347340711d068f8d9a98482bf848245/src/plots.jl#L56-L100">source</a></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="Plots.bar" href="#Plots.bar"><code>Plots.bar</code></a> — <span class="docstring-category">Function</span>.</div><div><div><pre><code class="language-julia"> bar(S      :: Spectra;
+</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/818814744ab7ce9ea329e692d3c1474554971908/src/plots.jl#L56-L100">source</a></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="Plots.bar" href="#Plots.bar"><code>Plots.bar</code></a> — <span class="docstring-category">Function</span>.</div><div><div><pre><code class="language-julia"> bar(S      :: Spectra;
      maxf    :: Union{Real, Int} = 0,
      space   :: Int              = 4,
      ylabel  :: String = &quot;Power (\muV²)&quot;,
-    args...)</code></pre><p>Produce the bar plot of the data in a <a href="../spectra/#Spectra-1">Spectra</a> object,  that is, plot all its spectra with separate bars.  Use the same syntax as the <a href="#RecipesBase.plot"><code>plot</code></a> fuction,  which produces a line plot instead.  Bar plots for spectra should be used insted of the line plots  only for univariate spectra.</p><p><strong>See</strong>: <a href="#RecipesBase.plot"><code>plot</code></a></p></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/e8a3a2e95347340711d068f8d9a98482bf848245/src/plots.jl#L114-L131">source</a></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="Plots.heatmap" href="#Plots.heatmap"><code>Plots.heatmap</code></a> — <span class="docstring-category">Function</span>.</div><div><div><pre><code class="language-julia">function heatmap(Y    :: TFAnalyticSignal,
+    args...)</code></pre><p>Produce the bar plot of the data in a <a href="../spectra/#Spectra-1">Spectra</a> object,  that is, plot all its spectra with separate bars.  Use the same syntax as the <a href="#RecipesBase.plot"><code>plot</code></a> fuction,  which produces a line plot instead.  Bar plots for spectra should be used insted of the line plots  only for univariate spectra.</p><p><strong>See</strong>: <a href="#RecipesBase.plot"><code>plot</code></a></p></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/818814744ab7ce9ea329e692d3c1474554971908/src/plots.jl#L114-L131">source</a></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="Plots.heatmap" href="#Plots.heatmap"><code>Plots.heatmap</code></a> — <span class="docstring-category">Function</span>.</div><div><div><pre><code class="language-julia">function heatmap(Y    :: TFAnalyticSignal,
                  func :: Function;
             c :: Symbol = :default,
             args...)</code></pre><p>Generate heatmaps from a <a href="@ref"><code>TFAnalyticSignal</code></a> object. Since the analytic signal (AS) is complex, a function <code>func</code> must be specified and must transform the AS data matrix into a real matrix. Typical functions are:</p><ul><li><code>real</code>: heatmap of the real part of the AS</li><li><code>imag</code>: heatmap of the imaginary part of the AS</li><li><code>amplitude</code>: heatmap of the AS <a href="../tools/#FourierAnalysis.amplitude"><code>amplitude</code></a></li><li><code>phase</code>: heatmap of the AS <a href="../tools/#FourierAnalysis.phase"><code>phase</code></a></li></ul><p>Note:</p><p>Appropriate colors for plotting analytic signal and phase are <code>:pu_or</code>, <code>:bluesreds</code>. Appropriate colors for plotting amplitude are <code>:amp</code>, <code>:fire</code>, <code>:dimgray</code>, <code>:gwv</code>.</p><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis, Plots
@@ -69,7 +69,7 @@ heatmap(smooth(hannSmoother, noSmoother, Y), amplitude)
 heatmap(smooth(hannSmoother, hannSmoother, Y), amplitude)
 
 # ...the phase of the AS and use custom colors
-heatmap(Y, phase; c=:pu_or)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/e8a3a2e95347340711d068f8d9a98482bf848245/src/plots.jl#L174-L230">source</a><div><div><pre><code class="language-none">function heatmap(Y :: TFAmplitude;
+heatmap(Y, phase; c=:pu_or)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/818814744ab7ce9ea329e692d3c1474554971908/src/plots.jl#L174-L230">source</a><div><div><pre><code class="language-none">function heatmap(Y :: TFAmplitude;
         c :: Symbol = :default,
         args...) =</code></pre><p>Generate heatmaps of the data in a <a href="../timefrequency/#TFAmplitude-1">TFAmplitude</a> object.</p><p>Note: appropriate colors for plotting amplitude are <code>:amp</code>, <code>:fire</code>, <code>:dimgray</code>, <code>:gwv</code>.</p><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis, Plots
 sr, t, f, a = 128, 128, 8, 2
@@ -87,7 +87,7 @@ A=TFamplitude(v, sr, t; fmax=32)
 heatmap(A)
 # or, quicly: heatmap(TFamplitude(v, sr, t; fmax=32))
 
-heatmap(A; c=:fire)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/e8a3a2e95347340711d068f8d9a98482bf848245/src/plots.jl#L242-L273">source</a><div><div><pre><code class="language-none">function heatmap(Y :: TFPhase;
+heatmap(A; c=:fire)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/818814744ab7ce9ea329e692d3c1474554971908/src/plots.jl#L242-L273">source</a><div><div><pre><code class="language-none">function heatmap(Y :: TFPhase;
               c :: Symbol = :default,
               args...)</code></pre><p>Generate heatmaps of the data in a <a href="../timefrequency/#TFPhase-1">TFPhase</a> object. Default colors for the heatmap are <code>c=:amp</code> if the phase object is unwrapped, <code>c=:bluesreds</code> otherwise.</p><p>Note:</p><p>Appropriate colors for plotting phase: <code>:pu_or</code>, <code>:bluesreds</code> Appropriate colors for plotting unwrapped phase are <code>:amp</code>, <code>:fire</code>, <code>:dimgray</code>, <code>:gwv</code>.</p><p><strong>See also</strong>: <a href="../tools/#FourierAnalysis.isUnwrapped"><code>isUnwrapped</code></a></p><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis, Plots
 sr, t, f, a = 128, 128, 8, 2
@@ -103,4 +103,4 @@ plot(v)
 heatmap(TFphase(v, sr, t; fmax=32))
 
 # heatmap of the unwrapped phase of vector v
-heatmap(unwrapPhase(TFphase(v, sr, t; fmax=32)); c=:fire)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/e8a3a2e95347340711d068f8d9a98482bf848245/src/plots.jl#L281-L316">source</a></section><footer><hr/><a class="previous" href="../timefrequencybi/"><span class="direction">Previous</span><span class="title">TF Bivariate Measures </span></a><a class="next" href="../tools/"><span class="direction">Next</span><span class="title">Tools</span></a></footer></article></body></html>
+heatmap(unwrapPhase(TFphase(v, sr, t; fmax=32)); c=:fire)</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/818814744ab7ce9ea329e692d3c1474554971908/src/plots.jl#L281-L316">source</a></section><footer><hr/><a class="previous" href="../timefrequencybi/"><span class="direction">Previous</span><span class="title">TF Bivariate Measures </span></a><a class="next" href="../tools/"><span class="direction">Next</span><span class="title">Tools</span></a></footer></article></body></html>
