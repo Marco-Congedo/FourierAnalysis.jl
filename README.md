@@ -14,13 +14,15 @@ In the frequency domain *FourierAnalysis* computes **spectra**, *linear* and
 Time-frequency representations are obtained applying a
 [filter-bank](https://en.wikipedia.org/wiki/Filter_bank) and the
 [Hilber transform](https://en.wikipedia.org/wiki/Hilbert_transform).
-This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as the **mean amplitude**, **mean direction**, **phase concentration**, the non-linear version of which is a directional statistic known as **circular mean resultant length**, **comodulation** and **coherence**, the non-linear version of which is a synchronization statistic known as **phase-locking values** or **phase coherence**.
+This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as
+- **mean amplitude** 
+- **mean direction** 
+- **phase concentration** (the non-linear version of which is a directional statistic known as **circular mean resultant length**)
+- **comodulation**
+- **coherence** (the non-linear version of which is a synchronization statistic known as **phase-locking values** or **phase coherence**)
 
-Such large panel of measures is provided in a simple and unified fashion,
-following the conceptual approach illustrated in
-[Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
-in the context of electroencephalography (EEG), for which all default settings
-have been tailored. The package has been written with the *do-it-with-one-line* spirit without sacrificing full control over relevant options.
+All these measures are provided in a simple and unified fashion, following the conceptual approach previously illustrated in
+in the context of electroencephalography (EEG) ([Congedo, 2018](https://hal.archives-ouvertes.fr/hal-01868538/document)), for which all default settings have been tailored. The package has been written with the *do-it-with-one-line* spirit, but without sacrificing full control over relevant options.
 
 ## Installation
 
