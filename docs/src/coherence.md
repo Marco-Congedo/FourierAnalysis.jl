@@ -39,7 +39,7 @@ The cross-spectral matrix estimation at frequency ``f`` is then given by
 
 ``S(f)=\left<Y(f)Y(f)^H\right>``,
 
-where the average is taken across a number of sliding windows.
+where the average is across a number of sliding windows.
 
 Therefore, coherence matrices in the FD is a measure of the
 *synchronization between all ``n`` series of ``X`` taken pair-wise*,
@@ -47,7 +47,7 @@ resulting in a symmetric matrix for each discrete Fourier frequency.
 
 **time-frequency domain (TFD)**
 
-There exist many time-frequency representation, *e.g.*, those obtained
+There exist many time-frequency representation, e.g., those obtained
 using [wavelets](https://en.wikipedia.org/wiki/Wavelet),
 [short-time Fourier transform](https://en.wikipedia.org/wiki/Short-time_Fourier_transform), etc.
 In *FourierAnalysis* time-frequency representations are obtained passing
@@ -64,25 +64,27 @@ For estimating coherence in the TFD, the input is composed of two sets of ``k``
 univariate data vectors
 ``𝐱_a=\{x_{a1}, x_{a2},...,x_{ak}\}`` and ``𝐱_b=\{x_{b1}, x_{b2},...,x_{bk}\}``,
 where each element of the set is to be understood as a single window holding
-``t`` samples and where the elements in corresponding positions forms pairs.
+``t`` samples and the element in corresponding positions forms pairs.
 Let ``Y_r(a)`` and ``Y_r(b)`` be the time-frequency analytic signal
-of pairs ``x_{ar}``, ``x_{br}``, for all ``r=1...k``.
+of realizations ``x_{ar}`` and ``x_{ar}``, respectively, with ``r=1...k``.
 Coherence estimates also have a time-frequency representation.
 They are a normalized version of crossed analytic signals, which
-are analogous to cross-spectra and in a time-frequency plane are given by
+is analogous to cross-spectra,and in a time-frequency plane is given by
 
 ``Z=\left<Y(a) \odot Y(b)^*\right>``,
 
-where the average is taken across the ``k`` pairs (realizations).
+where the average is across the ``k`` realizations.
 
 Therefore, the coherence matrix in the TFD is a measure of the
-*synchronization between pairs ``𝐱_a``, ``𝐱_b``* for each point in the time-frequency plane.
+*synchronization between corresponding elements of the set ``𝐱_a`` and ``𝐱_b``* for each point in the time-frequency plane.
 
 ### kinds of coherence
 
 *FourierAnalysis* estimates several kinds of *linear* and *non-linear*
 squared coherences, simply referred to as *coherence*.
-Let ``i`` and ``j`` indicate two time series,
+For simplicity of notation, let ``i`` and ``j`` indicate two series
+in the *frequency domain* and two sets of series in the
+*time-frequency domain*, as explained in the previous section. Let then
 ``\left<s_{ij}\right>``
 be an average cross-spectrum between
 ``i`` and ``j``, and ``\left<s_{i}\right>``, ``\left<s_{j}\right>``
@@ -90,10 +92,13 @@ be the auto-spectrum of ``i`` , ``j``. In the frequency domain those
 are function of frequency, whereas in the time-frequency domain they are
 functions of both time and frequency.
 
-Finally, for time-frequency data let ``w`` denote non-negative weights normalized so that their average is 1. Those are weights for the pairs on which the averages are computed.
+Finally, let ``w`` denote non-negative weights normalized so that their
+average is 1. Those are weights for the windows on which the averages
+are computed.
 Setting all weights equal to 1, gives the unweighted version
 of all measures, which is the only supported option in the FD, since
-therein the average is taken across windows and since windows segmentation is arbitrary, weighting is usually meaningless.
+therein windows segmentation is arbitrary and weighting
+windows is usually meaningless.
 
 All kinds of coherences estimated in *FourierAnalysis* are summarized
 in the following table:
@@ -142,7 +147,7 @@ Consequently,
 
 **Categories**: [data objects](@ref), [FDobjects](@ref)
 
-In the time-frequency domain coherence estimates are given as Julia ``Matrix``
+In the time-frequency domain coherence estimates are given as Julia Matrix
 objects. In the frequency-domain they are encapsulated in the
 following structure:
 
@@ -153,7 +158,7 @@ end
 ```
 
 This object has the same structure of the [CrossSpectra](@ref) object,
-with the difference that its `y` data field holds real matrices,
+with the difference that its `.y` data field holds real matrices,
 whereas for cross-spectra holds complex matrices.
 
 By convention the diagonal elements of all FD coherence matrices are
@@ -182,7 +187,7 @@ A vector of *Coherence* objects is of type [CoherenceVector](@ref).
 
 In order to construct a *Coherence* object in the frequency domain from
 multivariate data, *FourierAnalysis* provides two [`coherence`](@ref)
-constuctors from raw data and two constuctors building coherence matrices
+constuctors from raw data two constuctors building coherence matrices
 from [CrossSpectra](@ref) and [CrossSpectraVector](@ref) objects.
 Those are what you will use in practice most of the time.
 

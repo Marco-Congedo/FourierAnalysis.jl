@@ -27,27 +27,27 @@ end
 
 `wl`: the FFT *window length* used for estimating the spectra.
 
-`DC`: if true, the first row of `y` holds the *DC level*, otherwise it holds the first positive frequency. Thus, if `DC` is false, the first dimension of `y` is equal to ``wl÷2`` (integer division), otherwise it is equal to ``(wl÷2)+1`` (see [Overview](@ref)). In all constructors it is false by default.
+`DC`: if true, the first row of `y` holds the *DC level*, otherwise it holds the first positive frequency. Thus, if `DC` is false, the first dimension of `y` is equal to wl÷2 (integer division), otherwise it is equal to
+(wl÷2)+1 (see [Overview](@ref)). In all constructors it is false
+by default.
 
-`taper`: the time-domain *tapering window* used for FFT computation, as a string, with parameters in parentheses for Slepian's *dpss*. See [tapers.jl](@ref).
+`taper`: the time-domain *tapering window* used for FFT computation, as a string, with parameters in parentheses for Slepian's dpss. See [tapers.jl](@ref).
 
 `flabels`: a vector holding all Fourier discrete frequencies in Hz.
 Those are the *frequency labels* for the rows of `y`. If `DC` is true,
 the first label is ``0``, otherwise it is the first positive frequency,
-which is equal to the frequency resolution ``sr/wl``.
+which is equal to the frequency resolution sr/wl.
 
 `func`: a *function* applied element-wise to the spectra.
 In all constructors the default is the `identity` (do-nothing) function.
 
-`smoothing`: a [Smoother](@ref) flag indicating
+`smoothing`: a [Smoother::Enumerated Type](@ref). A flag indicating
 whether the spectra have been smoothed across adjacent
 frequencies. If no smoothing has been applied, it is equal to `noSmoother`,
 which is the default in all constructors.
 
 **Note**: In Julia the fields are accessed by the usual dot notation, e.g.,
-you may verify that for *Spectra* object `S`,
-
-```length(S.flabels) == size(S.y, 1) == (S.wl/2)+S.DC```.
+you may verify that for *Spectra* object S, length(S.flabels) == size(S.y, 1) == (S.wl/2)+S.DC.
 
 A vector of *Spectra* objects is of type [SpectraVector](@ref).
 
@@ -120,7 +120,7 @@ hold by `𝙎`.
 
 **Constructors from data**:
 
-!!! note "Goertzel's algorithms"
+!!! note Goertzel's algorithms
     When the spectrum is recquired only at one or a few
     discrete Fourier coefficients, Goertzel's algorithhms
     may be a more efficient option. See unit [goertzel.jl](@ref).

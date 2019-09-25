@@ -50,18 +50,18 @@ so as to have amplitude``1.0`` at all points.
 Such normalization allows non-linear univariate and bivariate estimations
 (see [timefrequencyuni.jl](@ref) and [timefrequencybi.jl](@ref)).
 
-`fsmoothing`: a flag of the [Smoother](@ref) type indicating
+`fsmoothing`: a flag of [Smoother::Enumerated Type](@ref) indicating
 whether the analytic signal has been smoothed across adjacent
 frequency band-pass regions. If no frequency smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
 
-`tsmoothing`: a flag of the [Smoother](@ref) type indicating
+`tsmoothing`: a flag of [Smoother::Enumerated Type](@ref) indicating
 whether the analytic signal has been smoothed across adjacent
 samples (time). If no time smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
 
-**Note**: In Julia the fields are accessed by the usual dot notation, e.g., you may verify that for *TFAnalyticSignal* object `Y`,
-```length(Y.flabels) == dim(Y.z, 1)```.
+**Note**: In Julia the fields are accessed by the usual dot notation, e.g., you may verify that for *TFAnalyticSignal* object Y,
+length(Y.flabels) == dim(Y.z, 1).
 
 A vector of *TFAnalyticSignal* objects is of type [TFAnalyticSignalVector](@ref).
 
@@ -132,12 +132,12 @@ It can be an integer or a real number.
 `flabels`: a vector holding all center frequencies (in Hz) of the filter bank
 band-pass regions. Those are the *frequency labels* for the rows of `y`.
 
-`fsmoothing`: a flag of the [Smoother](@ref) type indicating
+`fsmoothing`: a flag of [Smoother::Enumerated Type](@ref) indicating
 whether the amplitude has been smoothed across adjacent
 frequency band-pass regions. If no frequency smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
 
-`tsmoothing`: a flag of the [Smoother](@ref) type indicating
+`tsmoothing`: a flag of [Smoother::Enumerated Type](@ref) indicating
 whether the amplitude has been smoothed across adjacent
 samples (time). If no time smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
@@ -149,7 +149,7 @@ to obtain amplitude from smoothed analytic signal
 (e.g., using the [`amplitude`](@ref) function) or to smooth the amplitude
 of analytic signal, e.g., using the [`TFamplitude`](@ref) constructor.
 
-`func`: a name of a function that has been applied element-wise to the
+`func`: A name of a function that has been applied element-wise to the
 matrix `.y` holding the amplitude. All constructors from data by default
 use the `identity` (do nothing) function.
 
@@ -170,7 +170,7 @@ A vector of *TFAmplitude* objects is of type [TFAmplitudeVector](@ref).
 
 **Generic Constructors**:
 
-In order to construct a `TFAmplitude` object from univariate
+In order to construct a *TFAmplitude* object from univariate
 data, *FourierAnalysis* provides four [`TFamplitude`](@ref) constuctors,
 which is what you will use in practice most of the time.
 
@@ -235,12 +235,12 @@ analytic signal normalized so as to have amplitude``1.0`` at all points.
 Such normalization allows non-linear univariate and bivariate estimations
 (see [timefrequencyuni.jl](@ref) and [timefrequencybi.jl](@ref)).
 
-`fsmoothing`: a flag of [Smoother](@ref) indicating
+`fsmoothing`: a flag of [Smoother::Enumerated Type](@ref) indicating
 whether the phase has been smoothed across adjacent
 frequency band-pass regions. If no frequency smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
 
-`tsmoothing`: a flag of the [Smoother](@ref) type indicating
+`tsmoothing`: a flag of [Smoother::Enumerated Type](@ref) indicating
 whether the phase has been smoothed across adjacent
 samples (time). If no time smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
@@ -258,14 +258,14 @@ of analytic signal, e.g., using the [`TFphase`](@ref) constructor.
 
 `unwrapped`: a flag indicating if the phase has been unwrapped.
 The unwrapped phase is defined as the cumulative sum of the phase
-along the time dimension once the phase is represented in ``[0, 2π]``.
+along the time dimension once this is represented in ``[0, 2π]``.
 
-`func`: a name of a function that has been applied element-wise to the
+`func`: A name of a function that has been applied element-wise to the
 matrix `.y` holding the phase. All constructors from data by default
-use the `identity` (do nothing) function. Examples of possible functions:
-- `func=x->x+π` return the phase in [0, 2π],
-- `func=x->x/π` return the phase in [-1, 1],
-- `func=sin` return the sine of the phase.
+use the `identity` (do nothing) function.
+- passing `func=x->x+π` will return the phase in [0, 2π],
+- passing `func=x->x/π` will return the phase in [-1, 1],
+- passing `func=sin` will return the sine of the phase.
 
 A vector of *TFPhase* objects is of type [TFPhaseVector](@ref).
 

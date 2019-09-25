@@ -1,7 +1,7 @@
 # goertzel.jl
 
 This unit implements three **Goertzel's algorithms** for estimating DFT complex
-coefficients at a specific frequency.
+coefficients at a specific frequency in the time domain for FFT analysis.
 
 The result of Goertzel's algorithm for a given frequency is practically
 identical to the output of an FFT for that frequency, but requieres only ``t`` operations, where ``t`` is the window length in samples.

@@ -5,7 +5,7 @@ discrete prolate spheroidal sequences, the latters via the
 [DSP](https://github.com/JuliaDSP/DSP.jl) package.
 
 
-## TaperKind
+## TaperKind::Enumerated Type
 ```
 @enum TaperKind begin
     rectangular = 1
@@ -24,9 +24,10 @@ The Hann tapering window is also known as 'squared cosine' window and
 the Riesz window is similar to window known as the 'cosine' window.
 
 The design of tapering windows implies a trade-off between
-the *equivalent noise bandwidth* (enb),
+the *equivalent noise bandwidth* (enb)
 the energy of the *first sidelobe* (fsl) and the rate of
-*sidelobe falloff* (slf). The characteristics of the implemented tapering windows are reported in the following table:
+*sidelobe falloff* (slf). The characteristics of tapering windows
+are reported in the following table:
 
 |    window   | notable points   |enb(bins)|fsl(dB)| slf(dB/octave) |
 |:-----------:|:----------------:|:-------:|:-----:|:--------------:|
@@ -62,12 +63,12 @@ end
 The fields of the structure are:
 
 - `y`, a real vector holding the tapering window, but for Slepian multi-tapers, for which this is a matrix holding in its columns the dpss
-- `kind`, the tapering window(s) as a [TaperKind](@ref)
+- `kind`, the tapering window(s) as a [TaperKind::Enumerated Type](@ref)
 - `α`, a parameter for the tapering window(s). This is needed only for dpss
 - `n`, the number of tapering windows. It is >1 only for dpss.
 
-If you need to construct *Taper* objects for single tapering windows, use the universal [`taper`](@ref) constructor.
-For constructing *dpss* use the specialized constructor [`slepians`](@ref).
+For constructing *Taper* objects for single tapering windows use the universal [`taper`](@ref) constructor.
+For constructing dpss use the specialized constructor [`slepians`](@ref).
 
 ```@docs
 taper

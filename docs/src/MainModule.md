@@ -1,6 +1,8 @@
 # MainModule
 
-This is the main unit containing the **PosDefManifold** *module* (FourierAnalysis.jl).
+(FourierAnalysis.jl)
+
+This is the main unit containing the **PosDefManifold** *module*.
 
 ## dependencies
 
@@ -8,17 +10,16 @@ This is the main unit containing the **PosDefManifold** *module* (FourierAnalysi
 |:-----------------------:|:-----------------------:|
 | [LinearAlgebra](https://bit.ly/2W5Wq8W) | [FFTW](https://github.com/JuliaMath/FFTW.jl) |
 | [Statistics](https://bit.ly/2Oem3li) | [AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl) |
-|  |[Plots](https://github.com/JuliaPlots/Plots.jl) |
-|  | [DSP](https://github.com/JuliaDSP/DSP.jl) |
+| [Plots](https://github.com/JuliaPlots/Plots.jl) | [DSP](https://github.com/JuliaDSP/DSP.jl) |
 
 
-!!! warn "Windows 7 os"
-    The *Plots* package does not build well under Windows 7.
+!!! note "Nota Bene"
+    The *Plots* package does not compile well under Windows 7.
     Contact the author if you need a version of the *FourierAnalysis*
-    package that does not use Plots.jl.
+    package that does not use Plots.
 
 The main module does not contains functions, but it declares all
-**types** and objects holding data (named **data objects**) used in all units.
+**types** and **objects** used in all units.
 
 | Contents  |
 |:----------:|
@@ -41,30 +42,39 @@ This type is used internally and not exported.
 fInterval = Union{IntOrReal,Tuple{IntOrReal, IntOrReal}, Colon}
 ```
 
-In several functions you are allowed to select a **frequency range** (in Hz).
+In several functions you are allowed to select a Frequency range (in Hz).
 This can be
-- a single frequency (in Hz), given as an integer or a real number, e.g., 10,
-- a 2-tuple of integers or reals holding the lower and upper frequency limit (in Hz), e.g. (8, 10.5),
+- a single frequency (in Hz), given as an integer or a real number, e.g., 10
+- a 2-tuple of integers or reals holding the lower and upper frequency limit (in Hz), e.g. (8, 10.5)
 - a colon, to indicate as usual in Julia all available frequencies, e.g., :
 
-!!! note "'frequencies' in different domains"
-    Frequency ranges are used as argument in the functions [`mean`](@ref), [`extract`](@ref), [`meanAmplitude`](@ref), [`concentration`](@ref), [`meanDirection`](@ref), [`comodulation`](@ref) and [`coherence`](@ref). They apply both to frequency domain and to time-frequency domain data. In the frequency domain, the frequencies are the Fourier discrete frequencies with resolution ``sr/wl``, with or without the DC level in the first position, depending on how the object has been constructed. In the time-frequency domain, the frequencies actually are the center frequencies of the [filter bank](https://en.wikipedia.org/wiki/Filter_bank) used for constructing the object. Thus, The actual frequencies actually contained in a given position depends on the `bandwidht` argument used to construct the oject. See [`filterbank`](@ref).
+Frequency ranges are used as argument in the function [`mean`](@ref), [`extract`](@ref), [`meanAmplitude`](@ref), [`concentration`](@ref), [`meanDirection`](@ref), [`comodulation`](@ref) and [`coherence`](@ref).
+
+They apply both to frequency domain and to time-frequency domain data.
+In the frequency domain, the frequencies are the Fourier discrete frequencies
+with resolution ``sr/wl``, with or without the DC level in the first
+position, depending on how the object has been constructed. In the
+time-frequency domain, the frequencies actually are the center frequencies
+of the [filter bank](https://en.wikipedia.org/wiki/Filter_bank) used
+for constructing the object. Thus, The actual frequencies actually contained
+in a given position depends on the `bandwidht` argument used to construct
+the oject. See [`filterbank`](@ref).
 
 ### tInterval
 ```
 tInterval = Union{Int, Tuple{Int, Int}, Colon}
 ```
 
-In several functions you are allowed to select a **time range** (in samples).
+In several functions you are allowed to select a time range (in samples).
 This can be
-- a single sample, given as an integer, e.g., 16,
-- a 2-tuple of integers holding the lower and upper time limit (in sampes), e.g. (1, 120),
+- a single sample, given as an integer, e.g., 16
+- a 2-tuple of integers holding the lower and upper time limit (in sampes), e.g. (1, 120)
 - a colon, to indicate as usual in Julia all available samples, e.g., :
 
 These ranges are used as argument in the same functions where [fInterval](@ref)
 ranges are used, however they apply only to time-frequency domain data.
 
-### Smoother
+### Smoother::Enumerated Type
 ```
 @enum Smoother begin
     noSmoother       = 1
@@ -75,12 +85,13 @@ end
 ```
 
 An instance of this type is requested by the [`smooth`](@ref) function,
-and as an optional keyword argument by several constructors. It apply both to objects created in the frequency domain and in the time-frequency domain.
+which apply to both frequency domain objects and time-frequency
+domain objects.
 
-- `noSmoother` corresponds to no *smoothing*.
-- `hannSmoother` is the *Hann* smoothing window (3-points)
-- `hammingSmoother` is the *Hamming* smoothing window (3-points)
-- `blackmanSmoother` is the *Blackman* smoothing window (5-points)
+- `noSmoother` corresponds to no smoothing.
+- `hannSmoother` is the Hann smoothing window (3-points)
+- `hammingSmoother` is the Hamming smoothing window (3-points)
+- `blackmanSmoother` is the Blackman smoothing window (5-points)
 
 See [`smooth`](@ref) for details on these windows.
 
@@ -132,7 +143,7 @@ A vector of objects in the time-frequency (TF) domain, that is, the union of [TF
 
 ## data objects
 
-*FourierAnalysis* creates an *operator object*, the [`Planner`](@ref), which is used to create FFTW plans for FFT computations, and several *data objects*. All of them are Julia [structures](https://docs.julialang.org/en/v1/base/base/#struct)). Data objects all have a corresponding vector type:
+*FourierAnalysis* creates an *operator object* (a Julia [struct](https://docs.julialang.org/en/v1/base/base/#struct)), the [`Planner`](@ref), which is used to create FFTW plans for FFT computations, and the following *data objects*:
 
 |      data objects        |     domain     |         vector type        |
 |:------------------------:|:--------------:|:--------------------------:|
@@ -148,13 +159,13 @@ For all data objects, *FourierAnalysis* overwrites the Julia [Base.show](https:/
 function to display in the REPL relevant information about the
 name and value of the struct's fields in an easily-readable tabular form.
 
-The field holding the data of all data objects is consistently named `.y`. As a summary, this is what `.y` holds in all data objects:
+The field holding the data of all data objects is consistently named `y`. As a summary, this is what `y` holds in all data objects:
 
 - [Taper](@ref): for all simple tapers, a real ``t``-vector holding the tapering window. For Slepians tapers (multi-tapering), a real ``t``x``h`` matrix where each column holds the tapering window for one of the ``h`` Slepian tapering windows.
 
-- [Spectra](@ref): a real ``f``x``n`` matrix, where ``f`` is the number of Fourier discrete frequencies and ``n`` the number of time-series. Each column of `y` holds the spectrum for the corresponding time-series. In the case of one time-series only, `y` is a vector.
+- [Spectra](@ref): a real ``f``x``n`` matrix, where ``f`` is the number of Fourier discrete frequencies and ``n`` the number of series. Each column of `y` holds the spectrum for the corresponding series. In the case of one series only, `y` is a vector.
 
-- [CrossSpectra](@ref): a ``f``-vector of complex ``n``x``n`` matrices  where ``f`` is the number of Fourier discrete frequencies and ``n>1`` the number of time-series that have generated the cross-spectra. Each matrix is the cross-spectral matrix for the corresponding frequency.
+- [CrossSpectra](@ref): a ``f``-vector of complex ``n``x``n`` matrices  where ``f`` is the number of Fourier discrete frequencies and ``n>1`` the number of series that have generated the cross-spectra. Each matrix is the cross-spectral matrix for the corresponding frequency.
 
 - [Coherence](@ref): a ``f``-vector of real ``n``x``n`` matrices  where ``f`` is the number of Fourier discrete frequencies and ``n>1`` the number of series that have generated the coherence. Each matrix is the coherence matrix for the corresponding frequency.
 
