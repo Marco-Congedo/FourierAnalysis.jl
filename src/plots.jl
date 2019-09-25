@@ -179,7 +179,7 @@ function heatmap(Y    :: TFAnalyticSignal,
             args...)
 ```
 
-Generate heatmaps from a [`TFAnalyticSignal`](@ref) object.
+Generate heatmaps from a [TFAnalyticSignal](@ref) object.
 Since the analytic signal (AS) is complex, a function `func`
 must be specified and must transform the AS data
 matrix into a real matrix. Typical functions are:
