@@ -1,5 +1,6 @@
+#   You won't need this script if you have installed FourierAnalysis.jl.
 #   This script allows to precompile the FourierAnalysis package
-#   and `using` it locally without installin the package.
+#   and `using` it locally, without installin the package.
 #   v 0.O.1 - last update 10th of July  2019
 #
 #   MIT License
@@ -14,7 +15,7 @@
 #   3) Under Linux, replace all '\\' with `/`
 #   4) Put the cursor in this unit and hit SHIFT+CTRL+ENTER
 #
-#   Nota Bene: all you need is actually the 'push' lines and
+#   Nota Bene: all you need is actually the 'push' line and
 #   the 'using' line. You can safely delete the rest once
 #   you have identified the 'srcDir' to be used in the push command.
 

@@ -6,8 +6,8 @@
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
-#   This unit implementsHilbert transform and
-#   analytic signal estimations using FFTW
+#   This unit implements the Hilbert transform and analytic signal
+#   estimations for signals of arbitrary length, using FFTW.
 
 """
 ```
