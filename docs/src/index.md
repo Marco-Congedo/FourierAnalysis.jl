@@ -45,7 +45,7 @@ Time-frequency (TF) representations are obtained applying a
 
 Such a large panel of measures is provided in a simple and unified fashion,
 following the approach illustrated in
-[Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
+[Congedo(2018)](https://hal.archives-ouvertes.fr/hal-01868538v2/document)
 in the context of electroencephalography (EEG), for which all default settings have been tailored. The package has been written with the *do-it-with-one-line*
 spirit and with the aim of allowing full control over relevant options for the Fourier analysis of multivariate time-series.
 

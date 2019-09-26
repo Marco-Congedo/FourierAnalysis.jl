@@ -4,7 +4,7 @@ This unit implements average time-frequency *univariate measures* based
 on unit [timefrequency.jl](@ref) and [tools.jl](@ref).
 
 These measures here implemented are weighted version of the measures
-described in [Congedo (2018)](https://hal.archives-ouvertes.fr/hal-01868538/document).
+described in [Congedo (2018)](https://hal.archives-ouvertes.fr/hal-01868538v2/document).
 
 They can be obtained from [TFAnalyticSignalVector](@ref) objects
 or from raw data. Some of them can be obtained also from
@@ -36,7 +36,7 @@ It is adopted throughout the convention of prepending 'phase'
 to the name of a measure to signal it is non-linear.
 The reason is that non-linear measures are not sensitive to amplitude,
 but only to phase.
-See [Congedo (2018)](https://hal.archives-ouvertes.fr/hal-01868538/document)
+See [Congedo (2018)](https://hal.archives-ouvertes.fr/hal-01868538v2/document)
 for a throughout discussion.
 
 The implemented measures are:

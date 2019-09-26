@@ -7,7 +7,7 @@ These measures are bivariate extension of the
 *mean amplitude*, *concentration* and *phase concentration*
 univariate measures implemented in [timefrequencyuni.jl](@ref),
 as explained in details in
-[Congedo (2018)](https://hal.archives-ouvertes.fr/hal-01868538/document).
+[Congedo (2018)](https://hal.archives-ouvertes.fr/hal-01868538v2/document).
 Please read the documentation of that unit first, as it contains
 useful information on how time-frequency measures are estimated
 and explain the notation used here below.

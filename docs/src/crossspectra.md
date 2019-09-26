@@ -124,7 +124,7 @@ crossSpectra
 **References**:
 
 M. Congedo (2018),
-[Non-Parametric Synchronization Measures used in EEG and MEG](https://hal.archives-ouvertes.fr/hal-01868538),
+[Non-Parametric Synchronization Measures used in EEG and MEG](https://hal.archives-ouvertes.fr/hal-01868538v2/document),
 Technical Report. GIPSA-lab, CNRS, University Grenoble Alpes, Grenoble INP.
 
 R. Pascual-Marqui (2007),
