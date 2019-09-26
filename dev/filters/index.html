@@ -18,7 +18,7 @@ flabels, Y=filterbank(x, 128, 4;
                       fmax=16)
 # trick for plotting the signal filtered in the band-pass regions
 for i=1:size(Y, 2) Y[:, i].+=convert(eltype(Y), i)*1.5 end
-plot(Y; c=:grey, labels=[string(f)*&quot; Hz&quot; for f ∈ flabels])</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/cd385b2fdd858e7e9bbc5eacc274ccc5b4eb7c34/src/filters.jl#L15-L98">source</a></section><h3><a class="nav-anchor" id="notes-on-DSP-package-useful-functions-1" href="#notes-on-DSP-package-useful-functions-1">notes on DSP package useful functions</a></h3><pre><code class="language-none">using DSP, Plots
+plot(Y; c=:grey, labels=[string(f)*&quot; Hz&quot; for f ∈ flabels])</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/9c5f94a69cc669bebec175e82b6ea0326ca7c4f2/src/filters.jl#L15-L98">source</a></section><h3><a class="nav-anchor" id="notes-on-DSP-package-useful-functions-1" href="#notes-on-DSP-package-useful-functions-1">notes on DSP package useful functions</a></h3><pre><code class="language-none">using DSP, Plots
 
 ### create a time-series with dominant frequency at 10Hz
 f, sr, t = 10, 128, 512
