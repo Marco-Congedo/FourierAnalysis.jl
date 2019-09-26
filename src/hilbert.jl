@@ -6,7 +6,7 @@
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
-#   This unit implements Welch high-resolution Hilbert transform and
+#   This unit implementsHilbert transform and
 #   analytic signal estimations using FFTW
 
 """

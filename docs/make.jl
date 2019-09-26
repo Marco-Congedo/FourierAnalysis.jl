@@ -8,7 +8,7 @@ makedocs(
    pages =  [
       "index.md",
       "Main Module" => "MainModule.md",
-      "Tapering Window" => "tapers.md",
+      "Tapering Windows" => "tapers.md",
       "frequency domain" => Any[
                            "Spectral Estimations" => "spectra.md",
                            "Cross-Spectral Matrices" => "crossspectra.md",
