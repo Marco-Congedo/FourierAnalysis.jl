@@ -1,7 +1,7 @@
-# FourierAnalysis
-
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/latest)
 [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev)
+
+![](/docs/src/assets/Fig1.jpg)
 
 **FourierAnalysis** is a signal-processing [**Julia**](https://julialang.org/) package for
 performing the analysis of *real multivariate data* (e.g., multivariate time series)
@@ -20,8 +20,6 @@ This way *FourierAnalysis* computes the **analytic signal**, from which the **in
 - **phase concentration** (the non-linear version of which is the directional statistic *circular mean resultant length*)
 - **comodulation**
 - **coherence** (the non-linear version of which is known as *phase-locking values* or *phase coherence*).
-
-![](/docs/src/assets/Fig1.jpg)
 
 All these measures are provided in a simple and unified fashion, following the conceptual approach previously illustrated in
 in the context of electroencephalography ([Congedo, 2018](https://hal.archives-ouvertes.fr/hal-01868538v2/document)), for which all default settings have been tailored. The package has been written with the *do-it-with-one-line* spirit, but without sacrificing full control over relevant options.
