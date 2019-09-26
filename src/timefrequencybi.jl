@@ -11,7 +11,7 @@
 
 
 ################### BIVARIATE MEASURE ##########################
-# see Congedo, 2018: https://hal.archives-ouvertes.fr/hal-01868538/document
+# see Congedo, 2018: https://hal.archives-ouvertes.fr/hal-01868538v2/document
 
 """
 ```

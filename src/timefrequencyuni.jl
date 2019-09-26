@@ -12,7 +12,7 @@
 
 ################### UNIVARIATE MEASURE ##########################
 # All measures are weighted versions of measures described in:
-# Congedo(2018): https://hal.archives-ouvertes.fr/hal-01868538/document
+# Congedo(2018): https://hal.archives-ouvertes.fr/hal-01868538v2/document
 
 # Mean Amplitude (MAmp), Eq. 0.1 therein: <|z|> = <|re^i𝜑|> = <r> if w=[].
 # If w is a positive weight vector a weighted version <wr>/<w> is computed.
