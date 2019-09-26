@@ -1,5 +1,5 @@
-#   This unit allows to precompile the FourierAnalysis package
-#   and its dependency to the PosDefManifold package locally.
+#   This script allows to precompile the FourierAnalysis package
+#   and `using` it locally without installin the package.
 #   v 0.O.1 - last update 10th of July  2019
 #
 #   MIT License
@@ -10,8 +10,7 @@
 #   1) If you have installed the FourierAnalysis from github or Julia registry,
 #      uninstall it.
 #   2) Change the `juliaCodeDir` path here below to the path
-#           where the top FourierAnalysis and PosDefMaifold folders
-#           are located on your computer.
+#           where the FourierAnalysis folder is located on your computer.
 #   3) Under Linux, replace all '\\' with `/`
 #   4) Put the cursor in this unit and hit SHIFT+CTRL+ENTER
 #
@@ -24,10 +23,11 @@ begin
     juliaCodeDir= homedir()*"\\Documents\\Code\\julia\\"
 
     # push!(LOAD_PATH, juliaCodeDir*"PosDefManifold"*"\\src\\")
-    using Documenter, DocumenterTools, BenchmarkTools, Revise # PosDefManifold,
+    using Documenter, DocumenterTools, BenchmarkTools, Revise
+
     # add simple modules to be used
-    push!(LOAD_PATH, juliaCodeDir*"Modules")
-    using IOtxt
+    # push!(LOAD_PATH, juliaCodeDir*"Modules")
+    # using IOtxt
 
     projectName = "FourierAnalysis"
     srcDir      = juliaCodeDir*projectName*"\\src\\"
