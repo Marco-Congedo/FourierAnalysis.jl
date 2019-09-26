@@ -6,7 +6,7 @@
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
-#   This example show how to compute coherence
+#   This example shows how to compute coherence
 #   and how to extract inforation from them.
 
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #

@@ -6,7 +6,7 @@
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
-#   This example show how to use Goertzel's algorithms.
+#   This example shows how to use Goertzel's algorithms.
 
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 #                                                                             #

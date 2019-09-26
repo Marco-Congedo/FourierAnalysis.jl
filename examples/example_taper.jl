@@ -6,7 +6,7 @@
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
-#   This example show hot to create and plot tapering window for FFT.
+#   This example shows hot to create and plot tapering window for FFT.
 
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 #                                                                             #

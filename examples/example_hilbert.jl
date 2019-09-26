@@ -6,7 +6,7 @@
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
-#   This example show how to compute the analytic signal via
+#   This example shows how to compute the analytic signal via
 #   Hilbert transform and how to extract inforation from them.
 
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
