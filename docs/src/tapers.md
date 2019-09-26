@@ -1,7 +1,7 @@
 # tapers.jl
 
 This unit implements eight tapering windows and the
-discrete prolate spheroidal sequences, the latters via the
+discrete prolate spheroidal sequences, the latter via the
 [DSP](https://github.com/JuliaDSP/DSP.jl) package.
 
 
@@ -20,8 +20,7 @@ discrete prolate spheroidal sequences, the latters via the
 end
 ```
 
-The Hann tapering window is also known as 'squared cosine' window and
-the Riesz window is similar to window known as the 'cosine' window.
+Note that the Hann tapering window is also known as 'squared cosine' window and a the Riesz window is similar to window known as the 'cosine' window.
 
 The design of tapering windows implies a trade-off between
 the *equivalent noise bandwidth* (enb),
