@@ -56,10 +56,15 @@ sr, wl = 128, 128
 v=sinusoidal(0.5, 10, sr, wl*16)+randn(wl*16)
 
 # Get the power spectrum with a rectangular tapering window:
-Σ=spectra(v, sr, wl; tapering=rectangular)
+S=spectra(v, sr, wl; tapering=rectangular)
 
 # Plot the power spectrum:
 plot(S; maxf=24)
+
+# The same syntax applies in the case of multivariate data (e.g., 4 time-series):
+V = randn(t*16, 4)
+S=spectra(V, sr, wl; tapering=hamming)
+plot(S)
 
 # Get the analytic amplitude in the time-Frequency domain:
 A=TFamplitude(v, sr, wl; max=24)
