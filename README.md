@@ -45,4 +45,6 @@ a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Rec
 ## Contact 
 first name *dot* last name *at* gmail *dot* com
 
-[![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev)
+| **Documentation**  | 
+|:---------------------------------------:|
+| [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev) |
