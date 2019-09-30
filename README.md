@@ -45,6 +45,31 @@ a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Rec
 ## Contact 
 first name *dot* last name *at* gmail *dot* com
 
+## Examples
+```
+using FourierAnalysis, Plots
+
+# Set sampling rate (sr) and FFT window length (wl)
+sr, wl = 128, 128
+
+# Generate a sinusoidal wave at 10Hz with peak amplitude 0.5 and add some white noise.
+v=sinusoidal(0.5, 10, sr, wl*16)+randn(wl*16)
+
+# Get the power spectrum with a rectangular tapering window
+Σ=spectra(v, sr, wl; tapering=rectangular)
+
+# Plot the power spectrum
+plot(S; maxf=24)
+
+# Get the analytic amplitude in the time-Frequency domain
+A=TFamplitude(v, sr, wl; max=24)
+
+# plot the analytic amplitude
+heatmap(A)
+
+```
+
+
 | **Documentation**  | 
 |:---------------------------------------:|
 | [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev) |
