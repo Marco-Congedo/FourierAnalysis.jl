@@ -67,7 +67,7 @@ S=spectra(V, sr, wl; tapering=hamming)
 plot(S)
 
 # Get the analytic amplitude in the time-Frequency domain:
-A=TFamplitude(v, sr, wl; max=24)
+A=TFamplitude(v, sr, wl; fmax=24)
 
 # plot the analytic amplitude:
 heatmap(A)
