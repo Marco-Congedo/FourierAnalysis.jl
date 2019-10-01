@@ -34,7 +34,7 @@ Execute the following command in Julia's REPL:
 
 ## Disclaimer
 
-This package is still in a pre-release stage. It needs throughout testing.
+Although fully functional, this package is still in a pre-release stage. It needs throughout testing.
 Independent reviewers are more then welcome.
 
 ## About the Author
