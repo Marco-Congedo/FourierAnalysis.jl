@@ -1,5 +1,5 @@
 #   Unit "hilbert" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 5th of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:

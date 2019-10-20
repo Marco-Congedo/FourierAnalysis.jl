@@ -21,7 +21,7 @@ makedocs(
                            "TF Bivariate Measures " => "timefrequencybi.md",
       ],
       "utilities" => Any[
-                        "Plots" => "plots.md",
+                        "Plots" => "recipes.md",
                         "Tools" => "tools.md",
                         "FFTW planners"  => "fftw.md",
                         "Filter Banks" => "filters.md",

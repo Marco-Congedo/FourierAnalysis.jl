@@ -1,5 +1,5 @@
 #   Unit "crossspectra" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 5th of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -137,7 +137,7 @@ which is the `ℍVector₂` type used in
 If `tril` is true, the output is of type `Array{Array{LowerTriangular,1},1}`,
 which is the `𝕃Vector₂` type used in PosDefManifold.
 
-**See**: [CrossSpectra](@ref), [`plot`](@ref).
+**See**: [CrossSpectra](@ref).
 
 **See also**: [`spectra`](@ref), [`coherence`](@ref).
 
@@ -209,8 +209,8 @@ AmpSpectra=Spectra(S, func=√)
 # Get the log10-spectra from a CrossSpectra object
 log10Spectra=Spectra(S, func=log10)
 
-# plot the spectra (see plot.jl)
-plot(AmpSpectra; maxf=32, space=4, ylabel="Amplitude")
+# plot the spectra (see recipes.jl)
+plot(AmpSpectra; maxf=32, xspace=4, ytitle="Amplitude")
 
 # (2)
 # generate 3 multivariate data matrices 8192x4
@@ -266,7 +266,7 @@ meanE=mean(extract(S, (8, 12)))
 B=bands(S, 2)
 
 # Get and plot the spectra from a CrossSpectra object
-plot(Spectra(S[1]); maxf=32, space=4)
+plot(Spectra(S[1]); maxf=32, xspace=4)
 
 # Pre-compute a FFT planner and pass it as argument
 # (this interesting if the function is to be called repeatedly).

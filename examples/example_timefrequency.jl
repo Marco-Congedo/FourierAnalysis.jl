@@ -14,7 +14,7 @@
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 
 
-using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots
+using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots, Plots.Measures
 
 # add module for reading the two EEG text files to be used ater
 push!(LOAD_PATH, @__DIR__)
@@ -64,89 +64,132 @@ E=extract(𝒀, (8, 12), (8, 12); check=false)
 # compute time-frequency object for vector x
 Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32)
 
+# gather useful attributes to obtain nice heatmpap plots
+tfArgs=(right_margin = 2mm,
+        top_margin = 2mm,
+        xtickfont = font(10, "Times"),
+        ytickfont = font(10, "Times"))
+
 # plot the real part of the AS
-heatmap(Y, real)
+heatmap(tfAxes(Y)..., real(Y.y); c=:pu_or, tfArgs...)
 
 # ...the imaginary part of the AS
-heatmap(Y, imag)
+heatmap(tfAxes(Y)..., imag(Y.y); c=:bluesreds, tfArgs...)
 
 # ...the amplitude of the AS
-heatmap(Y, amplitude)
+heatmap(tfAxes(Y)..., amplitude(Y.y); c=:amp, tfArgs...)
 
 # or generate a TFAmplitude object
 A=TFamplitude(Y)
 # and plot it (with different colors)
-heatmap(A; c=:fire)
+heatmap(tfAxes(A)..., A.y; c=:fire, tfArgs...)
 
 # ...the amplitude of the AS smoothed in the freq. dim.
-heatmap(smooth(hannSmoother, noSmoother, Y), amplitude)
+heatmap(tfAxes(Y)...,
+        amplitude(smooth(hannSmoother, noSmoother, Y).y);
+        c=:amp, tfArgs...)
 
 # ...the amplitude of the AS smoothed in freq. and time
-heatmap(smooth(hannSmoother, hannSmoother, Y), amplitude)
+heatmap(tfAxes(Y)...,
+        amplitude(smooth(blackmanSmoother, blackmanSmoother, Y).y);
+        c=:amp, tfArgs...)
 
-# ...the phase of the AS and use custom colors
-heatmap(Y, phase)
+# ...the phase of the AS
+heatmap(tfAxes(Y)..., phase(Y.y);
+        c=:bluesreds, tfArgs...)
 
 #or, generate a TFPhase object
 ϴ=TFphase(Y)
-# and plot it (with custom colors)
-heatmap(ϴ; c=:pu_or)
+# and plot it
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:pu_or, tfArgs...)
 
 # compute and plot phase in [0, 2π]
-heatmap(TFphase(Y; func=x->x+π); c=:amp)
+heatmap(tfAxes(Y)..., TFphase(Y; func=x->x+π).y;
+        c=:amp, tfArgs...)
 
 # compute and plot unwrapped phase
-heatmap(TFphase(Y; unwrapped=true); c=:amp)
+heatmap(tfAxes(Y)..., TFphase(Y; unwrapped=true).y;
+        c=:amp, tfArgs...)
 
 # smooth time-frequency analytic signal: smooth frequency
 Z=smooth(blackmanSmoother, noSmoother, Y)
 # plot amplitude of smoothed analytic signal
-heatmap(Z, amplitude)
+heatmap(tfAxes(Z)..., amplitude(Z.y); c=:amp, tfArgs...)
+
 # not equivalently (!), you can create an amplitude object and smooth them:
-# in this case the amplitude is smoothed, not the analutic signal
+# in this case the amplitude is smoothed, not the analytic signal
 A=smooth(blackmanSmoother, noSmoother, TFamplitude(Y))
-heatmap(A) # bluesreds
+heatmap(tfAxes(A)..., A.y; c=:amp, tfArgs...)
 
 # Smoothing raw phase estimates is unappropriate
 # since the phase is a discontinous function, however it makes sense to smooth
 # phase if the phase is unwrapped.
-heatmap(smooth(blackmanSmoother, noSmoother, TFphase(Y; unwrapped=true)); c=:amp)
+heatmap(tfAxes(Y)...,
+        smooth(blackmanSmoother, noSmoother, TFphase(Y; unwrapped=true)).y;
+        c=:amp, tfArgs...)
 
-# smooth analytic signal:smooth frequency and time
+# smooth AS: smooth both frequency and time
 E=smooth(blackmanSmoother, blackmanSmoother, Y)
+
 # plot amplitude of smoothed analytic signal
-heatmap(E, amplitude)
+heatmap(tfAxes(E)..., amplitude(E.y);
+        c=:fire, tfArgs...)
+
 # plot phase of smoothed analytic signal
-heatmap(E, phase) # bluesreds
-# not equivalently (!), you can create amplitude and phase object and smooth them
+heatmap(tfAxes(E)..., phase(E.y);
+        c=:bluesreds, tfArgs...)
+
+# not equivalently (!), create amplitude and phase objects and smooth them
 A=smooth(blackmanSmoother, blackmanSmoother, TFamplitude(Y))
-heatmap(A)
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
+
 ϴ=smooth(blackmanSmoother, blackmanSmoother, TFphase(Y, unwrapped=true))
-heatmap(ϴ; c=:amp) # bluesreds
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:pu_or, tfArgs...)
+
 # smooth again
 ϴ=smooth(blackmanSmoother, blackmanSmoother, ϴ)
-heatmap(ϴ; c=:amp)
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:pu_or, tfArgs...)
 # and again ...
-ϴ=smooth(blackmanSmoother, blackmanSmoother, ϴ)
-heatmap(ϴ; c=:amp)
 
 # you may also create all these objects already smoothed, for example
-Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32, fsmoothing=hannSmoother, tsmoothing=hannSmoother)
+# create directly smoothed AS
+Y=TFanalyticsignal(x, sr, t, bandwidht;
+                   fmax=32,
+                   fsmoothing=hannSmoother,
+                   tsmoothing=hannSmoother)
+
 # plot amplitude of smoothed analytic signal
-heatmap(Y, amplitude)
+heatmap(tfAxes(Y)..., amplitude(Y.y);
+   c=:amp, tfArgs...)
 
-A=TFamplitude(x, sr, t, bandwidht; fmax=32, fsmoothing=hannSmoother, tsmoothing=hannSmoother)
+# create directly smoothed Amplitude
+A=TFamplitude(x, sr, t, bandwidht;
+         fmax=32,
+         fsmoothing=hannSmoother,
+         tsmoothing=hannSmoother)
+
 # plot smoothed amplitude
-heatmap(A)
+heatmap(tfAxes(A)..., A.y;
+   c=:amp, tfArgs...)
 
-# compute time-frequency object with non-linear analytic signal
+# compute a TFAnalyticSignal object with non-linear AS
 Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32, nonlinear=true)
-# check that the amplitude is now 1.0 everywhere
-amplitude(Y.y)
-# plot phase
-heatmap(Y, phase; c=:bkr)
 
-# get the center frequencies of TF Amplitude A
+# check that it is non-linear
+Y.nonlinear
+
+# check that the amplitude is now 1.0 everywhere
+norm(amplitude(Y.y)-ones(eltype(Y.y), size(Y.y))) # must be zero
+
+# plot non-linear phase
+heatmap(tfAxes(Y)..., phase(Y.y);
+   c=:bkr, tfArgs...)
+
+# get the center frequencies of TFAmplitude object A
 A.flabels
 
 # extract the amplitude in a time-frequency region
@@ -225,8 +268,8 @@ Pz=15
 𝐱=[X1[:, Pz], X2[:, Pz]] # get the two times-series at electrode Pz
 𝐘=TFanalyticsignal(𝐱, sr, t, bandwidht; fmax=32, nonlinear=false)
 𝐀=TFamplitude(𝐘)
-heatmap(𝐀[1])
-heatmap(𝐀[2]; c=:pu_or)
+heatmap(tfAxes(𝐀[1])..., 𝐀[1].y; c=:amp, tfArgs...)
+heatmap(tfAxes(𝐀[2])..., 𝐀[2].y; c=:pu_or, tfArgs...)
 
 # plot the power over time from instantaneous amplitude
 plot([sum(𝐀[2].y[:, t]) for t=1:size(𝐀[2].y, 2)])

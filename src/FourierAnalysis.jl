@@ -1,5 +1,5 @@
 #    Main Module of the FourierAnalysis Package for julia language
-#    v 0.0.1 - last update 21th of September 2019
+#    v 0.2.0 - last update 20th of October 2019
 #
 #    MIT License
 #    Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -15,9 +15,7 @@ using   Base.Threads,
         FFTW,
         AbstractFFTs,
         DSP,
-        Plots,
-        Plots.PlotMeasures
-        # ProgressMeter
+        RecipesBase
 
 
 # # # # # Special instructions and variables # # # # #
@@ -150,9 +148,9 @@ TFobjects=Union{TFAnalyticSignal, TFAmplitude, TFPhase}
 TFobjectsVector=Union{TFAnalyticSignalVector, TFAmplitudeVector, TFPhaseVector}
 
 #import DSP: dpss
-import Plots: plot, bar, heatmap
 import Statistics.mean
 import Base: show, *, conj, real, imag #,
+import DSP: dB
 
 export
 
@@ -259,10 +257,8 @@ meanDirection, mdir,
 comodulation, com,
 coherence, coh,
 
-# from plots.jl
-plot,
-bar,
-heatmap
+# from recipes.jl
+tfAxes
 
 include("fftw.jl")
 include("tapers.jl")
@@ -276,7 +272,7 @@ include("filters.jl")
 include("timefrequency.jl")
 include("timefrequencyuni.jl")
 include("timefrequencybi.jl")
-include("plots.jl")
+include("recipes.jl")
 
 # welcome message
 println("\n⭐ "," Welcome to the","\x1b[36m"," FourierAnalysis ","\x1b[0m","package", " ⭐\n")

@@ -8,14 +8,9 @@ This is the main unit containing the **PosDefManifold** *module* (FourierAnalysi
 |:-----------------------:|:-----------------------:|
 | [LinearAlgebra](https://bit.ly/2W5Wq8W) | [FFTW](https://github.com/JuliaMath/FFTW.jl) |
 | [Statistics](https://bit.ly/2Oem3li) | [AbstractFFTs](https://github.com/JuliaMath/AbstractFFTs.jl) |
-|  |[Plots](https://github.com/JuliaPlots/Plots.jl) |
+|  |[RecipesBase](https://github.com/JuliaPlots/RecipesBase.jl) |
 |  | [DSP](https://github.com/JuliaDSP/DSP.jl) |
 
-
-!!! warn "Windows 7 os"
-    The *Plots* package does not build well under Windows 7.
-    Contact the author if you need a version of the *FourierAnalysis*
-    package that does not use Plots.jl.
 
 The main module does not contains functions, but it declares all
 **types** and objects holding data (named **data objects**) used in all units.
@@ -165,6 +160,9 @@ The field holding the data of all data objects is consistently named `.y`. As a 
 - [TFPhase](@ref): a real ``f``x``t`` matrix, where ``f`` is the number of band-pass regins  of the filter bank used to generate the phase and ``t`` is the number of time samples (time-frequency representation).
 
 ## tips & tricks
+
+See the [recipes.jl](@ref) for tips on how to plot tapering windows,
+spectra and time-frequency data.
 
 By convention, the *frequency* dimension of data arrays in
 [data objects](@ref)

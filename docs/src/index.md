@@ -69,7 +69,7 @@ in the github repository.
 | [timefrequency.jl](@ref) | analytic signal, instantaneous amplitude and phase of a time-series set |
 | [timefrequencyuni.jl](@ref) | univariate measures of a time-series set |
 | [timefrequencybi.jl](@ref) | bivariate measures of a time-series set |
-| [plots.jl](@ref) | interface to package Plots.jl for plotting spectra and time-frequency representations |
+| [recipes.jl](@ref) | plot recipes and tips to plot data created by *Fourier Analysis* |
 | [tools.jl](@ref) | collection of useful functions |
 
 | Other API Units  | Description |
@@ -91,7 +91,7 @@ Pages = [       "index.md",
                 "timefrequency.md",
                 "timefrequencyuni.md",
                 "timefrequencybi.md",
-                "plots.md",
+                "recipes.md",
                 "tools.md",
                 "fftw.md",
                 "goertzel.md",

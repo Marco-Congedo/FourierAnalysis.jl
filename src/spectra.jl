@@ -1,5 +1,5 @@
 #   Unit "spectra" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 5th of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -132,13 +132,13 @@ See [Threads](@ref).
 If a `planner` is not explicitly passed as an argument,
 the FFTW plan is computed once and applied for all spectral estimations.
 
-**See**: [Spectra](@ref), [`plot`](@ref)
+**See**: [Spectra](@ref), [plot spectra](@ref).
 
 **See also**: [`crossSpectra`](@ref), [`coherence`](@ref), [goertzel.jl](@ref).
 
 **Examples**:
 ```
-using FourierAnalysis, Plots
+using FourierAnalysis
 
 ###################################################################
 
@@ -158,10 +158,12 @@ for i=1:wl V[:, i]=sinusoidal(10*i, b2f(i, sr, t), sr, t, π/6) end
 # using FFTW.jl only
 P=plan_rfft(V, 1)*(2/t)
 Σ=abs.(P*V)
+using Plots
 bar(Σ[brange(t, DC=true), :], labels="")
 
 # using FourierAnalysis.jl
 Σ2=spectra(V, sr, t; tapering=rectangular, func=√, DC=true)
+using Plots
 bar(Σ2.y[brange(t, DC=true), :], labels="")
 
 #############################################################################
@@ -172,17 +174,15 @@ bar(Σ2.y[brange(t, DC=true), :], labels="")
 sr, t, f, a = 128, 128, 10, 0.5
 v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16)
 Σ=spectra(v, sr, t; tapering=rectangular, func=√)
-bar(Σ.y, labels="raw")
+bar(Σ.y, labels="rectangular")
 
 # harris4 window (default)
-sr, t, f, a = 128, 128, 10, 0.5
-v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16)
-Σ=spectra(v, sr, t; func=√)
-bar(Σ.y, labels="raw")
+Σ2=spectra(v, sr, t; func=√)
+bar!(Σ2.y, labels="harris4")
 
 #smooth spectra
-Σ2=smooth(blackmanSmoother, Σ)
-bar!(Σ2.y, labels="smoothed")
+Σ3=smooth(blackmanSmoother, Σ2)
+bar!(Σ3.y, labels="smoothed")
 
 #############################################################################
 
@@ -199,17 +199,23 @@ function generateSomeData(sr::Int, t::Int; noise::Real=1.)
 end
 
 sr, wl, t = 128, 512, 8192
-X=generateSomeData(sr, t) # multivariate data matrix 8192x4
+X=generateSomeData(sr, t)
+# multivariate data matrix 8192x4
 
 # compute spectra
 S=spectra(X, sr, wl)
 
 # check the spectrum of first series
-S.y[1, :]
+S.y[:, 1]
 
-# plot spectra using FourierAnalysis
-plot(S; maxf=32)
-plot(S; maxf=32, space=2)
+# gather some plot attributes to get nice plots
+spectraArgs=(fmax = 32,
+             left_margin = 2mm,
+             bottom_margin = 2mm,
+             xtickfont = font(11, "Times"),
+             ytickfont = font(11, "Times"))
+plot(S; spectraArgs...)
+plot(S; xspace=2, spectraArgs...)
 
 # use a custom simple taperig window
 S=spectra(X, sr, wl; tapering=riesz)
@@ -224,7 +230,7 @@ S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.5), smoothing=hannSmoother)
 S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.5), func=√)
 
 # plot Aplitude spectra
-plot(S; maxf=32, space=2, ylabel="Amplitude")
+plot(S; ytitle="Amplitude", spectraArgs...)
 
 # smooth the spectra a-posteriori
 S=smooth(blackmanSmoother, S)
@@ -260,9 +266,9 @@ X=[generateSomeData(sr, t) for i=1:3]
 
 # Now the call to the spectra function will generate 3 Spectra objects
 S=spectra(X, sr, wl)
-plot(S[1])
-plot(S[2])
-plot(S[3])
+plot(S[1]; spectraArgs...)
+plot(S[2]; spectraArgs...)
+plot(S[3]; spectraArgs...)
 
 # when you want to compute the spectra of many data matrices you may want
 # to do it using a fast FFTW plan (wait up to 10s for computing the plan)
@@ -294,16 +300,16 @@ bands(S, 4)
 
 # Apply smoothing in the spectra computations
 S=spectra(X, sr, t; smoothing=blackmanSmoother)
-plot(S[1])
-plot(S[2])
-plot(S[3])
+plot(S[1]; spectraArgs...)
+plot(S[2]; spectraArgs...)
+plot(S[3]; spectraArgs...)
 
 # plot spectra in in 1Hz band-pass regions for all series in S[1]
 plot(bands(S[1], 1))
 
 # use slepian multi-tapering
 S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.))
-plot(S[1])
+plot(S[1]; spectraArgs...)
 
 # average spectra across objects
 plot(mean(s.y for s ∈ S))
