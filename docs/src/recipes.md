@@ -3,8 +3,8 @@
 This unit implements plot recipes for plotting data produced by
 **Fourier Analysis**.
 
-In the following recipes, `-->` sets the default plot attribute,
-while `:=` forces the plot attribute to a specific value.
+In the following recipes, operator `-->` sets the default plot attribute,
+while operator `:=` forces the plot attribute to a specific value.
 
 !!! note "Nota Bene"
     Working with plot recipes *you must* put the `;` symbol in your
@@ -83,13 +83,14 @@ Optional keyword argument `ytitle` specifies a title for the y axis. The default
 The function allows to pass any other optional keyword argument of the standard Julia plot function.
 
 Useful attributes for plotting spectra are:
-- xtickfont      = font(11, "Times"))
-- ytickfont      = font(11, "Times"))
-- left_margin    = 2mm
-- bottom_margin  = 2mm
-- xaxis          = ("My x axis title", font(11, "Courier New"))
-- yaxis          = ("My y axis title", font(11, "Courier New")),
-- linecolor      = :grey
+
+- ```xtickfont      = font(11, "Times"))```
+- ```ytickfont      = font(11, "Times"))```
+- ```left_margin    = 2mm```
+- ```bottom_margin  = 2mm```
+- ```xaxis          = ("My x axis title", font(11, "Courier New"))```
+- ```yaxis          = ("My y axis title", font(11, "Courier New"))```
+- ```linecolor      = :grey```
 
 !!! note "Nota Bene"
     In order to use the `mm` measure for margins you need to add
@@ -146,17 +147,17 @@ A function should be specified so as to transform it into a real matrix. Typical
 - `amplitude`: return the AS [`amplitude`](@ref)
 - `phase`: return the AS [`phase`](@ref)
 
-Note:
+**Note**:
 
 Appropriate colors for plotting the real and imaginary part of the analytic signal, as well as the phase, are `:pu_or`, `:bluesreds`.
 
 Appropriate colors for plotting amplitude and unwraped phase are `:amp`, `:fire`, `:dimgray`, `:gwv`.
 
 Useful attributes for plotting time-frequency objects are:
-- xtickfont      = font(10, "Times"))
-- ytickfont      = font(10, "Times"))
-- right_margin   = 2mm
-- top_margin     = 2mm
+- ```xtickfont      = font(10, "Times"))```
+- ```ytickfont      = font(10, "Times"))```
+- ```right_margin   = 2mm```
+- ```top_margin     = 2mm```
 
 **Examples**:
 ```

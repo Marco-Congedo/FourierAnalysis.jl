@@ -210,7 +210,7 @@ AmpSpectra=Spectra(S, func=√)
 log10Spectra=Spectra(S, func=log10)
 
 # plot the spectra (see recipes.jl)
-plot(AmpSpectra; maxf=32, xspace=4, ytitle="Amplitude")
+plot(AmpSpectra; fmax=32, xspace=4, ytitle="Amplitude")
 
 # (2)
 # generate 3 multivariate data matrices 8192x4
@@ -266,7 +266,7 @@ meanE=mean(extract(S, (8, 12)))
 B=bands(S, 2)
 
 # Get and plot the spectra from a CrossSpectra object
-plot(Spectra(S[1]); maxf=32, xspace=4)
+plot(Spectra(S[1]); fmax=32, xspace=4)
 
 # Pre-compute a FFT planner and pass it as argument
 # (this interesting if the function is to be called repeatedly).
