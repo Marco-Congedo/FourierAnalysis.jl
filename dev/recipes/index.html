@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Plots · FourierAnalysis</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link href="../assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><a href="../"><img class="logo" src="../assets/logo.png" alt="FourierAnalysis logo"/></a><h1>FourierAnalysis</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" id="search-form" action="../search/"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="../">FourierAnalysis Documentation</a></li><li><a class="toctext" href="../MainModule/">Main Module</a></li><li><a class="toctext" href="../tapers/">Tapering Windows</a></li><li><span class="toctext">frequency domain</span><ul><li><a class="toctext" href="../spectra/">Spectral Estimations</a></li><li><a class="toctext" href="../crossspectra/">Cross-Spectral Matrices</a></li><li><a class="toctext" href="../coherence/">Coherence Matrices</a></li><li><a class="toctext" href="../goertzel/">Goertzel&#39;s Algorithms</a></li></ul></li><li><span class="toctext">time-frequency(TF) domain</span><ul><li><a class="toctext" href="../timefrequency/">TF Representations</a></li><li><a class="toctext" href="../timefrequencyuni/">TF Univariate Measures</a></li><li><a class="toctext" href="../timefrequencybi/">TF Bivariate Measures </a></li></ul></li><li><span class="toctext">utilities</span><ul><li class="current"><a class="toctext" href>Plots</a><ul class="internal"><li><a class="toctext" href="#plot-tapering-windows-1">plot tapering windows</a></li><li><a class="toctext" href="#plot-spectra-1">plot spectra</a></li><li><a class="toctext" href="#plot-time-frequency-objects-1">plot time-frequency objects</a></li></ul></li><li><a class="toctext" href="../tools/">Tools</a></li><li><a class="toctext" href="../fftw/">FFTW planners</a></li><li><a class="toctext" href="../filters/">Filter Banks</a></li><li><a class="toctext" href="../hilbert/">Hilbert Transform</a></li></ul></li></ul></nav><article id="docs"><header><nav><ul><li>utilities</li><li><a href>Plots</a></li></ul><a class="edit-page" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/master/docs/src/recipes.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>Plots</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="recipes.jl-1" href="#recipes.jl-1">recipes.jl</a></h1><p>This unit implements plot recipes for plotting data produced by <strong>Fourier Analysis</strong>.</p><p>In the following recipes, <code>--&gt;</code> sets the default plot attribute, while <code>:=</code> forces the plot attribute to a specific value.</p><div class="admonition note"><div class="admonition-title">Nota Bene</div><div class="admonition-text"><p>Working with plot recipes <em>you must</em> put the <code>;</code> symbol in your argument list to separate optional keyword arguments.</p></div></div><h2><a class="nav-anchor" id="plot-tapering-windows-1" href="#plot-tapering-windows-1">plot tapering windows</a></h2><pre><code class="language-none">@recipe function f(::Type{Taper}, taper::Taper)
+    title               --&gt; taperinfo(taper)
+    background_color    --&gt; :white
+    gridcolor           --&gt; :white
+    legend              --&gt; false
+    dpi                 --&gt; 300
+    taper.y
+end</code></pre><p>Plot the data of a <a href="../tapers/#Taper-1">Taper</a> object, that is, the tapering window(s) hold in its <code>.y</code> field. This is a single tapering window for all kind of tapering windows, but for Slepian&#39;s discrete prolate spheroidal sequences, which are multi-tapering.</p><p>The recipes allows to pass any other optional keyword argument of the standard Julia plot package.</p><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis, Plots
+
+plot(taper(parzen, 256))
+plot!(taper(harris4, 256))
+
+# discrete prolate spheroidal sequences
+H=taper(slepian, 256, α=4, n=7)
+plot(H)</code></pre><h2><a class="nav-anchor" id="plot-spectra-1" href="#plot-spectra-1">plot spectra</a></h2><pre><code class="language-none">@recipe function f(::Type{Spectra}, S::Spectra;
+            fmax   = S.sr/2,
+            xspace = 4,
+            ytitle = &quot;Power (\\muV²)&quot;)
+
+    b=f2b(fmax, S.sr, S.wl)
+    xticstring=[&quot;$(xspace*i)&quot; for i=1:fmax÷xspace]
+    pushfirst!(xticstring, &quot;$(fres(S.sr, S.wl))&quot;)
+    xticrange=[1:S.wl/S.sr*xspace:b+1;]
+    for i=2:length(xticrange) xticrange[i]=xticrange[i]-1 end
+
+    legend         --&gt; false
+    dpi            --&gt; 300
+    xlabel         --&gt; &quot;Frequency (Hz)&quot;
+    xticks         --&gt; (xticrange, xticstring)
+    ylabel         --&gt; ytitle
+    delete!(plotattributes, :fmax)
+    delete!(plotattributes, :xspace)
+    delete!(plotattributes, :ytitle)
+    S.y[1:(f2b(fmax, S.sr, S.wl; DC=S.DC)), :]
+end</code></pre><p>Plot the data in a <a href="../spectra/#Spectra-1">Spectra</a> object, <em>e.g.</em>, plot all its spectra with separate lines.</p><p>Optional keyword argument <code>fmax</code> limits the plot on the right to the given frequency (in Hz).</p><p>Optional keyword argument <code>xspace</code> (in Hz) determines the spacing between frequency ticks (x-axis).</p><p>Optional keyword argument <code>ytitle</code> specifies a title for the y axis. The default is &quot;Power (\muV²)&quot;</p><p>The function allows to pass any other optional keyword argument of the standard Julia plot function.</p><p>Useful attributes for plotting spectra are:</p><ul><li>xtickfont      = font(11, &quot;Times&quot;))</li><li>ytickfont      = font(11, &quot;Times&quot;))</li><li>left_margin    = 2mm</li><li>bottom_margin  = 2mm</li><li>xaxis          = (&quot;My x axis title&quot;, font(11, &quot;Courier New&quot;))</li><li>yaxis          = (&quot;My y axis title&quot;, font(11, &quot;Courier New&quot;)),</li><li>linecolor      = :grey</li></ul><div class="admonition note"><div class="admonition-title">Nota Bene</div><div class="admonition-text"><p>In order to use the <code>mm</code> measure for margins you need to add <code>using Plots.Measures</code> in your script.</p></div></div><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis, Plots, Plots.Measures
+
+sr, t, f, a = 128, 128, 16, 0.5
+# create a sinusoidal at 16Hz superimposed to white noise
+v=sinusoidal(a, f, sr, t*16, 0) + randn(t*16)
+# create a data matrix
+X=broadcast(+, v, randn(t*16, 3)) * randn(3, 3)
+
+# compute spectra using hamming tapering window
+S=spectra(X, sr, t; tapering=hann)
+
+# plot spectra
+
+plot(S) # quick and dirt
+
+# gather useful attributes to make nicer plots
+spectraArgs=(fmax=32,
+             xspace=4,
+             left_margin = 2mm,
+             bottom_margin = 2mm,
+             xtickfont = font(11, &quot;Times&quot;),
+             ytickfont = font(11, &quot;Times&quot;))
+
+plot(S; spectraArgs...)
+
+# compute and plot amplitude spectra
+S=spectra(X, sr, t; tapering=riesz, func=√)
+plot(S; ytitle=&quot;Amplitude (\\muV)&quot;, spectraArgs...)
+</code></pre><h2><a class="nav-anchor" id="plot-time-frequency-objects-1" href="#plot-time-frequency-objects-1">plot time-frequency objects</a></h2><p>Plots of data held by <a href="../timefrequency/#TFAnalyticSignal-1">TFAnalyticSignal</a>, <a href="../timefrequency/#TFAmplitude-1">TFAmplitude</a> and <a href="../timefrequency/#TFPhase-1">TFPhase</a> objects can be obtained with a simple call to the <code>heatmap</code> function of the <a href="https://github.com/JuliaPlots/Plots.jl">Plots.jl</a> package. The <a href="#FourierAnalysis.tfAxes"><code>tfAxes</code></a> function provides automatic labeling of the axes and is passed as the first argument.</p><p>The second argument is the data matrix to be plotted. The matrix held in <a href="../timefrequency/#TFAmplitude-1">TFAmplitude</a> and <a href="../timefrequency/#TFPhase-1">TFPhase</a> objects is real, therefore it can be passed directly as argument. The matrix held in <a href="../timefrequency/#TFAnalyticSignal-1">TFAnalyticSignal</a> objects holds the analytic signal (AS), therefore it is complex. A function should be specified so as to transform it into a real matrix. Typical functions are:</p><ul><li><code>real</code>: return the real part of the AS</li><li><code>imag</code>: return the imaginary part of the AS</li><li><code>amplitude</code>: return the AS <a href="../tools/#FourierAnalysis.amplitude"><code>amplitude</code></a></li><li><code>phase</code>: return the AS <a href="../tools/#FourierAnalysis.phase"><code>phase</code></a></li></ul><p>Note:</p><p>Appropriate colors for plotting the real and imaginary part of the analytic signal, as well as the phase, are <code>:pu_or</code>, <code>:bluesreds</code>.</p><p>Appropriate colors for plotting amplitude and unwraped phase are <code>:amp</code>, <code>:fire</code>, <code>:dimgray</code>, <code>:gwv</code>.</p><p>Useful attributes for plotting time-frequency objects are:</p><ul><li>xtickfont      = font(10, &quot;Times&quot;))</li><li>ytickfont      = font(10, &quot;Times&quot;))</li><li>right_margin   = 2mm</li><li>top_margin     = 2mm</li></ul><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis, Plots, Plots.PlotMeasures
+sr, t, f, a, s = 128, 128, 8, 2.5, sinusoidal
+# create a sinusoidal at 8Hz modulated by a sinusoidal at 0.125Hz
+# and superimpose white noise
+v=s(a, f, sr, t*4, 0) .* s(a, 0.125, sr, t*4, 0) + randn(t*4)
+plot(v)
+
+# generate a times series with two frequencies
+# and a clear envelope
+sr, t, bandwidht=128, 512, 2
+h=taper(harris4, t)
+x1=sinusoidal(10, 8, sr, t, 0)
+x2=sinusoidal(10, 19, sr, t, 0)
+v=Vector((x1+x2).*h.y+randn(t))
+plot(v)
+
+# gather useful attributes to obtain nice heatmpap plots
+tfArgs=(right_margin = 2mm,
+        top_margin = 2mm,
+        xtickfont = font(10, &quot;Times&quot;),
+        ytickfont = font(10, &quot;Times&quot;))
+
+# compute the analytic signal (AS) of vector v
+Y=TFanalyticsignal(v, sr, t; fmax=32)
+
+# plot the real part of the AS
+heatmap(tfAxes(Y)..., real(Y.y); c=:pu_or, tfArgs...)
+
+# ...the imaginary part of the AS
+heatmap(tfAxes(Y)..., imag(Y.y); c=:bluesreds, tfArgs...)
+
+# ...the amplitude of the AS
+heatmap(tfAxes(Y)..., amplitude(Y.y); c=:amp, tfArgs...)
+
+# ...the amplitude of the AS smoothed in the freq. dim.
+heatmap(tfAxes(Y)...,
+        amplitude(smooth(hannSmoother, noSmoother, Y).y);
+        c=:amp, tfArgs...)
+
+# ...the amplitude of the AS smoothed in freq. and time
+heatmap(tfAxes(Y)...,
+        amplitude(smooth(hannSmoother, hannSmoother, Y).y);
+        c=:amp, tfArgs...)
+
+# ...the phase of the AS
+heatmap(tfAxes(Y)..., phase(Y.y); c=:bluesreds, tfArgs...)
+
+# ...the phase of the AS weighted by the amplitude
+heatmap(tfAxes(Y)..., phase(Y.y).*amplitude(Y.y);
+        c=:bluesreds, tfArgs...)
+
+# compute a TF Amplitude obejct
+A=TFamplitude(v, sr, t; fmax=32)
+
+# plot the amplitude
+heatmap(tfAxes(A)..., A.y; c=:amp, tfArgs...)
+
+# compute a TF Phase obejct
+ϴ=TFphase(v, sr, t; fmax=32)
+
+# plot the phase
+heatmap(tfAxes(ϴ)..., ϴ.y; c=:pu_or, tfArgs...)
+
+# compute a TF Phase obejct with the phase unwrapped
+uwϴ=TFphase(v, sr, t; unwrapped=true)
+
+# plot the unwrapped phase
+heatmap(tfAxes(uwϴ)..., uwϴ.y; c=:fire, tfArgs...)</code></pre><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="FourierAnalysis.tfAxes" href="#FourierAnalysis.tfAxes"><code>FourierAnalysis.tfAxes</code></a> — <span class="docstring-category">Function</span>.</div><div><div><p>Generate labels for the axes to be used in heatmap plots of <a href="../MainModule/#TFobjects-1">TFobjects</a>. On the y-axis the labels correspond to the center frequencies of the band-pass filter bank used to obtain the time-frequency representation, that is, to the .flabels field of the object.</p><p>See <a href="#plot-time-frequency-objects-1">plot time-frequency objects</a> for examples.</p></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/ef34ad2bfbaa593d84250506bb6ae0950ce3ed38/src/recipes.jl#L49-L56">source</a></section><footer><hr/><a class="previous" href="../timefrequencybi/"><span class="direction">Previous</span><span class="title">TF Bivariate Measures </span></a><a class="next" href="../tools/"><span class="direction">Next</span><span class="title">Tools</span></a></footer></article></body></html>
