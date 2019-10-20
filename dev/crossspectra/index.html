@@ -92,7 +92,7 @@ AmpSpectra=Spectra(S, func=√)
 log10Spectra=Spectra(S, func=log10)
 
 # plot the spectra (see recipes.jl)
-plot(AmpSpectra; maxf=32, xspace=4, ytitle=&quot;Amplitude&quot;)
+plot(AmpSpectra; fmax=32, xspace=4, ytitle=&quot;Amplitude&quot;)
 
 # (2)
 # generate 3 multivariate data matrices 8192x4
@@ -148,7 +148,7 @@ meanE=mean(extract(S, (8, 12)))
 B=bands(S, 2)
 
 # Get and plot the spectra from a CrossSpectra object
-plot(Spectra(S[1]); maxf=32, xspace=4)
+plot(Spectra(S[1]); fmax=32, xspace=4)
 
 # Pre-compute a FFT planner and pass it as argument
 # (this interesting if the function is to be called repeatedly).
@@ -158,4 +158,4 @@ S=crossSpectra(X, sr, wl; planner=plan)
 ...
 
 
-</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/ef34ad2bfbaa593d84250506bb6ae0950ce3ed38/src/crossspectra.jl#L26-L281">source</a></section><p><strong>References</strong>:</p><p>M. Congedo (2018), <a href="https://hal.archives-ouvertes.fr/hal-01868538v2/document">Non-Parametric Synchronization Measures used in EEG and MEG</a>, Technical Report. GIPSA-lab, CNRS, University Grenoble Alpes, Grenoble INP.</p><p>R. Pascual-Marqui (2007), <a href="https://arxiv.org/ftp/arxiv/papers/0711/0711.1455.pdf">Instantaneous and lagged measurements of linear and nonlinear dependence between groups of multivariate time series: frequency decomposition</a>, arXiv:0711.1455.</p><footer><hr/><a class="previous" href="../spectra/"><span class="direction">Previous</span><span class="title">Spectral Estimations</span></a><a class="next" href="../coherence/"><span class="direction">Next</span><span class="title">Coherence Matrices</span></a></footer></article></body></html>
+</code></pre></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/1666e26cd13a5a726dc27e108b92b40c10b51371/src/crossspectra.jl#L26-L281">source</a></section><p><strong>References</strong>:</p><p>M. Congedo (2018), <a href="https://hal.archives-ouvertes.fr/hal-01868538v2/document">Non-Parametric Synchronization Measures used in EEG and MEG</a>, Technical Report. GIPSA-lab, CNRS, University Grenoble Alpes, Grenoble INP.</p><p>R. Pascual-Marqui (2007), <a href="https://arxiv.org/ftp/arxiv/papers/0711/0711.1455.pdf">Instantaneous and lagged measurements of linear and nonlinear dependence between groups of multivariate time series: frequency decomposition</a>, arXiv:0711.1455.</p><footer><hr/><a class="previous" href="../spectra/"><span class="direction">Previous</span><span class="title">Spectral Estimations</span></a><a class="next" href="../coherence/"><span class="direction">Next</span><span class="title">Coherence Matrices</span></a></footer></article></body></html>
