@@ -1,5 +1,5 @@
 #   Unit "coherence" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 21st of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -172,14 +172,13 @@ which is the `ℍVector₂` type used in
 If `tril` is true, the output is of type `Array{Array{LowerTriangular,1},1}`,
 which is the `𝕃Vector₂` type used in PosDefManifold.
 
-**See**: [crossspectra.jl](@ref), [Spectra](@ref), [`plot`](@ref),
-[Coherence](@ref).
+**See**: [crossspectra.jl](@ref), [Spectra](@ref), [Coherence](@ref).
 
 **Examples**:
 ```
 ## common code for methods (1)-(4)
 
-using FourierAnalysis, Plots, LinearAlgebra
+using FourierAnalysis, LinearAlgebra
 
 function generateSomeData(sr::Int, t::Int; noise::Real=1.)
     # four sinusoids of length t samples and sr sampling rate

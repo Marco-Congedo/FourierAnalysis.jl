@@ -35,6 +35,7 @@ Pz=15
 Fz=5
 𝐱₁=[X1[:, Pz], X2[:, Pz]] # get the two times-series at electrode Pz
 𝐱₂=[X1[:, Fz], X2[:, Fz]] # get the two times-series at electrode Fz
+sr, wl, bandwidht=128, 512, 2
 𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidht; fmax=32, nonlinear=false)
 𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidht; fmax=32, nonlinear=false)
 𝐀₁=TFamplitude(𝐘₁)

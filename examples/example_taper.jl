@@ -25,8 +25,8 @@ plot(X; labels=labels)
 
 # discrete prolate spheroid sequences
 H=taper(slepian, t, α=4, n=7)
-# This is a special plot function declared in the `plots.jl unit`
-plot(H, title="Slepian multi-tapering (dpss)")
+# This below is a plot recipe declared in the `recipes.jl unit`
+plot(H)
 
 
 ################################################

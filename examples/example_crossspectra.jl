@@ -14,7 +14,7 @@
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 
 
-using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots
+using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots, Plots.Measures
 
 # add module for reading the two EEG text files to be used ater
 push!(LOAD_PATH, @__DIR__)
@@ -27,16 +27,24 @@ S=getFilesInDir(@__DIR__; ext=(".txt",))
 X1=readEEG(S[1])
 X2=readEEG(S[2])
 
+
 # Cross-Spectra of EEG data
 ##########################################
 
 t, sr, slide, tapering = 512, 128, 64, harris4
+
+# gather some attributes to obtain nice spectra plots
+spectraArgs=(left_margin   = 2mm,
+             bottom_margin = 2mm,
+             xtickfont     = font(10, "Times"),
+             ytickfont     = font(10, "Times"))
+
 # spectra
 S=spectra(X1, sr, t; tapering=tapering, func=√)
-plot(S, ylabel="Amplitude (\\muV)")
+plot(S; ytitle="Amplitude (\\muV)", spectraArgs...)
 # smoothed spectra
 S2=spectra(X1, sr, t; tapering=tapering, smoothing=blackmanSmoother, func=√)
-plot(S2, ylabel="Amplitude (\\muV)")
+plot(S2; ytitle="Amplitude (\\muV)", spectraArgs...)
 
 #cross-spectra
 𝙎=crossSpectra(X1, sr, t; tapering=tapering, tril=true)

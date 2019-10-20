@@ -1,5 +1,5 @@
 #   Unit "tapers" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 5th of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -98,13 +98,13 @@ As in the DSP package, by default it is set to
 low eigenvalues may correspond to the last sequences, therefore
 those should be discarded.
 
-**See**: [`slepians`](@ref)
+**See**: [plot tapering windows](@ref).
 
-**See also**: [`taperinfo`](@ref)
+**See also**: [`slepians`](@ref), [`taperinfo`](@ref)
 
 **Examples**:
 ```
-using FourierAnalysis, Plots
+using FourierAnalysis
 
 ## Use the constructor
 sr, t, f, a = 128, 128, 10, 0.5
@@ -121,18 +121,18 @@ S=spectra(X, sr, t; tapering=hamming)
 # thus calling explicitly the constructor is interesting
 # only if you need to reuse the same tapering window many times.
 
-## Plot tapering windows
-# using the standard plot function
+## Plot tapering windows using the standard plot function
+using Plots
 tapers=[TaperKind(i) for i=1:8]
 X=zeros(t, 8)
 for i=1:8 X[:, i] = taper(tapers[i], t).y end
 labels=[string(tapers[i]) for i=1:8]
 plot(X; labels=labels)
 
-# discrete prolate spheroid sequences
-H=taper(slepian, t, α=4, n=7)
-# This is a special plot function declared in the plots.jl unit
-plot(H, title="Slepian Multi-tapering (dpss)")
+## using the recipe declared in recipes.jl
+plot(taper(parzen, 256))
+plot(taper(slepian, 256, α=4, n=7))
+
 ```
 """
 function taper( kind :: TaperKind,
@@ -203,22 +203,23 @@ The created object can be passed as argument
 in constructors [`spectra`](@ref), [`crossSpectra`](@ref) and
 [`coherence`](@ref).
 
+**See**: [plot tapering windows](@ref).
 
 **Examples**:
 ```
-using FourierAnalysis, Plots
+using FourierAnalysis
 sr, t, f, a = 128, 128, 10, 0.5
 # create a sinusoidal superimposed to white noise
 v=sinusoidal(a, f, sr, t*16, 0) + randn(t*16)
 # create a data matrix
 X=broadcast(+, v, randn(t*16, 3))*randn(3, 3)
 # compute spectra using slepian multi-tapering with bandwidth 1.5
-S=spectra(X, sr, t; tapering=slepians(sr, t, 1.5))
+H=slepians(sr, t, 2)
+S=spectra(X, sr, t; tapering=H)
 
-## Plot dpss
-H=slepians(sr, t*8, 2)
-# This is a special plot function declared in the plots.jl unit
-plot(H, title="Slepian multi-tapering (dpss)")
+using Plots
+plot(H)
+plot(S)
 ```
 """
 function slepians( sr    :: Int,
@@ -252,7 +253,7 @@ taperinfo(H)
 ```
 """
 taperinfo(taper::Taper) =
-     taper.kind==slepian ? string(taper.kind)*" (alpha=$(taper.α), n=$(taper.n))" :
+     taper.kind==slepian ? string(taper.kind)*"'s dpss (alpha=$(taper.α), n=$(taper.n))" :
                            string(taper.kind)
 
 

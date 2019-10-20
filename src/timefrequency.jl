@@ -1,5 +1,5 @@
 #   Unit "timefrequency" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 5th of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -111,10 +111,10 @@ y=Vector((y1+y2).*h.y+randn(t))
 plot([x, y])
 
 # TFAnalyticSignal object for x (method (1))
-Y = TFanalyticsignal(x, sr, sr*4)
+Y = TFanalyticsignal(x, sr, sr*4; fmax=32)
 
 # vector of TFAnalyticSignal objects for x and y (method (2))
-𝒀 = TFanalyticsignal([x, y], sr, sr*4)
+𝒀 = TFanalyticsignal([x, y], sr, sr*4; fmax=32)
 
 # (for shortening comments: TF=time-frequency, AS=analytic signal)
 
@@ -132,94 +132,118 @@ E=extract(𝒀[1], (8, 12), (1, 128)) # Output a complex matrix
 # extract the AS in a TF region (8:12Hz and samples 1:128) for the two objects
 𝐄=extract(𝒀, (8, 12), (8, 12)) # Output a vector of complex matrices
 
-# plot the real part of the AS of x (see unit Plot.jl)
-heatmap(Y, real)
+# plot the real part of the AS of x (see unit recipes.jl)
+
+# gather first useful attributes for the plot
+tfArgs=(right_margin = 2mm,
+        top_margin = 2mm,
+        xtickfont = font(10, "Times"),
+        ytickfont = font(10, "Times"))
+
+heatmap(tfAxes(Y)..., real(Y.y);
+        c=:pu_or, tfArgs...)
 
 # ...the imaginary part
-heatmap(Y, imag)
+heatmap(tfAxes(Y)..., imag(Y.y);
+        c=:bluesreds, tfArgs...)
 
 # ...the amplitude
-heatmap(Y, amplitude)
+heatmap(tfAxes(Y)..., amplitude(Y.y);
+        c=:amp, tfArgs...)
+
+# ...the amplitude of the AS smoothed in frequency and time
+heatmap(tfAxes(Y)..., amplitude(smooth(hannSmoother, hannSmoother, Y).y);
+        c=:fire, tfArgs...)
+
+# ...the phase
+heatmap(tfAxes(Y)..., phase(Y.y);
+        c=:bluesreds, tfArgs...)
 
 # or generate a TFAmplitude object from the AS
 A=TFamplitude(Y)
 # and plot it (with different colors)
-heatmap(A; c=:fire)
-
-# ...the amplitude of the AS smoothed in the frequency dimension
-heatmap(smooth(hannSmoother, noSmoother, Y), amplitude)
-
-# ...the amplitude of the AS smoothed in frequency and time
-heatmap(smooth(hannSmoother, hannSmoother, Y), amplitude)
-
-# ...the phase of the AS
-heatmap(Y, phase)
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
 
 # generate a TFPhase object
 ϴ=TFphase(Y)
 # and plot it (with custom colors)
-heatmap(ϴ; c=:pu_or) # or, e.g., c=:bluesreds
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:pu_or, tfArgs...)
 
 # compute and plot phase in [0, 2π]
-heatmap(TFphase(Y; func=x->x+π); c=:amp)
+heatmap(tfAxes(Y)..., TFphase(Y; func=x->x+π).y;
+        c=:amp, tfArgs...)
 
 # compute and plot unwrapped phase
-heatmap(TFphase(Y; unwrapped=true); c=:amp)
+heatmap(tfAxes(Y)..., TFphase(Y; unwrapped=true).y;
+        c=:amp, tfArgs...)
 
 # smooth time-frequency AS: smooth frequency
 Z=smooth(blackmanSmoother, noSmoother, Y)
 
 # plot amplitude of smoothed analytic signal
-heatmap(Z, amplitude)
+heatmap(tfAxes(Z)..., amplitude(Z.y);
+        c=:amp, tfArgs...)
 
 # not equivalently (!), create an amplitude object and smooth it:
 # in this case the amplitude is smoothed, not the AS
 A=smooth(blackmanSmoother, noSmoother, TFamplitude(Y))
-heatmap(A)
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
 
 # Smoothing raw phase estimates is unappropriate
 # since the phase is a discontinous function, however it makes sense
 # to smooth phase if the phase is unwrapped.
-heatmap(smooth(blackmanSmoother, noSmoother, TFphase(Y; unwrapped=true));
-        c=:amp)
+heatmap(tfAxes(Y)...,
+        smooth(blackmanSmoother, noSmoother, TFphase(Y; unwrapped=true)).y;
+        c=:amp, tfArgs...)
 
 # smooth AS: smooth both frequency and time
 E=smooth(blackmanSmoother, blackmanSmoother, Y)
 
 # plot amplitude of smoothed analytic signal
-heatmap(E, amplitude)
+heatmap(tfAxes(E)..., amplitude(E.y);
+        c=:fire, tfArgs...)
 
 # plot phase of smoothed analytic signal
-heatmap(E, phase) # bluesreds
+heatmap(tfAxes(E)..., phase(E.y);
+        c=:bluesreds, tfArgs...)
 
 # not equivalently (!), create amplitude and phase objects and smooth them
 A=smooth(blackmanSmoother, blackmanSmoother, TFamplitude(Y))
-heatmap(A)
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
 
 ϴ=smooth(blackmanSmoother, blackmanSmoother, TFphase(Y, unwrapped=true))
-heatmap(ϴ; c=:amp) # bluesreds
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:pu_or, tfArgs...)
 
 # smooth again
 ϴ=smooth(blackmanSmoother, blackmanSmoother, ϴ)
-heatmap(ϴ; c=:amp)
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:pu_or, tfArgs...)
 # and again ...
 
-# create smoothed AS
+# create directly smoothed AS
 Y=TFanalyticsignal(x, sr, t, bandwidht;
                    fmax=32,
                    fsmoothing=hannSmoother,
                    tsmoothing=hannSmoother)
 
 # plot amplitude of smoothed analytic signal
-heatmap(Y, amplitude)
+heatmap(tfAxes(Y)..., amplitude(Y.y);
+        c=:amp, tfArgs...)
 
+# create directly smoothed Amplitude
 A=TFamplitude(x, sr, t, bandwidht;
               fmax=32,
               fsmoothing=hannSmoother,
               tsmoothing=hannSmoother)
 
 # plot smoothed amplitude
-heatmap(A)
+heatmap(tfAxes(A)..., A.y;
+        c=:amp, tfArgs...)
 
 # compute a TFAnalyticSignal object with non-linear AS
 Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32, nonlinear=true)
@@ -228,10 +252,11 @@ Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32, nonlinear=true)
 Y.nonlinear
 
 # check that the amplitude is now 1.0 everywhere
-norm(amplitude(Y.y)-ones(eltype(Y.y, size(Y.y)))) # must be zero
+norm(amplitude(Y.y)-ones(eltype(Y.y), size(Y.y))) # must be zero
 
 # plot non-linear phase
-heatmap(Y, phase; c=:bkr)
+heatmap(tfAxes(Y)..., phase(Y.y);
+        c=:bkr, tfArgs...)
 
 # get the center frequencies of TFAmplitude object A
 A.flabels

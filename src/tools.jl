@@ -1,5 +1,5 @@
 #   Unit "tools" of the FourierAnalysis Package for julia language
-#   v 0.0.1 - last update 5th of September 2019
+#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -1182,7 +1182,7 @@ Set it to false to improve speed.
 
 **Examples**:
 ```
-using FourierAnalysis, Plots
+using FourierAnalysis
 
 # example with univariate Spectra objects (one series -> one spectrum)
 sr, t, f, a = 128, 256, 10, 1
@@ -1569,7 +1569,6 @@ end # output: a vector of LowerTriangular (if tril=true) or Hermitian (if tril=f
 
 bands(𝐒::Union{CrossSpectraVector, CoherenceVector}, bandwidht::IntOrReal) =
     [bands(S, bandwidht) for S ∈ 𝐒] # output: a vector of vectors of LowerTriangular (if tril=true) or Hermitian (if tril=false) matrices
-
 
 
 # internal function: used by functions that may execute in multi-threading

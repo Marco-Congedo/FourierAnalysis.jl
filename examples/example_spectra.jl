@@ -14,7 +14,8 @@
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 
 
-using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots
+using FourierAnalysis, FFTW, LinearAlgebra, Statistics,
+      Plots, Plots.PlotMeasures
 
 # add module for reading the two EEG text files to be used ater
 push!(LOAD_PATH, @__DIR__)
@@ -31,7 +32,7 @@ X2=readEEG(S[2])
 sr, t, f, a = 128, 128, 8, 2
 v=sinusoidal(a, f, sr, t, 0.6)
 plot(v) # plot the time series
-tapering=hamming
+tapering=hann
 
 ### The long way using FFTW.jl only:
 # get a plan.  The normalization 2/t outputs correct peak amplitude
@@ -62,7 +63,7 @@ pos=f2b(f, sr, t, DC=true)
 bar!(Σ2.y)
 
 # equivalently:
-Σ2=spectra(v, sr, t; tapering=taper(hamming, t), func=√)
+Σ2=spectra(v, sr, t; tapering=taper(hann, t), func=√)
 bar!(Σ2.y)
 
 ####################################################
@@ -103,20 +104,20 @@ bar(Σ2.y[brange(t, DC=true), :], labels="")
 
 #############################################################################
 ### Check amplitude spectra on long signals obtained by welch methods
-# one sinusoidal is at an exact discrete Fourier Frequency and the other not.
-# Noise is added. Use the rectangular window
+# one sinusoidal is at an exact discrete Fourier Frequency and the other not
+# Rectangular window
 sr, t, f, a = 128, 128, 10, 0.5
 v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16)
 Σ=spectra(v, sr, t; tapering=rectangular, func=√)
-bar(Σ.y, labels="raw")
+bar(Σ.y, labels="rectangular")
 
 # harris4 window (default)
-Σ=spectra(v, sr, t; func=√)
-bar(Σ.y, labels="raw")
+Σ2=spectra(v, sr, t; func=√)
+bar!(Σ2.y, labels="harris4")
 
-# smooth spectra
-Σ2=smooth(blackmanSmoother, Σ)
-bar!(Σ2.y, labels="smoothed")
+#smooth spectra
+Σ3=smooth(blackmanSmoother, Σ2)
+bar!(Σ3.y, labels="smoothed")
 
 
 ######## Check amplitude spectrum obtained with dpss (slepian tapers) ########
@@ -134,12 +135,19 @@ plot(Σ.y, labels="")
 #### Compute Welch amplitude spectra of EEG data ####
 t, sr, slide, tapering = 1024, 128, 512, harris4
 
+# gather some attributes to obtain nice spectra plots
+spectraArgs=(fmax          = 48,
+             left_margin   = 2mm,
+             bottom_margin = 2mm,
+             xtickfont     = font(10, "Times"),
+             ytickfont     = font(10, "Times"))
+
 S=spectra(X1, sr, t; tapering=tapering, slide=sr, func=sqrt)
-plot(S, ylabel="Amplitude (\\muV)")
+plot(S; ytitle="Amplitude (\\muV)", spectraArgs...)
 
 #smooth spectra
 S2=smooth(blackmanSmoother, S)
-plot(S2, ylabel="Amplitude (\\muV)")
+plot(S2; ytitle="Amplitude (\\muV)", spectraArgs...)
 
 # extract spectra in alpha range (8Hz to 12Hz) at all electrodes
 e=extract(S, (8, 12))
@@ -190,16 +198,15 @@ bar(mean(S, (8,12))[15:19])
 # extract spectra in alpha range for series 15-19
 e=extract(S, (8, 12))[:, 15:19]
 
-
 # Compute several spectra altogether
 𝐗=[X1, X2]
 𝐒=spectra(𝐗, sr, t; tapering=tapering, slide=sr, func=√)
-plot(𝐒[1], ylabel="Amplitude (\\muV)")
-plot(𝐒[2], ylabel="Amplitude (\\muV)")
+plot(𝐒[1]; ytitle="Amplitude (\\muV)", spectraArgs...)
+plot(𝐒[2]; ytitle="Amplitude (\\muV)", spectraArgs...)
 
 # do the same thing using a fast FFTW plan (wait up to 10s for computing the plan)
 plan=Planner(plan_exhaustive, 10.0, t, eltype(𝐗[1]))
-𝐒_fast=spectra(𝐗, sr, t; planner=plan, tapering=tapering, slide=sr, func=√)
+𝐒_fast=spectra(𝐗, sr, t; planner=plan, slide=sr, func=√)
 
 # compute the average spectra in the alpha range for all time-series and all subjects
 mean(𝐒, (8,12))
@@ -223,8 +230,8 @@ bands(𝐒, 4)
 # Apply smoothing in the above spectra computations
 𝐒=spectra(𝐗, sr, t;
     tapering=tapering, smoothing=blackmanSmoother, func=√)
-plot(𝐒[1], ylabel="Amplitude (\\muV)")
-plot(𝐒[2], ylabel="Amplitude (\\muV)")
+plot(𝐒[1]; ytitle="Amplitude (\\muV)", spectraArgs...)
+plot(𝐒[2]; ytitle="Amplitude (\\muV)", spectraArgs...)
 
 # plot the average spectrum across all electrodes for the two files
 # using Julia standard mean function
@@ -236,15 +243,15 @@ plot(bands(𝐒[1], 1))
 
 # use slepian multi-tapering on EEG data
 S_sl=spectra(X1, sr, t; tapering=slepians(sr, t, 1.25), func=√)
-plot(S_sl; maxf=32, space=4, ylabel="Amplitude (\\muV)")
+plot(S_sl; ytitle="Amplitude (\\muV)", spectraArgs...)
 
 # use slepian multi-tapering and get smoothed spectra
 S_sl=spectra(X1, sr, t;
     tapering=slepians(sr, t, 1.25), func=√, smoothing=blackmanSmoother)
-plot(S_sl; maxf=32, space=4, ylabel="Amplitude (\\muV)")
+plot(S_sl; xspace=8, ytitle="Amplitude (\\muV)", spectraArgs...)
 
 # See how the variance of the spectra estimation is lower
 # as compared to using a normal tapering window !
 S=spectra(X1, sr, t;
     tapering=harris4, func=√, smoothing=blackmanSmoother)
-plot(S; maxf=32, space=4, ylabel="Amplitude (\\muV)")
+plot(S; ytitle="Amplitude (\\muV)", spectraArgs...)
