@@ -79,6 +79,7 @@ heatmap(tfAxes(Y)..., imag(Y.y); c=:bluesreds, tfArgs...)
 # ...the amplitude of the AS
 heatmap(tfAxes(Y)..., amplitude(Y.y); c=:amp, tfArgs...)
 
+
 # or generate a TFAmplitude object
 A=TFamplitude(Y)
 # and plot it (with different colors)

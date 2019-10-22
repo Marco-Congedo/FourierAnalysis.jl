@@ -44,6 +44,7 @@
 end
 
 TaperData=Union{Vector{T}, Matrix{T}} where T<:Union{Real, Complex}
+
 struct Taper
     y    :: TaperData # here is the taper
     kind :: TaperKind # enumerated type; see here above
