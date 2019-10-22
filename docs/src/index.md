@@ -9,7 +9,7 @@
 The package is still not registered. To install it
 execute the following command in Julia's REPL:
 
-    ]add https://github.com/Marco-Congedo/FourierAnalysis
+    ]add https://github.com/Marco-Congedo/FourierAnalysis.jl
 
 ## Disclaimer
 
