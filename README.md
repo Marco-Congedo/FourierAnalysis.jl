@@ -30,7 +30,7 @@ in the context of electroencephalography ([Congedo, 2018](https://hal.archives-o
 The package is not registered yet.
 Execute the following command in Julia's REPL:
 
-    ]add https://github.com/Marco-Congedo/FourierAnalysis
+    ]add https://github.com/Marco-Congedo/FourierAnalysis.jl
 
 ## Disclaimer
 
