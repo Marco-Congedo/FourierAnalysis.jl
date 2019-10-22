@@ -491,7 +491,7 @@ function Base.show(io::IO, ::MIME{Symbol("text/plain")}, S::Spectra)
     println(io, "sampling rate   (.sr): $(S.sr)")
     println(io, "epoch length    (.wl): $(S.wl)")
     println(io, "DC level        (.DC): $(S.DC)")
-    println(io, "taper kind(.tapering): $(S.taper)")
+    println(io, "taper kind   (.taper): $(S.taper)")
     println(io, "freq. lab. (.flabels): $(l)-", typeof(S.flabels))
     vec ? println(io, "data             (.y): $(r)-", typeof(S.y)) :
           println(io, "data             (.y): $(r)x$(c)-", typeof(S.y))
