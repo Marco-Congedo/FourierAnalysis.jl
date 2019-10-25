@@ -70,7 +70,7 @@ plot(v)
 
 # generate a times series with two frequencies
 # and a clear envelope
-sr, t, bandwidht=128, 512, 2
+sr, t, bandwidth=128, 512, 2
 h=taper(harris4, t)
 x1=sinusoidal(10, 8, sr, t, 0)
 x2=sinusoidal(10, 19, sr, t, 0)
@@ -128,4 +128,4 @@ heatmap(tfAxes(ϴ)..., ϴ.y; c=:pu_or, tfArgs...)
 uwϴ=TFphase(v, sr, t; unwrapped=true)
 
 # plot the unwrapped phase
-heatmap(tfAxes(uwϴ)..., uwϴ.y; c=:fire, tfArgs...)</code></pre><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="FourierAnalysis.tfAxes" href="#FourierAnalysis.tfAxes"><code>FourierAnalysis.tfAxes</code></a> — <span class="docstring-category">Function</span>.</div><div><div><p>Generate labels for the axes to be used in heatmap plots of <a href="../MainModule/#TFobjects-1">TFobjects</a>. On the y-axis the labels correspond to the center frequencies of the band-pass filter bank used to obtain the time-frequency representation, that is, to the <code>.flabels</code> field of the object.</p><p>See <a href="#plot-time-frequency-objects-1">plot time-frequency objects</a> for examples.</p></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/a6bb8a5e472575a81bdf560ae600f1b1c9b7198a/src/recipes.jl#L49-L56">source</a></section><footer><hr/><a class="previous" href="../timefrequencybi/"><span class="direction">Previous</span><span class="title">TF Bivariate Measures </span></a><a class="next" href="../tools/"><span class="direction">Next</span><span class="title">Tools</span></a></footer></article></body></html>
+heatmap(tfAxes(uwϴ)..., uwϴ.y; c=:fire, tfArgs...)</code></pre><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="FourierAnalysis.tfAxes" href="#FourierAnalysis.tfAxes"><code>FourierAnalysis.tfAxes</code></a> — <span class="docstring-category">Function</span>.</div><div><div><p>Generate labels for the axes to be used in heatmap plots of <a href="../MainModule/#TFobjects-1">TFobjects</a>. On the y-axis the labels correspond to the center frequencies of the band-pass filter bank used to obtain the time-frequency representation, that is, to the <code>.flabels</code> field of the object.</p><p>See <a href="#plot-time-frequency-objects-1">plot time-frequency objects</a> for examples.</p></div></div><a class="source-link" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/b1ec9f91d08b94b77e8b09b4a847ef4132dc61ad/src/recipes.jl#L49-L56">source</a></section><footer><hr/><a class="previous" href="../timefrequencybi/"><span class="direction">Previous</span><span class="title">TF Bivariate Measures </span></a><a class="next" href="../tools/"><span class="direction">Next</span><span class="title">Tools</span></a></footer></article></body></html>
