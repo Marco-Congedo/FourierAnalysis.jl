@@ -190,13 +190,13 @@ end
 Construct a [Taper](@ref) objects holding Slepian's multi-tapering
 *discrete prolate spheroidal sequences*,
 given sampling rate `sr`, window length `wl` and
-the `bandwidht` argument in Hz.
-For EEG data, 1<=bandwidht<=2 is an adequate choice.
+the `bandwidth` argument in Hz.
+For EEG data, 1<=bandwidth<=2 is an adequate choice.
 
-The 'half-bandwidht' parameter `α` used in the DSP package and in the
+The 'half-bandwidth' parameter `α` used in the DSP package and in the
 universal [Taper](@ref) constructor is set as
 
-        `α=(bandwidht/2)*wl/sr`.
+        `α=(bandwidth/2)*wl/sr`.
 
 The optimal number of dpss is heuristically set to
 
@@ -227,8 +227,8 @@ plot(S)
 """
 function slepians( sr    :: Int,
                    wl    :: Int,
-               bandwidht :: Real = 1.5)
-    α=(bandwidht/2)*wl/sr # α parameter
+               bandwidth :: Real = 1.5)
+    α=(bandwidth/2)*wl/sr # α parameter
     # heuristic to eliminate eigenfunctions with small eigenvalues
     n=max(1, trunc(Int, 2*α)-trunc(Int, log(2*α)))
     return taper(slepian, wl, α=α, n=n)
@@ -266,7 +266,7 @@ println(io, titleFont, "⍓ Taper type; $(size(𝜏.y, 1))-samples")
 #println(io, "□  □    □      □        □           □", defaultFont)
 println(io, separatorFont, "⭒  ⭒    ⭒      ⭒        ⭒           ⭒", defaultFont)
 println(io, "taper kind   (.kind): ", string(𝜏.kind))
-println(io, "half-bandwidht  (.α): $(𝜏.α)")
+println(io, "half-bandwidth  (.α): $(𝜏.α)")
 println(io, "number of tapers(.n): $(𝜏.n)")
 𝜏.kind==slepian ? println(io, "data            (.y): $(size(𝜏.y, 1))x$(size(𝜏.y, 2))-", typeof(𝜏.y)) :
                  println(io, "data            (.y): $(length(𝜏.y))-", typeof(𝜏.y))

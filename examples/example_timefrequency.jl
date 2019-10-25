@@ -33,7 +33,7 @@ X2=readEEG(S[2])
 # test timefrequency
 
 using Plots, FourierAnalysis
-sr, t, bandwidht=128, 512, 2
+sr, t, bandwidth=128, 512, 2
 h=taper(harris4, t)
 x1=sinusoidal(10, 8, sr, t, 0)
 x2=sinusoidal(10, 19, sr, t, 0)
@@ -62,7 +62,7 @@ E=extract(𝒀, (8, 12), (8, 12))
 E=extract(𝒀, (8, 12), (8, 12); check=false)
 
 # compute time-frequency object for vector x
-Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32)
+Y=TFanalyticsignal(x, sr, t, bandwidth; fmax=32)
 
 # gather useful attributes to obtain nice heatmpap plots
 tfArgs=(right_margin = 2mm,
@@ -158,7 +158,7 @@ heatmap(tfAxes(ϴ)..., ϴ.y;
 
 # you may also create all these objects already smoothed, for example
 # create directly smoothed AS
-Y=TFanalyticsignal(x, sr, t, bandwidht;
+Y=TFanalyticsignal(x, sr, t, bandwidth;
                    fmax=32,
                    fsmoothing=hannSmoother,
                    tsmoothing=hannSmoother)
@@ -168,7 +168,7 @@ heatmap(tfAxes(Y)..., amplitude(Y.y);
    c=:amp, tfArgs...)
 
 # create directly smoothed Amplitude
-A=TFamplitude(x, sr, t, bandwidht;
+A=TFamplitude(x, sr, t, bandwidth;
          fmax=32,
          fsmoothing=hannSmoother,
          tsmoothing=hannSmoother)
@@ -178,7 +178,7 @@ heatmap(tfAxes(A)..., A.y;
    c=:amp, tfArgs...)
 
 # compute a TFAnalyticSignal object with non-linear AS
-Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32, nonlinear=true)
+Y=TFanalyticsignal(x, sr, t, bandwidth; fmax=32, nonlinear=true)
 
 # check that it is non-linear
 Y.nonlinear
@@ -267,7 +267,7 @@ a=mean(A.y)
 
 Pz=15
 𝐱=[X1[:, Pz], X2[:, Pz]] # get the two times-series at electrode Pz
-𝐘=TFanalyticsignal(𝐱, sr, t, bandwidht; fmax=32, nonlinear=false)
+𝐘=TFanalyticsignal(𝐱, sr, t, bandwidth; fmax=32, nonlinear=false)
 𝐀=TFamplitude(𝐘)
 heatmap(tfAxes(𝐀[1])..., 𝐀[1].y; c=:amp, tfArgs...)
 heatmap(tfAxes(𝐀[2])..., 𝐀[2].y; c=:pu_or, tfArgs...)

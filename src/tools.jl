@@ -210,11 +210,11 @@ brange(wl::Int;
 ```
 function bbands(sr :: Int,
                 wl :: Int,
-         bandwidht :: IntOrReal;
+         bandwidth :: IntOrReal;
     DC :: Bool = false)
 ```
 
-Return a vector of integers holding the limits of all `bandwidht`-spaced
+Return a vector of integers holding the limits of all `bandwidth`-spaced
 band-pass regions of a real-FFT, in bins of discrete Fourier frequencies,
 from one to ``wl÷2`` (integer division).
 
@@ -242,14 +242,14 @@ fbands(128, 128, 16) # return [1.0, 16.0, 32.0, 48.0, 64.0]
 """
 function bbands(sr        :: Int,
                 wl        :: Int,
-                bandwidht :: IntOrReal;
+                bandwidth :: IntOrReal;
             DC        :: Bool=false)
     fr=fres(sr, wl)
-    if bandwidht<fr
-        @error 📌*", call to function `bbands` or `bandsaverage`: bandwidth cannot be smaller than the FFT frequency resolution" bandwidht fr
+    if bandwidth<fr
+        @error 📌*", call to function `bbands` or `bandsaverage`: bandwidth cannot be smaller than the FFT frequency resolution" bandwidth fr
         return
     end
-    b=collect(StepRange(0, f2b(bandwidht, sr, wl; DC=DC), wl÷2))
+    b=collect(StepRange(0, f2b(bandwidth, sr, wl; DC=DC), wl÷2))
     b[1]=1
     if b[2]==1 popfirst!(b) end
     return DC ? b.+=1 : b
@@ -259,7 +259,7 @@ end
 ```
 function fbands(sr :: Int,
                 wl :: Int,
-         bandwidht :: IntOrReal;
+         bandwidth :: IntOrReal;
       DC :: Bool = false)
 ```
 Return a vector of Frequencies (in Hz) to which the bins created by a call
@@ -271,8 +271,8 @@ to function [`bbands`](@ref) with the same arguments correspond.
 """
 fbands(sr        :: Int,
        wl        :: Int,
-       bandwidht :: IntOrReal;
-    DC :: Bool = false) = b2f.(bbands(sr, wl, bandwidht; DC=DC), sr, wl; DC=DC)
+       bandwidth :: IntOrReal;
+    DC :: Bool = false) = b2f.(bbands(sr, wl, bandwidth; DC=DC), sr, wl; DC=DC)
 
 
 """
@@ -627,7 +627,7 @@ unwrapPhase(ϴ::AbstractArray{T}; unwrapdims::Int=0) where T<:Real =
     unwrapdims>0 ? accumulate(+, ϴ.+π; dims=unwrapdims) : ϴ
 
 unwrapPhase(ϴ::TFPhase) =
-    ϴ.func==identity ? TFPhase(unwrapPhase(ϴ.y; unwrapdims=2), ϴ.bandwidht,
+    ϴ.func==identity ? TFPhase(unwrapPhase(ϴ.y; unwrapdims=2), ϴ.bandwidth,
                                ϴ.flabels, ϴ.nonlinear,
                                ϴ.fsmoothing, ϴ.tsmoothing, true, ϴ.func) :
    @error 📌*", call to unwrapPhase constructor; I shall not unwrap a phase on which a function has been applied. The unwrapped phase object has not been created.)" ϴ.func
@@ -635,7 +635,7 @@ unwrapPhase(ϴ::TFPhase) =
 
 unwrapPhase(𝚯::TFPhaseVector) =
    sum(ϴ.func==identity for ϴ ∈ 𝚯)==length(𝚯) ? TFPhaseVector([
-                    TFPhase(unwrapPhase(ϴ.y; unwrapdims=2), ϴ.bandwidht,
+                    TFPhase(unwrapPhase(ϴ.y; unwrapdims=2), ϴ.bandwidth,
                     ϴ.flabels, ϴ.nonlinear, ϴ.fsmoothing, ϴ.tsmoothing,
                     true, ϴ.func) for ϴ ∈ 𝚯]) :
   @error 📌*", call to unwrapPhase constructor; I shall not unwrap a phase on which a function has been applied. The unwrapped phase object has not been created.)" ϴ.func
@@ -687,7 +687,7 @@ sameParams(𝐒        :: FDobjectsVector,
 function sameParams(𝒀        :: TFobjectsVector,
                     funcname :: String) =
 ```
-Return true if all objects in 𝒀 have the same `bandwidht`, `nonlinear`,
+Return true if all objects in 𝒀 have the same `bandwidth`, `nonlinear`,
 `fsmoothing` and `tsmoothing` field, otherwise print an error message
 pointing to the first field that is not identical in all objects and
 return `Nothing`. This method applies to all [TFobjectsVector](@ref) types,
@@ -698,8 +698,8 @@ that is, [TFAnalyticSignalVector](@ref), [TFAmplitudeVector](@ref) and
 """
 sameParams(𝒀        :: TFobjectsVector,
            funcname :: String = "unknown") =
-   if      !_allsame([Y.bandwidht for Y ∈ 𝒀])
-               @error 📌*", "*funcname*" function. All the objects in argument of type $typeof(𝒀) must all be definied with the same bandwidht"
+   if      !_allsame([Y.bandwidth for Y ∈ 𝒀])
+               @error 📌*", "*funcname*" function. All the objects in argument of type $typeof(𝒀) must all be definied with the same bandwidth"
    elseif  !isa(𝒀, TFAmplitudeVector) && !_allsame([Y.nonlinear for Y ∈ 𝒀])
                @error 📌*", "*funcname*" function. All the objects in argument of type $typeof(𝒀) must be definied as either all nonlinear or all linear"
    elseif  !_allsame([Y.fsmoothing for Y ∈ 𝒀])
@@ -991,11 +991,11 @@ function _smooth(smoother  :: Smoother,
 
     type=typeof(Z)
     if     type===TFAnalyticSignal
-        return type(Z_, Z.bandwidht, Z.flabels, Z.nonlinear, frequency ? smoother : noSmoother, time ? smoother : noSmoother)
+        return type(Z_, Z.bandwidth, Z.flabels, Z.nonlinear, frequency ? smoother : noSmoother, time ? smoother : noSmoother)
     elseif type===TFAmplitude
-        return type(Z_, Z.bandwidht, Z.flabels, frequency ? smoother : noSmoother, time ? smoother : noSmoother, Z.func)
+        return type(Z_, Z.bandwidth, Z.flabels, frequency ? smoother : noSmoother, time ? smoother : noSmoother, Z.func)
     elseif type===TFPhase
-        return type(Z_, Z.bandwidht, Z.flabels, Z.nonlinear, frequency ? smoother : noSmoother, time ? smoother : noSmoother, Z.unwrapped, Z.func)
+        return type(Z_, Z.bandwidth, Z.flabels, Z.nonlinear, frequency ? smoother : noSmoother, time ? smoother : noSmoother, Z.unwrapped, Z.func)
     end
 end
 
@@ -1175,7 +1175,7 @@ numbers of objects hold in the input [FDobjectsVector](@ref) or
 the input objects. By default, no weights are assigned.
 
 `check`, a boolean. If it is true (default), it is checked that the non-data fields
-of the input objects are all the same (for example, sampling rate, bandwidht, etc.).
+of the input objects are all the same (for example, sampling rate, bandwidth, etc.).
 Set it to false to improve speed.
 
 **See also**: [`mean`](@ref).
@@ -1312,7 +1312,7 @@ numbers of objects hold in the input [FDobjectsVector](@ref) or
 the input objects. By default, no weights are assigned.
 
 `check`, a boolean. If it is true (default), it is checked that the non-data fields
-of the input objects are all the same (for example, sampling rate, bandwidht, etc.).
+of the input objects are all the same (for example, sampling rate, bandwidth, etc.).
 
 **See also**: [`extract`](@ref).
 
@@ -1390,7 +1390,7 @@ mean(𝐒::FDobjectsVector, frange::fInterval;
 
 function _getfrange(Y::TFobjects, frange::fInterval, funcname::String)
     # find frequencies in filterbanks
-    hb=Y.bandwidht/2
+    hb=Y.bandwidth/2
     if      isa(frange, IntOrReal)
             (Y.flabels[1]-hb)<=frange<=(Y.flabels[end]+hb) ? (return max(1, (findmin([abs(f-frange) for f∈Y.flabels])[2])):min(length(Y.flabels), (findmin([abs(f-frange)  for f∈Y.flabels])[2]))) :
             @error 📌*", "*funcname*" function passed invalid frange Int or Real argument. The frequency must be comprised between $((Y.flabels[1]-hb)) and $((Y.flabels[end]+hb))" frange
@@ -1488,16 +1488,16 @@ extr=extract
 """
 ```
 function bands(S :: Union{FDobjects, FDobjectsVector}
-       bandwidht :: IntOrReal)
+       bandwidth :: IntOrReal)
 ```
 
 Return band-pass average of spectral, cross-spectral or coherence estimates
-in equally spaced band-pass regions with the given `bandwidht`.
-`bandwidht` can be given as an integer or as a real number. See [`bbands`](@ref)
+in equally spaced band-pass regions with the given `bandwidth`.
+`bandwidth` can be given as an integer or as a real number. See [`bbands`](@ref)
 for details on the definition of band-pass regions.
 
 Band-pass average is not supported for time-frequency objects as for those
-objects a similar averaging is natively avaiable using argument `bandwidht`
+objects a similar averaging is natively avaiable using argument `bandwidth`
 in their constructors.
 
 The output of this function is as it follows:
@@ -1544,8 +1544,8 @@ X2=broadcast(+, v, randn(t*16, 3))*randn(3, 3)
 B=bands(Σ, 4)
 ```
 """
-function bands(S::Spectra, bandwidht::IntOrReal)
-    if (bands=bbands(S.sr, S.wl, bandwidht; DC=S.DC)) isa Nothing return S end
+function bands(S::Spectra, bandwidth::IntOrReal)
+    if (bands=bbands(S.sr, S.wl, bandwidth; DC=S.DC)) isa Nothing return S end
     r, n=length(bands)-1, size(S.y, 2)
     if n==1 return [mean(S.y[bands[b]:bands[b+1]]) for b=1:r]
     else
@@ -1556,19 +1556,19 @@ function bands(S::Spectra, bandwidht::IntOrReal)
 end # input Spectra, Output a vector or a Matrix
 
 
-bands(𝐒::SpectraVector, bandwidht::IntOrReal) =
-    [bands(S, bandwidht) for S ∈ 𝐒] # output a vector of vectors or matrices
+bands(𝐒::SpectraVector, bandwidth::IntOrReal) =
+    [bands(S, bandwidth) for S ∈ 𝐒] # output a vector of vectors or matrices
 
-function bands(S::Union{CrossSpectra, Coherence}, bandwidht::IntOrReal)
-    if (bands=bbands(S.sr, S.wl, bandwidht; DC=S.DC)) isa Nothing return S end
+function bands(S::Union{CrossSpectra, Coherence}, bandwidth::IntOrReal)
+    if (bands=bbands(S.sr, S.wl, bandwidth; DC=S.DC)) isa Nothing return S end
     r=length(bands)-1
     mattype = S.tril ? LowerTriangular : Hermitian
     return typeof(S.y)([mattype(mean(S.y[i] for i=bands[b]:bands[b+1])) for b=1:r])
 end # output: a vector of LowerTriangular (if tril=true) or Hermitian (if tril=false) matrices
 
 
-bands(𝐒::Union{CrossSpectraVector, CoherenceVector}, bandwidht::IntOrReal) =
-    [bands(S, bandwidht) for S ∈ 𝐒] # output: a vector of vectors of LowerTriangular (if tril=true) or Hermitian (if tril=false) matrices
+bands(𝐒::Union{CrossSpectraVector, CoherenceVector}, bandwidth::IntOrReal) =
+    [bands(S, bandwidth) for S ∈ 𝐒] # output: a vector of vectors of LowerTriangular (if tril=true) or Hermitian (if tril=false) matrices
 
 
 # internal function: used by functions that may execute in multi-threading

@@ -35,9 +35,9 @@ Pz=15
 Fz=5
 𝐱₁=[X1[:, Pz], X2[:, Pz]] # get the two times-series at electrode Pz
 𝐱₂=[X1[:, Fz], X2[:, Fz]] # get the two times-series at electrode Fz
-sr, wl, bandwidht=128, 512, 2
-𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidht; fmax=32, nonlinear=false)
-𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidht; fmax=32, nonlinear=false)
+sr, wl, bandwidth=128, 512, 2
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=false)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=false)
 𝐀₁=TFamplitude(𝐘₁)
 𝐀₂=TFamplitude(𝐘₂)
 
@@ -51,9 +51,9 @@ Com=comodulation(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean)
 Com=comodulation(𝐀₁, 𝐀₂, (8, 12), (1, 512); mode=mean)
 # compute the Com averaging in a TF region directly from data
 # In this care you don't have to worry about linearity of the analytic signal
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidht; mode=mean)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean)
 # You can compute comodulation from smoothed amplitude:
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidht;
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth;
                  mode=mean,
                  fsmoothing=blackmanSmoother,
                  tsmoothing=blackmanSmoother)
@@ -62,7 +62,7 @@ Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidht;
 # you can go faster pre-computing a FFTW plan.
 # This is aslo useful when you have to call the comodulation function several times
 plan=Planner(plan_patient, 5, wl, Float64, true)
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidht; mode=mean, planner=plan)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean, planner=plan)
 
 
 # compute the Com in a TF region from a TFAnalyticSignalVector object
@@ -70,7 +70,7 @@ Com=comodulation(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=extract)
 # compute the Com in a TF region from a TFAmplitudeVector object
 Com=comodulation(𝐀₁, 𝐀₂, (8, 12), (1, 512); mode=extract)
 # compute the Com in a TF region directly from data
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidht; mode=extract)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=extract)
 
 # All these operations can be done also for coherence measures, for example
 Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean)
@@ -81,17 +81,17 @@ Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=extract, allkinds=true)
 
 
 # phase coherence (phase-locking value)
-𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidht; fmax=32, nonlinear=true)
-𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidht; fmax=32, nonlinear=true)
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=true)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=true)
 Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean, nonlinear=true)
 
 # or directly from data (no need to compute non-linear analytic signal in this case)
-Coh=coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidht; mode=mean, nonlinear=true)
+Coh=coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean, nonlinear=true)
 
 # and also for non-linear meausures
 # compute non-linear analyticSignal
-𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidht; fmax=32, nonlinear=true)
-𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidht; fmax=32, nonlinear=true)
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=true)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=true)
 # although you are allowed to compute the amplitude of non-linear
 # analytic sygnal this way, it does not make sense as the amplitude
 # is 1.0 everywhere, as you can check

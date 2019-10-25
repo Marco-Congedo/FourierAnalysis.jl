@@ -170,7 +170,7 @@ plot(v)
 
 # generate a times series with two frequencies
 # and a clear envelope
-sr, t, bandwidht=128, 512, 2
+sr, t, bandwidth=128, 512, 2
 h=taper(harris4, t)
 x1=sinusoidal(10, 8, sr, t, 0)
 x2=sinusoidal(10, 19, sr, t, 0)
