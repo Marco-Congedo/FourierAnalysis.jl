@@ -15,15 +15,15 @@ FilterDesign = Union{ZeroPoleGain, FIRWindow}
 """
     function filterbank(x         :: Vector{T},
                         sr        :: Int,
-                        bandwidht :: IntOrReal    = 2;
+                        bandwidth :: IntOrReal    = 2;
                     filtkind      :: FilterDesign = Butterworth(2),
-                    fmin          :: IntOrReal    = bandwidht,
+                    fmin          :: IntOrReal    = bandwidth,
                     fmax          :: IntOrReal    = sr÷2,
                     ⏩           :: Bool         = true) where T<:Real
 
 
 Pass signal vector `x` throught a bank of band-pass filters,
-given sampling rate `sr` and `bandwidht` parameter.
+given sampling rate `sr` and `bandwidth` parameter.
 
 The kind of filters is specified by optional keyword argument `filtkind`,
 of type [FilterDesign](@ref), using the DSP package.
@@ -41,10 +41,10 @@ Hence, ```size(Y, 1)=length(x)``` and ```size(Y, 2)=length(f)```.
 The filter bank is designed by means of argument `bandwidth`
 and optional keyword arguments `fmin` and `fmax`.
 These three arguments can be passed either as integers or real numbers.
-All band-pass regions have bandwidht equal to the `bandwidht` argument
+All band-pass regions have bandwidth equal to the `bandwidth` argument
 and overlap with adjacent band-pass regions.
 By default the lower limit of the first band-pass region is set at
-`bandwidht` Hz, and successive band-pass regions are defined up to,
+`bandwidth` Hz, and successive band-pass regions are defined up to,
 but excluding, the Nyquist frequency (``sr/2``).
 If `fmin` is specified (in Hz), the center frequency of the first band-pass
 region is set as close as possible, but not below, `fmin`.
@@ -98,14 +98,14 @@ on time-frequency reprsentations: [`TFanalyticsignal`](@ref),
 """
 function filterbank(x         :: Vector{T},
                     sr        :: Int,
-                    bandwidht :: IntOrReal    = 2;
+                    bandwidth :: IntOrReal    = 2;
                 filtkind      :: FilterDesign = Butterworth(2),
-                fmin          :: IntOrReal    = bandwidht,
+                fmin          :: IntOrReal    = bandwidth,
                 fmax          :: IntOrReal    = sr÷2,
                 ⏩           :: Bool         = true) where T<:Real
 
     df, dm, ff, Bp=digitalfilter, filtkind, filtfilt, Bandpass # aliases for DSP.jl stuff
-    fb=_ffilterbank(sr, bandwidht; fmin=fmin, fmax=fmax) # get limits for band-passes
+    fb=_ffilterbank(sr, bandwidth; fmin=fmin, fmax=fmax) # get limits for band-passes
     nf=length(fb)-2 # eliminate last frequency, which may be the Nyquist frequency
     flt=[df(Bp(fb[f], fb[f+2]; fs=sr), dm) for f=1:nf] # f band-pass filters
     x_=[zeros(T, sr); x; zeros(T, sr)]     # Before filtering, `x` is padded with `sr` zeros at both sides in order to symmetrize the distortion of DSP.jl butterworth filters.
@@ -118,12 +118,12 @@ end
 
 ##################################################################
 # internal function: Create a vector holding necessary information
-# to build a filter bank, given sampling rate `rt`, the `bandwidht`
+# to build a filter bank, given sampling rate `rt`, the `bandwidth`
 # and optional keyword parameters `fmin` and `fmax`.
-# `bandwidht`, `fmax` and `fmin` can be either Integers or Floats.
+# `bandwidth`, `fmax` and `fmin` can be either Integers or Floats.
 # Let y be the output vector, a filter bank with length(y)-2 filters
 # can be constructed with band-pass regions (in Hz) going from y[i-1] to y[i+1],
-# where y[i+1]-y[i-1] = `bandwidht` for all i in [2:end-1].
+# where y[i+1]-y[i-1] = `bandwidth` for all i in [2:end-1].
 # All the length(y)-2 filters are centered at y[i].
 # By default the filter bank is defined up to, but exclude, the Nyquist frequency.
 # If `fmin` is specified (in Hz), the lowest center frequency is >= `fmin`.
@@ -148,10 +148,10 @@ end
 # bw=1.9
 # _ffilterbank(sr, bw; fmin=3, fmax=5) # [1.9, 2.85, 3.8, 4.75, 5.7]
 function _ffilterbank(sr        :: Int,
-                      bandwidht :: IntOrReal;
-                  fmin          :: IntOrReal = bandwidht,
+                      bandwidth :: IntOrReal;
+                  fmin          :: IntOrReal = bandwidth,
                   fmax          :: IntOrReal = sr÷2)
-    f=collect(range(0, step=bandwidht/2, stop=sr÷2))
+    f=collect(range(0, step=bandwidth/2, stop=sr÷2))
     popfirst!(f)
     a=max(1, (findmin([abs(g-fmin) for g∈f])[2])-1)
     b=min(length(f), (findmin([abs(g-fmax)  for g∈f])[2])+1)

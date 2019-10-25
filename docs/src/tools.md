@@ -15,8 +15,8 @@ This unit implements
 | [`b2f`](@ref)        | frequency (in Hz) that correspond to a bin on a real-FFT vector|
 | [`fdf`](@ref)        | all Fourier discrete frequencies for a real-FFT |
 | [`brange`](@ref)     | range of bins for a real-FFT vector covering all Fourier discrete frequencies |
-| [`bbands`](@ref)     | limits of all bandwidht-spaced band-pass regions of a real-FFT vectors, in bins |
-| [`fbands`](@ref)     | limits of all bandwidht-spaced band-pass regions of a real-FFT vectors, in frequencies (Hz) |
+| [`bbands`](@ref)     | limits of all bandwidth-spaced band-pass regions of a real-FFT vectors, in bins |
+| [`fbands`](@ref)     | limits of all bandwidth-spaced band-pass regions of a real-FFT vectors, in frequencies (Hz) |
 | [`dB`](@ref)         | convert a measure or a ratio between two measures into deciBels |
 
 ```@docs

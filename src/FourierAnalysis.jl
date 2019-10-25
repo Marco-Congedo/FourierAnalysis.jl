@@ -107,7 +107,7 @@ CoherenceVector₂ = Vector{CoherenceVector}
 TFAnalyticSignalData = Matrix{T} where T<:Complex
 struct TFAnalyticSignal
     y          :: TFAnalyticSignalData # Analytic Signal, dim1=freq, dim2=time
-    bandwidht  :: IntOrReal
+    bandwidth  :: IntOrReal
     flabels    :: Vector{S} where S<:Real # center frequency axis labels (in Hz)
     nonlinear  :: Bool # true if nonlinear, false otherwise
     fsmoothing :: Smoother
@@ -119,7 +119,7 @@ TFAnalyticSignalVector = Vector{TFAnalyticSignal}
 TFAmplitudeData = Matrix{T} where T<:Real
 struct TFAmplitude
     y          :: TFAmplitudeData # Analytic (Instantaneous) Amplitude, dim1=freq, dim2=time
-    bandwidht  :: IntOrReal
+    bandwidth  :: IntOrReal
     flabels    :: Vector{S} where S<:Real # center frequency axis labels (in Hz)
     fsmoothing :: Smoother
     tsmoothing :: Smoother
@@ -130,7 +130,7 @@ TFAmplitudeVector = Vector{TFAmplitude}
 TFPhaseData = Matrix{T} where T<:Real
 struct TFPhase
     y          :: TFPhaseData # Analytic (Instantaneous) Phase, dim1=freq, dim2=time
-    bandwidht  :: IntOrReal
+    bandwidth  :: IntOrReal
     flabels    :: Vector{S} where S<:Real # center frequency axis labels (in Hz)
     nonlinear  :: Bool # true if nonlinear, false otherwise
     fsmoothing :: Smoother

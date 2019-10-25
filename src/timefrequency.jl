@@ -18,8 +18,8 @@
 function TFanalyticsignal(x         :: Vector{T},
                           sr        :: Int,
                           wl        :: Int          = 0,
-                          bandwidht :: IntOrReal    = 2;
-                      fmin          :: IntOrReal    = bandwidht,
+                          bandwidth :: IntOrReal    = 2;
+                      fmin          :: IntOrReal    = bandwidth,
                       fmax          :: IntOrReal    = sr÷2,
                       filtkind      :: FilterDesign = Butterworth(2),
                       nonlinear     :: Bool         = false,
@@ -56,7 +56,7 @@ The arguments passed to each of these functions are:
 |:--------------:|:--------------:|:-------------:|
 |      `x`       |     `wl`       | `fsmoothing`  |
 |     `sr`       |  `nonlinear`   | `tsmoothing`  |
-|  `bandwidht`   |   `planner`    |               |
+|  `bandwidth`   |   `planner`    |               |
 |  `filtkind`    |    `⏩`       |               |
 |    `fmin`      |                |               |
 |    `fmax`      |                |               |
@@ -100,7 +100,7 @@ estimations.
 using Plots, FourierAnalysis
 
 # generate some data
-sr, t, bandwidht=128, 512, 2
+sr, t, bandwidth=128, 512, 2
 h=taper(harris4, t)
 x1=sinusoidal(10, 8, sr, t, 0)
 x2=sinusoidal(10, 19, sr, t, 0)
@@ -226,7 +226,7 @@ heatmap(tfAxes(ϴ)..., ϴ.y;
 # and again ...
 
 # create directly smoothed AS
-Y=TFanalyticsignal(x, sr, t, bandwidht;
+Y=TFanalyticsignal(x, sr, t, bandwidth;
                    fmax=32,
                    fsmoothing=hannSmoother,
                    tsmoothing=hannSmoother)
@@ -236,7 +236,7 @@ heatmap(tfAxes(Y)..., amplitude(Y.y);
         c=:amp, tfArgs...)
 
 # create directly smoothed Amplitude
-A=TFamplitude(x, sr, t, bandwidht;
+A=TFamplitude(x, sr, t, bandwidth;
               fmax=32,
               fsmoothing=hannSmoother,
               tsmoothing=hannSmoother)
@@ -246,7 +246,7 @@ heatmap(tfAxes(A)..., A.y;
         c=:amp, tfArgs...)
 
 # compute a TFAnalyticSignal object with non-linear AS
-Y=TFanalyticsignal(x, sr, t, bandwidht; fmax=32, nonlinear=true)
+Y=TFanalyticsignal(x, sr, t, bandwidth; fmax=32, nonlinear=true)
 
 # check that it is non-linear
 Y.nonlinear
@@ -321,8 +321,8 @@ a=mean(A, 8.5, (1, 16))
 function TFanalyticsignal(x         :: Vector{T},
                           sr        :: Int,
                           wl        :: Int          = 0,
-                          bandwidht :: IntOrReal    = 2;
-                      fmin          :: IntOrReal    = bandwidht,
+                          bandwidth :: IntOrReal    = 2;
+                      fmin          :: IntOrReal    = bandwidth,
                       fmax          :: IntOrReal    = sr÷2,
                       filtkind      :: FilterDesign = Butterworth(2),
                       nonlinear     :: Bool         = false,
@@ -331,7 +331,7 @@ function TFanalyticsignal(x         :: Vector{T},
                       planner       :: Planner      = getplanner,
                       ⏩           :: Bool         = true) where T<:Real
     # NB  if `t` > 2^14 then `t` is set to 2^10 by `anaytic signal function`.
-    f, F=filterbank(x, sr, bandwidht;
+    f, F=filterbank(x, sr, bandwidth;
                 filtkind=filtkind, fmin=fmin, fmax=fmax, ⏩=⏩)
 
     smooth(fsmoothing,
@@ -341,7 +341,7 @@ function TFanalyticsignal(x         :: Vector{T},
                                                         nonlinear=nonlinear,
                                                         planner=planner,
                                                         ⏩=⏩))),
-                            bandwidht,
+                            bandwidth,
                             f,
                             nonlinear,
                             noSmoother,
@@ -353,9 +353,9 @@ end
 function TFanalyticsignal(𝐱         :: Vector{Vector{T}},
                           sr        :: Int,
                           wl        :: Int,
-                          bandwidht :: IntOrReal    = 2;
+                          bandwidth :: IntOrReal    = 2;
                       filtkind      :: FilterDesign = Butterworth(2),
-                      fmin          :: IntOrReal    = bandwidht,
+                      fmin          :: IntOrReal    = bandwidth,
                       fmax          :: IntOrReal    = sr÷2,
                       nonlinear     :: Bool         = false,
                       fsmoothing    :: Smoother     = noSmoother,
@@ -372,7 +372,7 @@ function TFanalyticsignal(𝐱         :: Vector{Vector{T}},
     function TF!(i::Int, threaded::Bool)
         f, F = filterbank(𝐱[i],
                           sr,
-                          bandwidht;
+                          bandwidth;
                       filtkind=filtkind,
                       fmin=fmin,
                       fmax=fmax,
@@ -383,7 +383,7 @@ function TFanalyticsignal(𝐱         :: Vector{Vector{T}},
                                                             nonlinear=nonlinear,
                                                             planner=plan,
                                                             ⏩=threaded))),
-                                bandwidht,
+                                bandwidth,
                                 f,
                                 nonlinear,
                                 noSmoother,
@@ -407,7 +407,7 @@ function Base.show(io::IO, ::MIME{Symbol("text/plain")}, Y::TFAnalyticSignal)
     println(io, "non-linear(.nonlinear): $(Y.nonlinear)")
     println(io, "freq. sm.(.fsmoothing): ", string(Y.fsmoothing))
     println(io, "time  sm.(.tsmoothing): ", string(Y.tsmoothing))
-    println(io, "bandwidht             : $(Y.bandwidht) Hz")
+    println(io, "bandwidth             : $(Y.bandwidth) Hz")
     println(io, "freq. lab.  (.flabels): $(l)-", typeof(Y.flabels))
     println(io, "data              (.y): $(r)x$(c)-", typeof(Y.y))
     r≠l && @warn "number of frequency labels does not match the data matrix size" l r
@@ -428,13 +428,13 @@ end
 ##############################################
 # Enable construction giving only `y`, `bandwidth`, `flabels`, `fsmoothing`
 # and `tsmoothing`. `func` is set to `identity`.
-TFAmplitude(y, bandwidht, flabels, fsmoothing, tsmoothing) =
-    TFAmplitude(y, bandwidht, flabels, fsmoothing, tsmoothing, identity)
+TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing) =
+    TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing, identity)
 #
 # As above, but setting by default also both
 # `fsmoothing` and `tsmoothing` to `noSmoother`.
-TFAmplitude(y, bandwidht, flabels) =
-    TFAmplitude(y, bandwidht, flabels, noSmoother, noSmoother, identity)
+TFAmplitude(y, bandwidth, flabels) =
+    TFAmplitude(y, bandwidth, flabels, noSmoother, noSmoother, identity)
 
 #############################################################################
 # Constructors from Data
@@ -453,10 +453,10 @@ function TFamplitude(𝐙::TFAnalyticSignalVector;
 function TFamplitude(x         :: Vector{T},
                      sr        :: Int,
                      wl        :: Int,
-                     bandwidht :: IntOrReal = 2;
+                     bandwidth :: IntOrReal = 2;
                 func       :: Function     = identity,
                 filtkind   :: FilterDesign = Butterworth(2),
-                fmin       :: IntOrReal    = bandwidht,
+                fmin       :: IntOrReal    = bandwidth,
                 fmax       :: IntOrReal    = sr÷2,
                 fsmoothing :: Smoother     = noSmoother,
                 tsmoothing :: Smoother     = noSmoother,
@@ -524,18 +524,18 @@ vector of signals, method (2) of [`TFanalyticsignal`](@ref) is called.
 **Examples**: see the examples of [`TFanalyticsignal`](@ref).
 """
 TFamplitude(Z::TFAnalyticSignal; func::Function=identity) =
-    TFAmplitude(amplitude(Z.y; func=func), Z.bandwidht, Z.flabels, Z.fsmoothing, Z.tsmoothing, func)
+    TFAmplitude(amplitude(Z.y; func=func), Z.bandwidth, Z.flabels, Z.fsmoothing, Z.tsmoothing, func)
 
 TFamplitude(𝐙::TFAnalyticSignalVector; func::Function=identity) =
-    TFAmplitudeVector([TFAmplitude(amplitude(Z.y; func=func), Z.bandwidht, Z.flabels, Z.fsmoothing, Z.tsmoothing, func) for Z ∈ 𝐙])
+    TFAmplitudeVector([TFAmplitude(amplitude(Z.y; func=func), Z.bandwidth, Z.flabels, Z.fsmoothing, Z.tsmoothing, func) for Z ∈ 𝐙])
 
 TFamplitude(𝐱         :: Union{Vector{T}, Vector{Vector{T}}},
             sr        :: Int,
             wl        :: Int,
-            bandwidht :: IntOrReal    = 2;
+            bandwidth :: IntOrReal    = 2;
         func          :: Function     = identity,
         filtkind      :: FilterDesign = Butterworth(2),
-        fmin          :: IntOrReal    = bandwidht,
+        fmin          :: IntOrReal    = bandwidth,
         fmax          :: IntOrReal    = sr÷2,
         fsmoothing    :: Smoother     = noSmoother,
         tsmoothing    :: Smoother     = noSmoother,
@@ -547,7 +547,7 @@ TFamplitude(𝐱         :: Union{Vector{T}, Vector{Vector{T}}},
            TFamplitude(TFanalyticsignal(𝐱,
                                         sr,
                                         wl,
-                                        bandwidht;
+                                        bandwidth;
                                     filtkind  = filtkind,
                                     fmin      = fmin,
                                     fmax      = fmax,
@@ -566,7 +566,7 @@ function Base.show(io::IO, ::MIME{Symbol("text/plain")}, Y::TFAmplitude)
    println(io, separatorFont, "⭒  ⭒    ⭒      ⭒        ⭒           ⭒", defaultFont)
    println(io, "freq. sm.(.fsmoothing): ", string(Y.fsmoothing))
    println(io, "time  sm.(.tsmoothing): ", string(Y.tsmoothing))
-   println(io, "bandwidht             : $(Y.bandwidht) Hz")
+   println(io, "bandwidth             : $(Y.bandwidth) Hz")
    println(io, "function     (.func)  : ", string(Y.func))
    println(io, "freq. lab.(.flabels)  : $(l)-", typeof(Y.flabels))
    println(io, "data            (.y)  : $(r)x$(c)-", typeof(Y.y))
@@ -588,15 +588,15 @@ end
 # Generic constructors of TFAmplitude objects:
 ##############################################
 #
-# Enable construction giving only `y`, `bandwidht`, `flabels`, `fsmoothing`
+# Enable construction giving only `y`, `bandwidth`, `flabels`, `fsmoothing`
 # and `tsmoothing`. `unwrapped` is set to false and `func` is set to `identity`.
-TFPhase(y, bandwidht, flabels, nonlinear, fsmoothing, tsmoothing) =
-    TFPhase(y, bandwidht, flabels, nonlinear, fsmoothing, tsmoothing, false, identity)
+TFPhase(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing) =
+    TFPhase(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing, false, identity)
 #
 # As above, but setting by default also `nonlinear` to true and both
 # `fsmoothing` and `tsmoothing` to `noSmoother`.
-TFPhase(y, bandwidht, flabels) =
-    TFPhase(y, bandwidht, flabels, true, noSmoother, noSmoother, false, identity)
+TFPhase(y, bandwidth, flabels) =
+    TFPhase(y, bandwidth, flabels, true, noSmoother, noSmoother, false, identity)
 
 #############################################################################
 # Constructors from Data
@@ -617,11 +617,11 @@ function TFphase(𝐙 :: TFAnalyticSignalVector;
 function TFphase(x         :: Vector{T},
                  sr        :: Int,
                  wl        :: Int,
-                 bandwidht :: IntOrReal = 2;
+                 bandwidth :: IntOrReal = 2;
            unwrapped  :: Bool         = false,
            func       :: Function     = identity,
            filtkind   :: FilterDesign = Butterworth(2),
-           fmin       :: IntOrReal    = bandwidht,
+           fmin       :: IntOrReal    = bandwidth,
            fmax       :: IntOrReal    = sr÷2,
            nonlinear  :: Bool         = false,
            fsmoothing :: Smoother     = noSmoother,
@@ -698,7 +698,7 @@ vector of signals, method (2) of [`TFanalyticsignal`](@ref) is called.
 **Examples**: see the examples of [`TFanalyticsignal`](@ref).
 """
 TFphase(Z::TFAnalyticSignal; func::Function=identity, unwrapped::Bool=false) =
-    TFPhase(phase(Z.y; unwrapdims=2*unwrapped, func=func), Z.bandwidht, Z.flabels, Z.nonlinear, Z.fsmoothing, Z.tsmoothing, unwrapped, func)
+    TFPhase(phase(Z.y; unwrapdims=2*unwrapped, func=func), Z.bandwidth, Z.flabels, Z.nonlinear, Z.fsmoothing, Z.tsmoothing, unwrapped, func)
 
 TFphase(𝐙::TFAnalyticSignalVector; func::Function=identity, unwrapped::Bool=false) =
     TFPhaseVector([TFphase(Z; func=func, unwrapped=unwrapped) for Z in 𝐙])
@@ -706,11 +706,11 @@ TFphase(𝐙::TFAnalyticSignalVector; func::Function=identity, unwrapped::Bool=f
 function TFphase(𝐱         :: Union{Vector{T}, Vector{Vector{T}}},
                  sr        :: Int,
                  wl        :: Int,
-                 bandwidht :: IntOrReal    = 2;
+                 bandwidth :: IntOrReal    = 2;
            unwrapped  :: Bool         = false,
            func       :: Function     = identity,
            filtkind   :: FilterDesign = Butterworth(2),
-           fmin       :: IntOrReal    = bandwidht,
+           fmin       :: IntOrReal    = bandwidth,
            fmax       :: IntOrReal    = sr÷2,
            nonlinear  :: Bool         = false,
            fsmoothing :: Smoother     = noSmoother,
@@ -721,7 +721,7 @@ function TFphase(𝐱         :: Union{Vector{T}, Vector{Vector{T}}},
    TFP = TFphase(TFanalyticsignal(𝐱,
                                  sr,
                                  wl,
-                                 bandwidht;
+                                 bandwidth;
                                  filtkind  = filtkind,
                                  fmin      = fmin,
                                  fmax      = fmax,
@@ -752,7 +752,7 @@ function Base.show(io::IO, ::MIME{Symbol("text/plain")}, Y::TFPhase)
     println(io, "non-linear(.nonlinear): $(Y.nonlinear)")
     println(io, "freq. sm.(.fsmoothing): ", string(Y.fsmoothing))
     println(io, "time  sm.(.tsmoothing): ", string(Y.tsmoothing))
-    println(io, "bandwidht             : $(Y.bandwidht) Hz")
+    println(io, "bandwidth             : $(Y.bandwidth) Hz")
     println(io, "unwrapped             : $(Y.unwrapped)")
     println(io, "function     (.func)  : ", string(Y.func))
     println(io, "freq. lab.(.flabels)  : $(l)-", typeof(Y.flabels))

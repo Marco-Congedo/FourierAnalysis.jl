@@ -37,12 +37,12 @@ function comodulation(𝐱₁        :: Vector{Vector{T}},
                       wl        :: Int,
                       frange    :: fInterval,
                       trange    :: tInterval,
-                      bandwidht :: IntOrReal    = 2;
+                      bandwidth :: IntOrReal    = 2;
                 mode            :: Function     = extract,
                 func            :: Function     = identity,
                 w               :: Vector       = [],
                 filtkind        :: FilterDesign = Butterworth(2),
-                fmin            :: IntOrReal    = bandwidht,
+                fmin            :: IntOrReal    = bandwidth,
                 fmax            :: IntOrReal    = sr÷2,
                 fsmoothing      :: Smoother     = noSmoother,
                 tsmoothing      :: Smoother     = noSmoother,
@@ -108,14 +108,14 @@ and applied for all amplitude estimations.
 using FourierAnalysis
 
 # generate 100 pairs of data vectors
-sr, t, bandwidht=128, 512, 2
+sr, t, bandwidth=128, 512, 2
 h=taper(harris4, t)
 𝐱₁=[sinusoidal(2, 10, sr, t, 0).*h.y+randn(t) for i=1:100]
 𝐱₂=[sinusoidal(2, 10, sr, t, 0).*h.y+randn(t) for i=1:100]
 
 # compute their (linear) analytic signal
-𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidht; fmax=32, nonlinear=false)
-𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidht; fmax=32, nonlinear=false)
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=false)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=false)
 
 # compute their amplitude
 𝐀₁=TFamplitude(𝐘₁)
@@ -131,10 +131,10 @@ Com=comodulation(𝐀₁, 𝐀₂, (8, 12), :; mode=mean)
 
 # compute the Com averaging in a TF region directly from data
 # In this case you don't have to worry about linearity
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidht; mode=mean)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=mean)
 
 # compute comodulation from smoothed amplitude:
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidht;
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth;
                  mode=mean,
                  fsmoothing=blackmanSmoother,
                  tsmoothing=blackmanSmoother)
@@ -142,7 +142,7 @@ Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidht;
 # you can go faster pre-computing a FFTW plan.
 # This is useful when you have to call the comodulation function several times
 plan=Planner(plan_patient, 5, wl, Float64, true)
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidht; mode=mean, planner=plan)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=mean, planner=plan)
 
 # compute the Com in a TF region from TFAnalyticSignalVector objects
 Com=comodulation(𝐘₁, 𝐘₂, (8, 12), :; mode=extract)
@@ -151,7 +151,7 @@ Com=comodulation(𝐘₁, 𝐘₂, (8, 12), :; mode=extract)
 Com=comodulation(𝐀₁, 𝐀₂, (8, 12), :; mode=extract)
 
 # compute the Com in a TF region directly from data
-Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidht; mode=extract)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=extract)
 
 # All these operations can be done also for coherence measures, for example
 Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=mean)
@@ -163,13 +163,13 @@ Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=extract, allkinds=true)
 
 # phase coherence (phase-locking value)
 # we obtain this measure from non-linear TFAnalyticSignalVector objects
-𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidht; fmax=32, nonlinear=true)
-𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidht; fmax=32, nonlinear=true)
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=true)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=true)
 
 Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=mean, nonlinear=true)
 
 # or directly from data (no need to worry about non-linearity in this case)
-Coh=coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidht; mode=mean, nonlinear=true)
+Coh=coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=mean, nonlinear=true)
 
 ```
 """
@@ -216,12 +216,12 @@ function comodulation(𝐱₁        :: Vector{Vector{T}},
                       wl        :: Int,
                       frange    :: fInterval,
                       trange    :: tInterval,
-                      bandwidht :: IntOrReal    = 2;
+                      bandwidth :: IntOrReal    = 2;
                 mode            :: Function     = extract,
                 func            :: Function     = identity,
                 w               :: Vector       = [],
                 filtkind        :: FilterDesign = Butterworth(2),
-                fmin            :: IntOrReal    = bandwidht,
+                fmin            :: IntOrReal    = bandwidth,
                 fmax            :: IntOrReal    = sr÷2,
                 fsmoothing      :: Smoother     = noSmoother,
                 tsmoothing      :: Smoother     = noSmoother,
@@ -234,7 +234,7 @@ function comodulation(𝐱₁        :: Vector{Vector{T}},
         TFamplitude(𝐱,
                     sr,
                     wl,
-                    bandwidht;
+                    bandwidth;
                 filtkind   = filtkind,
                 fmin       = fmin,
                 fmax       = fmax,
@@ -278,14 +278,14 @@ function coherence(𝐱₁        :: Vector{Vector{T}},
                    wl        :: Int,
                    frange    :: fInterval,
                    trange    :: tInterval,
-                   bandwidht :: IntOrReal = 2;
+                   bandwidth :: IntOrReal = 2;
               nonlinear  :: Bool         = false,
               allkinds   :: Bool         = false,
               mode       :: Function     = extract,
               func       :: Function     = identity,
               w          :: Vector       = [],
               filtkind   :: FilterDesign = Butterworth(2),
-              fmin       :: IntOrReal    = bandwidht,
+              fmin       :: IntOrReal    = bandwidth,
               fmax       :: IntOrReal    = sr÷2,
               fsmoothing :: Smoother     = noSmoother,
               tsmoothing :: Smoother     = noSmoother,
@@ -397,14 +397,14 @@ function coherence(𝐱₁        :: Vector{Vector{T}},
                    wl        :: Int,
                    frange    :: fInterval,
                    trange    :: tInterval,
-                   bandwidht :: IntOrReal = 2;
+                   bandwidth :: IntOrReal = 2;
              nonlinear  :: Bool         = false,
              allkinds   :: Bool         = false,
              mode       :: Function     = extract,
              func       :: Function     = identity,
              w          :: Vector       = [],
              filtkind   :: FilterDesign = Butterworth(2),
-             fmin       :: IntOrReal    = bandwidht,
+             fmin       :: IntOrReal    = bandwidth,
              fmax       :: IntOrReal    = sr÷2,
              fsmoothing :: Smoother     = noSmoother,
              tsmoothing :: Smoother     = noSmoother,
@@ -417,7 +417,7 @@ function coherence(𝐱₁        :: Vector{Vector{T}},
         TFanalyticsignal(𝐱,
                          sr,
                          wl,
-                         bandwidht;
+                         bandwidth;
                      filtkind   = filtkind,
                      fmin       = fmin,
                      fmax       = fmax,
@@ -466,29 +466,29 @@ end
 
 #######################  internal utilities  ##############################
 *(Z₁::TFAnalyticSignal, Z₂::TFAnalyticSignal) =
-    TFAnalyticSignal(Z₁.y.*Z₂.y, Z₁.bandwidht, Z₁.flabels, Z₁.nonlinear, Z₁.fsmoothing, Z₁.tsmoothing)
+    TFAnalyticSignal(Z₁.y.*Z₂.y, Z₁.bandwidth, Z₁.flabels, Z₁.nonlinear, Z₁.fsmoothing, Z₁.tsmoothing)
 
 *(𝐙₁::TFAnalyticSignalVector, 𝐙₂::TFAnalyticSignalVector) =
     TFAnalyticSignalVector([Z₁*Z₂ for (Z₁, Z₂) in zip(𝐙₁, 𝐙₂)])
 
 *(A₁::TFAmplitude, A₂::TFAmplitude) =
-    TFAmplitude(A₁.y.*A₂.y, A₁.bandwidht, A₁.flabels, A₁.fsmoothing, A₁.tsmoothing, A₁.func)
+    TFAmplitude(A₁.y.*A₂.y, A₁.bandwidth, A₁.flabels, A₁.fsmoothing, A₁.tsmoothing, A₁.func)
 
 *(𝐀₁::TFAmplitudeVector, 𝐀₂::TFAmplitudeVector) =
     TFAmplitudeVector([A₁*A₂ for (A₁, A₂) in zip(𝐀₁, 𝐀₂)])
 
 conj(Z::TFAnalyticSignal) =
-    TFAnalyticSignal(conj(Z.y), Z.bandwidht, Z.flabels, Z.nonlinear, Z.fsmoothing, Z.tsmoothing)
+    TFAnalyticSignal(conj(Z.y), Z.bandwidth, Z.flabels, Z.nonlinear, Z.fsmoothing, Z.tsmoothing)
 
 conj(𝐙::TFAnalyticSignalVector) = TFAnalyticSignalVector([conj(Z) for Z ∈ 𝐙])
 
 real(Z::TFAnalyticSignal) =
-    TFAmplitude(real(Z.y), Z.bandwidht, Z.flabels, Z.fsmoothing, Z.tsmoothing, identity)
+    TFAmplitude(real(Z.y), Z.bandwidth, Z.flabels, Z.fsmoothing, Z.tsmoothing, identity)
 
 real(𝐙::TFAnalyticSignalVector) = TFAmplitudeVector([real(Z) for Z ∈ 𝐙])
 
 imag(Z::TFAnalyticSignal) =
-    TFAmplitude(imag(Z.y), Z.bandwidht, Z.flabels, Z.fsmoothing, Z.tsmoothing, identity)
+    TFAmplitude(imag(Z.y), Z.bandwidth, Z.flabels, Z.fsmoothing, Z.tsmoothing, identity)
 
 imag(𝐙::TFAnalyticSignalVector) = TFAmplitudeVector([imag(Z) for Z ∈ 𝐙])
 
@@ -496,7 +496,7 @@ imag(𝐙::TFAnalyticSignalVector) = TFAmplitudeVector([imag(Z) for Z ∈ 𝐙])
 unknown()=Nothing
 
 sqr(a)=a^2
-sqr(A::TFAmplitude) = TFAmplitude(A.y.^2, A.bandwidht, A.flabels, A.fsmoothing, A.tsmoothing, A.func==identity ? sqr : unknown)
+sqr(A::TFAmplitude) = TFAmplitude(A.y.^2, A.bandwidth, A.flabels, A.fsmoothing, A.tsmoothing, A.func==identity ? sqr : unknown)
 sqr(𝐀::TFAmplitudeVector) =  TFAmplitudeVector([sqr(A) for A ∈ 𝐀])
 
 power(r::Real)=abs2(r)
@@ -505,7 +505,7 @@ power(Z::AbstractArray{T}) where T<:Real = abs2.(Z)
 power(Z::AbstractArray{T}) where T<:Complex = abs2.(Z)
 
 TFpower(Z::TFAnalyticSignal) =
-    TFAmplitude(abs2.(Z.y), Z.bandwidht, Z.flabels, Z.fsmoothing, Z.tsmoothing, identity)
+    TFAmplitude(abs2.(Z.y), Z.bandwidth, Z.flabels, Z.fsmoothing, Z.tsmoothing, identity)
 
 TFpower(𝐙::TFAnalyticSignalVector) =
     TFAmplitudeVector([TFpower(Z) for Z ∈ 𝐙])

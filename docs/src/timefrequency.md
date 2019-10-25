@@ -26,7 +26,7 @@ An analytic signal object has the following structure:
 ```
 struct TFAnalyticSignal
     y          :: Matrix{T} where T<:Complex
-    bandwidht  :: IntOrReal
+    bandwidth  :: IntOrReal
     flabels    :: Vector{S} where S<:Real
     nonlinear  :: Bool
     fsmoothing :: Smoother
@@ -38,7 +38,7 @@ end
 
 `y`: a *complex* matrix holding the *analytic signal* in the time-frequency domain, with frequency band-pass regions (in Hz) in rows and time (samples) in columns.
 
-`bandwidht`: the *bandwidht* (in Hz) of the filter bank band-pass regions.
+`bandwidth`: the *bandwidth* (in Hz) of the filter bank band-pass regions.
 See constructor [`TFanalyticsignal`](@ref) for details.
 It can be an integer or a real number.
 
@@ -96,7 +96,7 @@ appropriate arguments. The default manual constructor of *TFAnalyticSignal*
 objects is
 
 ```
-TFAnalyticSignal(y, bandwidht, flabels, nonlinear, fsmoothing, tsmoothing).
+TFAnalyticSignal(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing).
 ```
 
 No other generic constructor is provided for this object.
@@ -111,7 +111,7 @@ An amplitude object has the following structure:
 ```
 struct TFAmplitude
     y          :: Matrix{T} where T<:Real
-    bandwidht  :: IntOrReal
+    bandwidth  :: IntOrReal
     flabels    :: Vector{S} where S<:Real
     fsmoothing :: Smoother
     tsmoothing :: Smoother
@@ -125,7 +125,7 @@ end
 in the time-frequency domain, often referred to as the *envelope*,
 with frequency band-pass regions (in Hz) in rows and time (samples) in columns.
 
-`bandwidht`: the *bandwidht* (in Hz) of the filter bank band-pass regions.
+`bandwidth`: the *bandwidth* (in Hz) of the filter bank band-pass regions.
 See constructor [`TFanalyticsignal`](@ref) for details.
 It can be an integer or a real number.
 
@@ -179,19 +179,19 @@ appropriate arguments. The default manual constructor of *TFAmplitude*
 objects is
 
 ```
-TFAmplitude(y, bandwidht, flabels, fsmoothing, tsmoothing, func).
+TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing, func).
 ```
 
 Other generic constructors are also provided:
 
 ```
-TFAmplitude(y, bandwidht, flabels, fsmoothing, tsmoothing)
+TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing)
 ```
 enables construction giving only `y`, `bandwidth`, `flabels`, `fsmoothing`
 and `tsmoothing`. `func` is set automatically to `identity`;
 
 ```
-TFAmplitude(y, bandwidht, flabels)
+TFAmplitude(y, bandwidth, flabels)
 ```
 acts like the constructor above, but sets by default also both `fsmoothing`
 and `tsmoothing` to `noSmoother`.
@@ -206,7 +206,7 @@ A phase object has the following structure:
 ```
 struct TFPhase
     y          :: Matrix{T} where T<:Real
-    bandwidht  :: IntOrReal
+    bandwidth  :: IntOrReal
     flabels    :: Vector{S} where S<:Real
     nonlinear  :: Bool
     fsmoothing :: Smoother
@@ -223,7 +223,7 @@ in the time-frequency domain, with frequency band-pass regions (in Hz)
 in rows and time (samples) in columns. By default the phase is
 represented in ``[−π, π]``.
 
-`bandwidht`: the *bandwidht* (in Hz) of the filter bank band-pass regions.
+`bandwidth`: the *bandwidth* (in Hz) of the filter bank band-pass regions.
 See constructor [`TFanalyticsignal`](@ref) for details.
 It can be an integer or a real number.
 
@@ -293,21 +293,21 @@ appropriate arguments. The default manual constructor of *TFPhase*
 objects is
 
 ```
-TFPhase(y, bandwidht, flabels, nonlinear,
+TFPhase(y, bandwidth, flabels, nonlinear,
         fsmoothing, tsmoothing, unwrapped, func).
 ```
 
 Other generic constructors are also provided:
 
 ```
-TFPhase(y, bandwidht, flabels, nonlinear, fsmoothing, tsmoothing)
+TFPhase(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing)
 ```
-enables construction giving only `y`, `bandwidht`, `flabels`, `fsmoothing`
+enables construction giving only `y`, `bandwidth`, `flabels`, `fsmoothing`
 and `tsmoothing`. `unwrapped` is set to `false` and `func` is set
 to `identity`;
 
 ```
-TFPhase(y, bandwidht, flabels)
+TFPhase(y, bandwidth, flabels)
 ```
 acts like the constructor above, but sets by default also `nonlinear` to `true`
 and both `fsmoothing` and `tsmoothing` to `noSmoother`.

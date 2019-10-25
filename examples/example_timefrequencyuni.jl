@@ -31,10 +31,10 @@ X2=readEEG(S[2])
 # Univariate measures
 # see Congedo, 2018: https://hal.archives-ouvertes.fr/hal-01868538/document
 
-sr, wl, bandwidht=128, 512, 2
+sr, wl, bandwidth=128, 512, 2
 Pz=15
 𝐱=[X1[:, Pz], X2[:, Pz]] # get the two times-series at electrode Pz
-𝐘=TFanalyticsignal(𝐱, sr, wl, bandwidht; fmax=32, nonlinear=false)
+𝐘=TFanalyticsignal(𝐱, sr, wl, bandwidth; fmax=32, nonlinear=false)
 𝐀=TFamplitude(𝐘)
 
 # Mean Amplitude Eq. 0.1 (MAmp)
@@ -43,18 +43,18 @@ MAmp=meanAmplitude(𝐘, (8, 12), (1, 512); mode=mean)
 # compute the MAmp averaging in a TF region from a TFAmplitudeVector object
 MAmp=meanAmplitude(𝐀, (8, 12), (1, 512); mode=mean)
 # compute the MAmp averaging in a TF region directly from data
-MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidht; mode=mean)
+MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean)
 
 # compute the MAmp in a TF region from a TFAnalyticSignalVector object
 MAmp=meanAmplitude(𝐘, (8, 12), (1, 512); mode=extract)
 # compute the MAmp in a TF region from a TFAmplitudeVector object
 MAmp=meanAmplitude(𝐀, (8, 12), (1, 512); mode=extract)
 # compute the MAmp in a TF region directly from data
-MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidht; mode=extract)
+MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidth; mode=extract)
 # NB the Analytic Signal or the amplitude objects must be linear (note the nonlinear=false above)
 
 # All these operation can be obtained on smoothed Amplitude, e.g.,
-MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidht;
+MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidth;
                    mode=extract,
                    fsmoothing=hannSmoother,
                    tsmoothing=hannSmoother)
@@ -64,20 +64,20 @@ MAmp=meanAmplitude(𝐱, sr, wl, (8, 12), (1, 512), bandwidht;
 # compute the Con averaging in a TF region from a TFAnalyticSignalVector object
 Con=concentration(𝐘, (8, 12), (1, 512); mode=mean)
 # compute the Con in a TF region directly from data
-Con=concentration(𝐱, sr, wl, (8, 12), (1, 512), bandwidht; mode=extract)
+Con=concentration(𝐱, sr, wl, (8, 12), (1, 512), bandwidth; mode=extract)
 # Mean Direction Eq. 0.3 (MDir)
 # compute the MDir averaging in a TF region directly from data
-MDir=meanDirection(𝐱, sr, wl, (8, 12), (1, 512), bandwidht; mode=mean)
+MDir=meanDirection(𝐱, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean)
 # compute the MDir in a TF region from a TFAnalyticSignalVector object
 MDir=meanDirection(𝐘, (8, 12), (1, 512); mode=extract)
 
 # and for the non-linear counterpart:
 # Phase Concentration Eq. 0.4 (PCon)
 # compute the Con in a TF region directly from data
-Con=concentration(𝐱, sr, wl, (8, 12), (1, 512), bandwidht; mode=extract, nonlinear=true)
+Con=concentration(𝐱, sr, wl, (8, 12), (1, 512), bandwidth; mode=extract, nonlinear=true)
 # Phase Mean Direction Eq. 0.5 (PMDir)
 # compute the MDir averaging in a TF region directly from data
-MDir=meanDirection(𝐱, sr, wl, (8, 12), (1, 512), bandwidht; mode=mean, nonlinear=true)
+MDir=meanDirection(𝐱, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean, nonlinear=true)
 
 # If you try to compute a non-linear measure from a linear AnalyticSignal object
 # you will get en error (see the REPL)
@@ -85,7 +85,7 @@ Con=concentration(𝐘, (8, 12), (1, 512); mode=mean, nonlinear=true)
 
 # In order to compute those quantities from Analytic Signal objects
 # first we need to compute a non-linear Analytic Signal objects:
-𝐘=TFanalyticsignal(𝐱, sr, wl, bandwidht; fmax=32, nonlinear=true)
+𝐘=TFanalyticsignal(𝐱, sr, wl, bandwidth; fmax=32, nonlinear=true)
 # then
 # Phase Concentration Eq. 0.4 (PCon)
 Con=concentration(𝐘, (8, 12), (1, 512); mode=mean, nonlinear=true)

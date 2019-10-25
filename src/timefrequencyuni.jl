@@ -38,13 +38,13 @@ function meanAmplitude( 𝐱      :: Vector{Vector{T}},
                         wl     :: Int,
                         frange :: fInterval,
                         trange :: tInterval,
-                     bandwidht :: IntOrReal    = 2;
+                     bandwidth :: IntOrReal    = 2;
                  mode          :: Function     = extract,
                  func          :: Function     = identity,
                  w             :: Vector       = [],
                  check         :: Bool         = true,
                  filtkind      :: FilterDesign = Butterworth(2),
-                 fmin          :: IntOrReal    = bandwidht,
+                 fmin          :: IntOrReal    = bandwidth,
                  fmax          :: IntOrReal    = sr÷2,
                  fsmoothing    :: Smoother     = noSmoother,
                  tsmoothing    :: Smoother     = noSmoother,
@@ -124,11 +124,11 @@ for their meaning.
 using FourierAnalysis
 
 # generate 100 vectors of data
-sr, t, bandwidht=128, 512, 2
+sr, t, bandwidth=128, 512, 2
 h=taper(harris4, t)
 𝐱=[sinusoidal(2, 10, sr, t, 0).*h.y+randn(t) for i=1:100]
 
-𝐘=TFanalyticsignal(𝐱, sr, t, bandwidht; fmax=32)
+𝐘=TFanalyticsignal(𝐱, sr, t, bandwidth; fmax=32)
 𝐀=TFamplitude(𝐘)
 
 # mean amplitude in a TF region from a TFAnalyticSignalVector object
@@ -139,7 +139,7 @@ heatmap(MAmp; c=:fire) # y axis labels are not correct
 MAmp=meanAmplitude(𝐀, (4, 16), :)
 
 # mean amplitude in a TF region directly from data
-MAmp=meanAmplitude(𝐱, sr, t, (4, 16), :, bandwidht)
+MAmp=meanAmplitude(𝐱, sr, t, (4, 16), :, bandwidth)
 
 # NB: in the above, the analytic signal objects must all
 # be linear, since meanAmplitude is computed from amplitude
@@ -160,13 +160,13 @@ MAmp=mamp(smooth(blackmanSmoother, blackmanSmoother, 𝐀), (4, 16), :)
 ConM=concentration(𝐘, (4, 16), (128, 384); mode=mean)
 
 # concentration in a TF region directly from data (using the alias `con`)
-ConE=con(𝐱, sr, t, (4, 16), (128, 384), bandwidht; mode=extract)
+ConE=con(𝐱, sr, t, (4, 16), (128, 384), bandwidth; mode=extract)
 heatmap(Con; c=:fire) # y axis labels are not correct
 
 NB: ConM is not at all equivalent to mean(ConE) !
 
 # mean direction averaging in a TF region directly from data
-MDir=meanDirection(𝐱, sr, t, (4, 16), :, bandwidht; mode=mean)
+MDir=meanDirection(𝐱, sr, t, (4, 16), :, bandwidth; mode=mean)
 
 # mean direction in a TF region from a TFAnalyticSignalVector object
 MDir=meanDirection(𝐘, (4, 16), :)
@@ -188,7 +188,7 @@ Con=con(𝐘, (8, 12), (1, 512); mode=mean, nonlinear=true)
 
 # In order to compute non-linear measures from analytic signal objects
 # first we need to compute non-linear analytic signal objects:
-𝐘=TFanalyticsignal(𝐱, sr, t, bandwidht; fmax=32, nonlinear=true)
+𝐘=TFanalyticsignal(𝐱, sr, t, bandwidth; fmax=32, nonlinear=true)
 
 # then, we can obtain for example the phase concentration
 Con=con(𝐘, (8, 12), :; mode=mean, nonlinear=true)
@@ -227,13 +227,13 @@ meanAmplitude( 𝐱      :: Vector{Vector{T}},
                wl     :: Int,
                frange :: fInterval,
                trange :: tInterval,
-            bandwidht :: IntOrReal    = 2;  # <>
+            bandwidth :: IntOrReal    = 2;  # <>
         mode          :: Function     = extract,
         func          :: Function     = identity,
         w             :: Vector       = [],
         check         :: Bool         = true,
         filtkind      :: FilterDesign = Butterworth(2),
-        fmin          :: IntOrReal    = bandwidht,
+        fmin          :: IntOrReal    = bandwidth,
         fmax          :: IntOrReal    = sr÷2,
         fsmoothing    :: Smoother     = noSmoother,
         tsmoothing    :: Smoother     = noSmoother,
@@ -243,7 +243,7 @@ meanAmplitude( 𝐱      :: Vector{Vector{T}},
     meanAmplitude(TFamplitude(𝐱,
                               sr,
                               wl,
-                              bandwidht;
+                              bandwidth;
                         fmin       = fmin,
                         fmax       = fmax,
                         fsmoothing = fsmoothing,
@@ -281,14 +281,14 @@ function concentration( 𝐱      :: Vector{Vector{T}},
                         wl     :: Int,
                         frange :: fInterval,
                         trange :: tInterval,
-                     bandwidht :: IntOrReal    = 2;
+                     bandwidth :: IntOrReal    = 2;
                  nonlinear  :: Bool         = false,
                  mode       :: Function     = extract,
                  func       :: Function     = identity,
                  w          :: Vector       = [],
                  check         :: Bool      = true,
                  filtkind   :: FilterDesign = Butterworth(2),
-                 fmin       :: IntOrReal    = bandwidht,
+                 fmin       :: IntOrReal    = bandwidth,
                  fmax       :: IntOrReal    = sr÷2,
                  fsmoothing :: Smoother     = noSmoother,
                  tsmoothing :: Smoother     = noSmoother,
@@ -356,14 +356,14 @@ concentration( 𝐱      :: Vector{Vector{T}},
                wl     :: Int,
                frange :: fInterval,
                trange :: tInterval,
-            bandwidht :: IntOrReal    = 2;
+            bandwidth :: IntOrReal    = 2;
         nonlinear     :: Bool         = false,
         mode          :: Function     = extract,
         func          :: Function     = identity,
         w             :: Vector       = [],
         check         :: Bool         = true,
         filtkind      :: FilterDesign = Butterworth(2),
-        fmin          :: IntOrReal    = bandwidht,
+        fmin          :: IntOrReal    = bandwidth,
         fmax          :: IntOrReal    = sr÷2,
         fsmoothing    :: Smoother     = noSmoother,
         tsmoothing    :: Smoother     = noSmoother,
@@ -373,7 +373,7 @@ concentration( 𝐱      :: Vector{Vector{T}},
     concentration(TFanalyticsignal(𝐱,
                                    sr,
                                    wl,
-                                   bandwidht;
+                                   bandwidth;
                               fmin       = fmin,
                               fmax       = fmax,
                               fsmoothing = fsmoothing,
@@ -411,14 +411,14 @@ function meanDirection( 𝐱      :: Vector{Vector{T}},
                         wl     :: Int,
                         frange :: fInterval,
                         trange :: tInterval,
-                     bandwidht :: IntOrReal    = 2;
+                     bandwidth :: IntOrReal    = 2;
                  nonlinear     :: Bool         = false,
                  mode          :: Function     = extract,
                  func          :: Function     = identity,
                  w             :: Vector       = [],
                  check         :: Bool         = true,
                  filtkind      :: FilterDesign = Butterworth(2),
-                 fmin          :: IntOrReal    = bandwidht,
+                 fmin          :: IntOrReal    = bandwidth,
                  fmax          :: IntOrReal    = sr÷2,
                  fsmoothing    :: Smoother     = noSmoother,
                  tsmoothing    :: Smoother     = noSmoother,
@@ -460,14 +460,14 @@ meanDirection( 𝐱      :: Vector{Vector{T}},
                wl     :: Int,
                frange :: fInterval,
                trange :: tInterval,
-            bandwidht :: IntOrReal    = 2;
+            bandwidth :: IntOrReal    = 2;
         nonlinear     :: Bool         = false,
         mode          :: Function     = extract,
         func          :: Function     = identity,
         w             :: Vector       = [],
         check         :: Bool         = true,
         filtkind      :: FilterDesign = Butterworth(2),
-        fmin          :: IntOrReal    = bandwidht,
+        fmin          :: IntOrReal    = bandwidth,
         fmax          :: IntOrReal    = sr÷2,
         fsmoothing    :: Smoother     = noSmoother,
         tsmoothing    :: Smoother     = noSmoother,
@@ -477,7 +477,7 @@ meanDirection( 𝐱      :: Vector{Vector{T}},
     meanDirection(TFanalyticsignal(𝐱,
                                    sr,
                                    wl,
-                                   bandwidht;
+                                   bandwidth;
                                fmin       = fmin,
                                fmax       = fmax,
                                fsmoothing = fsmoothing,
