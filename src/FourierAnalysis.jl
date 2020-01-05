@@ -20,7 +20,7 @@ using   Base.Threads,
 
 # # # # # Special instructions and variables # # # # #
 # N.B. multi-threaded planners are not yet exported by FFTW
-BLAS.set_num_threads(Sys.CPU_THREADS-Threads.nthreads())
+BLAS.set_num_threads(Sys.CPU_THREADS)
 
 
 # # # # # constants # # # # #
@@ -282,6 +282,5 @@ println(" runs on kernel ",Sys.KERNEL," with word size ",Sys.WORD_SIZE,".")
 println(" CPU  Threads: ",Sys.CPU_THREADS)
 # Sys.BINDIR # julia bin directory
 println(" Base.Threads: ", "$(Threads.nthreads())")
-println(" BLAS Threads: ", "$(Sys.CPU_THREADS-Threads.nthreads())", "\n")
-
+println(" BLAS Threads: ", "$(Sys.CPU_THREADS)", "\n")
 end # module

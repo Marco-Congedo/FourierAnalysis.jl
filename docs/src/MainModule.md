@@ -215,15 +215,21 @@ BLAS.set_num_threads(n)
 
 where `n` is the number of threads.
 By default, *FourierAnalysis* reserves to BLAS
-all CPU threads available on your computer (given by the output of `Sys.CPU_THREADS`)
-minus the number threads used by Julia
-for multi-threaded computations (given by the output of `Threads.nthreads()`).
-In Windows this latter number of threads is set to half the avaiable threads.
+all CPU threads available on your computer (given by the output of `Sys.CPU_THREADS`). The number threads used by Julia
+for multi-threaded computations is given by the output of `Threads.nthreads()`.
+In Windows this latter number of threads is set to half the available threads.
 In Linux and OSX defaults to one and is controlled by an environment variable, i.e.,
 
 ```
 export JULIA_NUM_THREADS=4
 ```
+
+In Linux, working with the Atom IDE, you also have to
+set to `global` the field found in Atom under
+`Settings(or Preferences)/julia-client/Settings/Julia Options/Number of Threads`.
+
+In Windows, set the desired number of threads in the settings
+of the julia-client Juno package.
 
 See this [post](https://discourse.julialang.org/t/issue-number-of-threads/14593), this [post](https://discourse.julialang.org/t/customize-number-of-threads-interactively/11574/2) and julia
 [doc on threads](https://docs.julialang.org/en/v1/manual/parallel-computing/#Multi-Threading-(Experimental)-1).
