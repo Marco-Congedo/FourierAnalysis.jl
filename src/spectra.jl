@@ -1,5 +1,4 @@
 #   Unit "spectra" of the FourierAnalysis Package for julia language
-#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -156,7 +155,7 @@ V=Matrix{Float64}(undef, t, wl)
 for i=1:wl V[:, i]=sinusoidal(10*i, b2f(i, sr, t), sr, t, π/6) end
 
 # using FFTW.jl only
-P=plan_rfft(V, 1)*(2/t)
+P=plan_rfft(V, 1)*(2/t);
 Σ=abs.(P*V)
 using Plots
 bar(Σ[brange(t, DC=true), :], labels="")
@@ -172,7 +171,7 @@ bar(Σ2.y[brange(t, DC=true), :], labels="")
 # one sinusoidal is at an exact discrete Fourier Frequency and the other not
 # Rectangular window
 sr, t, f, a = 128, 128, 10, 0.5
-v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16)
+v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16);
 Σ=spectra(v, sr, t; tapering=rectangular, func=√)
 bar(Σ.y, labels="rectangular")
 
@@ -209,6 +208,7 @@ S=spectra(X, sr, wl)
 S.y[:, 1]
 
 # gather some plot attributes to get nice plots
+using Plots.Measures
 spectraArgs=(fmax = 32,
              left_margin = 2mm,
              bottom_margin = 2mm,
@@ -274,6 +274,12 @@ plot(S[3]; spectraArgs...)
 # to do it using a fast FFTW plan (wait up to 10s for computing the plan)
 plan=Planner(plan_exhaustive, 10.0, wl)
 S=spectra(X, sr, wl; planner=plan)
+
+# how faster is this?
+using BenchmarkTools
+@benchmark(spectra(X, sr, wl))
+@benchmark(spectra(X, sr, wl; planner=plan))
+
 
 # average spectra in range (8Hz-12Hz) for all series of all objects
 M=mean(S, (8, 12))

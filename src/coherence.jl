@@ -1,5 +1,4 @@
 #   Unit "coherence" of the FourierAnalysis Package for julia language
-#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -233,8 +232,8 @@ C=coherence(X, sr, wl)
 # check the coherence matrix at frequency 5Hz
 C.y[f2b(5, sr, wl)]
 
-# coherence using hamming tapering window
-C=coherence(X, sr, wl; tapering=hamming)
+# coherence using hann tapering window
+C=coherence(X, sr, wl; tapering=hann)
 
 # using Slepian's multi-tapering
 C=coherence(X, sr, wl; tapering=slepians(sr, wl))
@@ -287,8 +286,8 @@ C[1]
 # check the coherence matrix at fr. 5Hz for the first Coherence object
 C[1].y[f2b(5, sr, wl)]
 
-# coherence using Hamming's tapering window
-C=coherence(X, sr, wl; tapering=hamming)
+# coherence using Hann tapering window
+C=coherence(X, sr, wl; tapering=hann)
 
 # using Slepian's multi-tapering
 C=coherence(X, sr, wl; tapering=slepians(sr, wl))
@@ -329,6 +328,11 @@ B=bands(C, 2)
 # (this interesting if the function is to be called repeatedly).
 plan=Planner(plan_exhaustive, 10.0, wl, eltype(X[1])) # wait 10s
 C=coherence(X, sr, wl; planner=plan)
+
+# how faster is this?
+using BenchmarkTools
+@benchmark(coherence(X, sr, wl))
+@benchmark(coherence(X, sr, wl; planner=plan))
 ...
 ...
 ```

@@ -6,10 +6,9 @@
 
 **Packages:** see the [dependencies](@ref) of the main module.
 
-The package is still not registered. To install it
-execute the following command in Julia's REPL:
+To install the package, execute the following command in Julia's REPL:
 
-    ]add https://github.com/Marco-Congedo/FourierAnalysis.jl
+    ]add FourierAnalysis
 
 ## Disclaimer
 

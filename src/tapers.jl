@@ -1,5 +1,4 @@
 #   Unit "tapers" of the FourierAnalysis Package for julia language
-#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -114,10 +113,12 @@ v=sinusoidal(a, f, sr, t*16, 0) + randn(t*16)
 # create a data matrix
 X=broadcast(+, v, randn(t*16, 3))*randn(3, 3)
 # compute spectra using hamming tapering window
-H=taper(hamming, t)
+# we need to prepend 'FourierAnalysis.' since `hamming`
+# is declared also in DSP.jl
+H=taper(FourierAnalysis.hamming, t)
 S=spectra(X, sr, t; tapering=H)
 # you can obtain the same thing with
-S=spectra(X, sr, t; tapering=hamming)
+S=spectra(X, sr, t; tapering=H)
 # which will create the hamming tapering window on the fly,
 # thus calling explicitly the constructor is interesting
 # only if you need to reuse the same tapering window many times.
@@ -127,8 +128,9 @@ using Plots
 tapers=[TaperKind(i) for i=1:8]
 X=zeros(t, 8)
 for i=1:8 X[:, i] = taper(tapers[i], t).y end
-labels=[string(tapers[i]) for i=1:8]
-plot(X; labels=labels)
+mylabels=Array{String}(undef, 1, 8)
+for i=1:8 mylabels[1, i]=string(tapers[i]) end
+plot(X; labels=mylabels)
 
 ## using the recipe declared in recipes.jl
 plot(taper(parzen, 256))

@@ -1,5 +1,4 @@
 #   Unit "crossspectra" of the FourierAnalysis Package for julia language
-#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -172,8 +171,8 @@ S.y[f2b(5, sr, wl)]
 # check only the diagonal part of this matrix as a vector
 diag(Diagonal(S.y[f2b(5, sr, wl)]))
 
-# cross-spectra using hamming tapering window
-S=crossSpectra(X, sr, wl; tapering=hamming)
+# cross-spectra using hann tapering window
+S=crossSpectra(X, sr, wl; tapering=hann)
 
 # using Slepian's multi-tapering
 S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl))
@@ -272,6 +271,11 @@ plot(Spectra(S[1]); fmax=32, xspace=4)
 # (this interesting if the function is to be called repeatedly).
 plan=Planner(plan_exhaustive, 10.0, wl, eltype(X[1])) # wait 10s
 S=crossSpectra(X, sr, wl; planner=plan)
+
+# how faster is this?
+using BenchmarkTools
+@benchmark(crossSpectra(X, sr, wl))
+@benchmark(crossSpectra(X, sr, wl; planner=plan))
 ...
 ...
 
