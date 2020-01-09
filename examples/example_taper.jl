@@ -20,8 +20,9 @@ using FourierAnalysis, Plots
 tapers=[TaperKind(i) for i=1:8]
 X=zeros(t, 8)
 for i=1:8 X[:, i] = taper(tapers[i], t).y end
-labels=[string(tapers[i]) for i=1:8]
-plot(X; labels=labels)
+mylabels=Array{String}(undef, 1, 8)
+for i=1:8 mylabels[1, i]=string(tapers[i]) end
+plot(X; labels=mylabels)
 
 # discrete prolate spheroid sequences
 H=taper(slepian, t, α=4, n=7)

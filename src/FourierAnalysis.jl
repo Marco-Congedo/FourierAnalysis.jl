@@ -1,5 +1,5 @@
 #    Main Module of the FourierAnalysis Package for julia language
-#    v 0.2.0 - last update 20th of October 2019
+#    v 0.2.2 - last update 9th of January 2020
 #
 #    MIT License
 #    Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -275,7 +275,7 @@ include("timefrequencybi.jl")
 include("recipes.jl")
 
 # welcome message
-println("\n⭐ "," Welcome to the","\x1b[36m"," FourierAnalysis ","\x1b[0m","package", " ⭐\n")
+println("\n⭐ "," Welcome to the","\x1b[36m"," FourierAnalysis.jl ","\x1b[0m","package", " ⭐\n")
 @info(" ")
 println(" Your Machine `",gethostname(),"` (",Sys.MACHINE, ")")
 println(" runs on kernel ",Sys.KERNEL," with word size ",Sys.WORD_SIZE,".")

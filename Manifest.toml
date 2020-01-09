@@ -97,9 +97,9 @@ version = "0.6.0"
 
 [[PosDefManifold]]
 deps = ["LinearAlgebra", "Statistics"]
-git-tree-sha1 = "3f36a782687a3696be77165ff7d4e9dca1442d9d"
+git-tree-sha1 = "b221f9f64985ba09172d5002063e4cd971ffb647"
 uuid = "f45a3650-5c51-11e9-1e9a-133aa5e309cf"
-version = "0.4.4"
+version = "0.4.5"
 
 [[Printf]]
 deps = ["Unicode"]

@@ -1,5 +1,4 @@
 #   Unit "timefrequency" of the FourierAnalysis Package for julia language
-#   v 0.2.0 - last update 20th of October 2019
 #
 #   MIT License
 #   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
@@ -135,6 +134,7 @@ E=extract(𝒀[1], (8, 12), (1, 128)) # Output a complex matrix
 # plot the real part of the AS of x (see unit recipes.jl)
 
 # gather first useful attributes for the plot
+using Plots.Measures
 tfArgs=(right_margin = 2mm,
         top_margin = 2mm,
         xtickfont = font(10, "Times"),
