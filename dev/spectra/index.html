@@ -42,7 +42,7 @@ V=Matrix{Float64}(undef, t, wl)
 for i=1:wl V[:, i]=sinusoidal(10*i, b2f(i, sr, t), sr, t, π/6) end
 
 # using FFTW.jl only
-P=plan_rfft(V, 1)*(2/t)
+P=plan_rfft(V, 1)*(2/t);
 Σ=abs.(P*V)
 using Plots
 bar(Σ[brange(t, DC=true), :], labels=&quot;&quot;)
@@ -58,7 +58,7 @@ bar(Σ2.y[brange(t, DC=true), :], labels=&quot;&quot;)
 # one sinusoidal is at an exact discrete Fourier Frequency and the other not
 # Rectangular window
 sr, t, f, a = 128, 128, 10, 0.5
-v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16)
+v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16);
 Σ=spectra(v, sr, t; tapering=rectangular, func=√)
 bar(Σ.y, labels=&quot;rectangular&quot;)
 
@@ -95,6 +95,7 @@ S=spectra(X, sr, wl)
 S.y[:, 1]
 
 # gather some plot attributes to get nice plots
+using Plots.Measures
 spectraArgs=(fmax = 32,
              left_margin = 2mm,
              bottom_margin = 2mm,
@@ -161,6 +162,12 @@ plot(S[3]; spectraArgs...)
 plan=Planner(plan_exhaustive, 10.0, wl)
 S=spectra(X, sr, wl; planner=plan)
 
+# how faster is this?
+using BenchmarkTools
+@benchmark(spectra(X, sr, wl))
+@benchmark(spectra(X, sr, wl; planner=plan))
+
+
 # average spectra in range (8Hz-12Hz) for all series of all objects
 M=mean(S, (8, 12))
 
@@ -200,4 +207,4 @@ plot(S[1]; spectraArgs...)
 # average spectra across objects
 plot(mean(s.y for s ∈ S))
 
-</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/4cefdddff5ea20e04828527e4b75cd629a17ffc4/src/spectra.jl#L36-L319">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tapers/">« Tapering Windows</a><a class="docs-footer-nextpage" href="../crossspectra/">Cross-Spectral Matrices »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Thursday 9 January 2020 11:17">Thursday 9 January 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/173dd4b4a057f2d0590303ac0187a509122b60d7/src/spectra.jl#L35-L325">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tapers/">« Tapering Windows</a><a class="docs-footer-nextpage" href="../crossspectra/">Cross-Spectral Matrices »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Thursday 9 January 2020 11:19">Thursday 9 January 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
