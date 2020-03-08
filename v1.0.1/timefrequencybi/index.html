@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>TF Bivariate Measures  · FourierAnalysis</title><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.png" alt="FourierAnalysis logo"/></a><div class="docs-package-name"><span class="docs-autofit">FourierAnalysis</span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">FourierAnalysis Documentation</a></li><li><a class="tocitem" href="../MainModule/">Main Module</a></li><li><a class="tocitem" href="../tapers/">Tapering Windows</a></li><li><span class="tocitem">frequency domain</span><ul><li><a class="tocitem" href="../spectra/">Spectral Estimations</a></li><li><a class="tocitem" href="../crossspectra/">Cross-Spectral Matrices</a></li><li><a class="tocitem" href="../coherence/">Coherence Matrices</a></li><li><a class="tocitem" href="../goertzel/">Goertzel&#39;s Algorithms</a></li></ul></li><li><span class="tocitem">time-frequency(TF) domain</span><ul><li><a class="tocitem" href="../timefrequency/">TF Representations</a></li><li><a class="tocitem" href="../timefrequencyuni/">TF Univariate Measures</a></li><li class="is-active"><a class="tocitem" href>TF Bivariate Measures </a></li></ul></li><li><span class="tocitem">utilities</span><ul><li><a class="tocitem" href="../recipes/">Plots</a></li><li><a class="tocitem" href="../tools/">Tools</a></li><li><a class="tocitem" href="../fftw/">FFTW planners</a></li><li><a class="tocitem" href="../filters/">Filter Banks</a></li><li><a class="tocitem" href="../hilbert/">Hilbert Transform</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">time-frequency(TF) domain</a></li><li class="is-active"><a href>TF Bivariate Measures </a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>TF Bivariate Measures </a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/master/docs/src/timefrequencybi.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="timefrequencybi.jl-1"><a class="docs-heading-anchor" href="#timefrequencybi.jl-1">timefrequencybi.jl</a><a class="docs-heading-anchor-permalink" href="#timefrequencybi.jl-1" title="Permalink"></a></h1><p>This unit implements average time-frequency <em>bivariate measures</em> based on unit <a href="../timefrequency/#timefrequency.jl-1">timefrequency.jl</a> and <a href="../tools/#tools.jl-1">tools.jl</a>.</p><p>These measures are bivariate extension of the <em>mean amplitude</em>, <em>concentration</em> and <em>phase concentration</em> univariate measures implemented in <a href="../timefrequencyuni/#timefrequencyuni.jl-1">timefrequencyuni.jl</a>, as explained in details in <a href="https://hal.archives-ouvertes.fr/hal-01868538v2/document">Congedo (2018)</a>. Please read the documentation of that unit first, as it contains useful information on how time-frequency measures are estimated and explain the notation used here below.</p><p>The implemented measures are:</p><h4 id="(weighted)-comodulation-1"><a class="docs-heading-anchor" href="#(weighted)-comodulation-1">(weighted) comodulation</a><a class="docs-heading-anchor-permalink" href="#(weighted)-comodulation-1" title="Permalink"></a></h4><p><span>$(w)Com=\left&lt;wr_1r_2\right&gt;\big /\sqrt{\left&lt;wr_1^2\right&gt;\left&lt;wr_2^2\right&gt;}$</span>.</p><p>This is the bivariate extension of univariate <a href="../timefrequencyuni/#(weighted)-mean-amplitude-1">(weighted) mean amplitude</a> measure.</p><h4 id="(weighted)-coherence-1"><a class="docs-heading-anchor" href="#(weighted)-coherence-1">(weighted) coherence</a><a class="docs-heading-anchor-permalink" href="#(weighted)-coherence-1" title="Permalink"></a></h4><p>This is the bivariate extension of the <em>concentration</em> and <em>phase concentration</em> measure, yielding <em>coherence</em> and <em>phase coherence</em> estimates, the latter also known as <em>phase-locking value</em>.</p><p>For a complete account on coherence estimations in the time-frequency domain and the difference with their frequency domain counterpart see the <a href="../coherence/#coherence.jl-1">coherence.jl</a> unit, where the documentation of the <a href="../coherence/#FourierAnalysis.coherence"><code>coherence</code></a> functions is also found.</p><article class="docstring"><header><a class="docstring-binding" id="FourierAnalysis.comodulation" href="#FourierAnalysis.comodulation"><code>FourierAnalysis.comodulation</code></a> — <span class="docstring-category">Function</span></header><section><div><pre><code class="language-julia">(1)
+function comodulation( 𝐀₁     :: TFAnalyticSignalVector,
+                       𝐀₂     :: TFAnalyticSignalVector,
+                       frange :: fInterval,
+                       trange :: tInterval;
+                  mode  :: Function = extract,
+                  func  :: Function = identity,
+                  w     :: Vector = [],
+                  check :: Bool   = true) =
+
+(2)
+function comodulation( 𝐙₁     :: TFAnalyticSignalVector,
+                       𝐙₂     :: TFAnalyticSignalVector,
+    &lt; arguments frange, trange, mode, func, w and check as in method (1) &gt;
+
+(3)
+function comodulation(𝐱₁        :: Vector{Vector{T}},
+                      𝐱₂        :: Vector{Vector{T}},
+                      sr        :: Int,
+                      wl        :: Int,
+                      frange    :: fInterval,
+                      trange    :: tInterval,
+                      bandwidth :: IntOrReal    = 2;
+                mode            :: Function     = extract,
+                func            :: Function     = identity,
+                w               :: Vector       = [],
+                filtkind        :: FilterDesign = Butterworth(2),
+                fmin            :: IntOrReal    = bandwidth,
+                fmax            :: IntOrReal    = sr÷2,
+                fsmoothing      :: Smoother     = noSmoother,
+                tsmoothing      :: Smoother     = noSmoother,
+                planner         :: Planner      = getplanner,
+                ⏩             :: Bool         = true) where T&lt;:Real
+</code></pre><p><strong>alias</strong>: com</p><p>(1)</p><p>Given a pair of <a href="../MainModule/#TFAmplitudeVector-1">TFAmplitudeVector</a> objects, estimate their <a href="#(weighted)-comodulation-1">(weighted) comodulation</a> measure. <code>𝐀₁</code> and <code>𝐀₂</code> must hold the same number of objects and the time-frequency planes of all the objects should be congruent.</p><p><strong>arguments</strong>:</p><p><code>frange</code> and <code>trange</code> have the same meaning as in the <a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a> method.</p><p><strong>optional keyword arguments</strong></p><p><code>mode</code>, <code>func</code> and <code>check</code> have the same meaning as in the <a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a> method.</p><p><code>w</code> may be a vector of non-negative real weights associated to each pair of input objects. By default the unweighted version of the measure is computed.</p><p>(2)</p><p>Given a pair of <a href="../MainModule/#TFAnalyticSignalVector-1">TFAnalyticSignalVector</a> object, compute the amplitude of all objects and estimate the <a href="#(weighted)-comodulation-1">(weighted) comodulation</a> as per method (1). Like in method (1), <code>𝐙₁</code> and <code>𝐙₂</code> must hold the same number of objects and the time-frequency planes of all the objects should be congruent. In addition, since using this method all <a href="../timefrequency/#TFAnalyticSignal-1">TFAnalyticSignal</a> objects in <code>𝐙₁</code> and <code>𝐙₂</code> must be <code>linear</code>, if <code>check</code> is true (default) and this is not the case, print an error and return <code>Nothing</code>. The checks on <code>frange</code> and <code>trange</code> performed by method (1) are also performed by this method.</p><p>(3)</p><p>Estimate the amplitude of all data vectors in <code>𝐱₁</code> and <code>𝐱₂</code> calling the <a href="../timefrequency/#FourierAnalysis.TFamplitude"><code>TFamplitude</code></a> constructor and then estimate the <a href="#(weighted)-comodulation-1">(weighted) comodulation</a> measure across the constructed amplitude objects as per method (1).</p><p><code>frange</code>, <code>trange</code>, <code>mode</code>, <code>func</code>, <code>w</code> and <code>check</code> have the same meaning as in method (1). The other arguments are passed to the <a href="../timefrequency/#FourierAnalysis.TFamplitude"><code>TFamplitude</code></a> constructors, to which the reader is referred for their meaning.</p><p>If a <code>planner</code> for FFT computations is not provided, it is computed once and applied for all amplitude estimations.</p><p><strong>See also</strong>: <a href="../coherence/#FourierAnalysis.coherence"><code>coherence</code></a>, <a href="#timefrequencybi.jl-1">timefrequencybi.jl</a>.</p><p><strong>Examples</strong>:</p><pre><code class="language-none">using FourierAnalysis
+
+# generate 100 pairs of data vectors
+sr, t, bandwidth=128, 512, 2
+h=taper(harris4, t)
+𝐱₁=[sinusoidal(2, 10, sr, t, 0).*h.y+randn(t) for i=1:100]
+𝐱₂=[sinusoidal(2, 10, sr, t, 0).*h.y+randn(t) for i=1:100]
+
+# compute their (linear) analytic signal
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=false)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=false)
+
+# compute their amplitude
+𝐀₁=TFamplitude(𝐘₁)
+𝐀₂=TFamplitude(𝐘₂)
+
+# compute the Com averaging in a TF region from TFAnalyticSignal objects
+# 𝐘₁ and 𝐘₂ must be linear
+Com=comodulation(𝐘₁, 𝐘₂, (8, 12), :; mode=mean)
+
+# compute the Com averaging in a TF region from TFAmplitudeVector objects
+# 𝐀₁ and 𝐀₂ must be linear
+Com=comodulation(𝐀₁, 𝐀₂, (8, 12), :; mode=mean)
+
+# compute the Com averaging in a TF region directly from data
+# In this case you don&#39;t have to worry about linearity
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=mean)
+
+# compute comodulation from smoothed amplitude:
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth;
+                 mode=mean,
+                 fsmoothing=blackmanSmoother,
+                 tsmoothing=blackmanSmoother)
+
+# you can go faster pre-computing a FFTW plan.
+# This is useful when you have to call the comodulation function several times
+plan=Planner(plan_patient, 5, wl, Float64, true)
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=mean, planner=plan)
+
+# compute the Com in a TF region from TFAnalyticSignalVector objects
+Com=comodulation(𝐘₁, 𝐘₂, (8, 12), :; mode=extract)
+
+# compute the Com in a TF region from TFAmplitudeVector objects
+Com=comodulation(𝐀₁, 𝐀₂, (8, 12), :; mode=extract)
+
+# compute the Com in a TF region directly from data
+Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=extract)
+
+# All these operations can be done also for coherence measures, for example
+Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=mean)
+
+Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=extract)
+
+# Compute all 5 coherence types
+Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=extract, allkinds=true)
+
+# phase coherence (phase-locking value)
+# we obtain this measure from non-linear TFAnalyticSignalVector objects
+𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=true)
+𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=true)
+
+Coh=coherence(𝐘₁, 𝐘₂, (8, 12), :; mode=mean, nonlinear=true)
+
+# or directly from data (no need to worry about non-linearity in this case)
+Coh=coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), :, bandwidth; mode=mean, nonlinear=true)
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/5a0c73816b8e1c7a531dfabdb56ae1d0971bb8d9/src/timefrequencybi.jl#L15-L174">source</a></section></article><p>For coherence estimation in the time-frequency domain see <a href="../coherence/#FourierAnalysis.coherence"><code>coherence</code></a>.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../timefrequencyuni/">« TF Univariate Measures</a><a class="docs-footer-nextpage" href="../recipes/">Plots »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 8 March 2020 13:03">Sunday 8 March 2020</span>. Using Julia version 1.0.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
