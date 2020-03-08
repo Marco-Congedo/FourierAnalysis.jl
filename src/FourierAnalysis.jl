@@ -151,7 +151,7 @@ TFobjectsVector=Union{TFAnalyticSignalVector, TFAmplitudeVector, TFPhaseVector}
 #import DSP: dpss
 import Statistics.mean
 import Base: show, *, conj, real, imag #,
-import DSP: dB
+import DSP: hamming
 
 export
 
@@ -209,7 +209,7 @@ fdf,
 brange,
 bbands,
 fbands,
-dB,
+decibel,
 amplitude,
 phase,
 polar,

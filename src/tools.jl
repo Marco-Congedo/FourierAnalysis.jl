@@ -277,10 +277,10 @@ fbands(sr        :: Int,
 """
 ```
 (1)
-function dB(S :: Union{Real, AbstractArray{T}}) where T<:Real
+function decibel(S :: Union{Real, AbstractArray{T}}) where T<:Real
 
 (2)
-function dB(S1 :: Union{Real, AbstractArray{T}},
+function decibel(S1 :: Union{Real, AbstractArray{T}},
             S2 :: Union{Real, AbstractArray{T}}) where T<:Real
 ```
 
@@ -295,19 +295,19 @@ For array input, the ratio and the conversion is computed element-wise.
 ```
 using FourierAnalysis
 v=sinusoidal(3., 1, 128, 256, 0)
-s=spectra(v, 128, 256; func=dB) # compute the spectra in dB
+s=spectra(v, 128, 256; func=decibel) # compute the spectra in dB
 s.y # show the spectra
 
-dB(s.y)
+decibel(s.y)
 
-dB(10.0)
+decibel(10.0)
 
 N=abs.(randn(3, 3))
-dB(N)
+decibel(N)
 ```
 """
-dB(S::Union{Real, AbstractArray{T}}) where T<:Real = 10*log10.(S)
-dB(S1::Union{Real, AbstractArray{T}},
+decibel(S::Union{Real, AbstractArray{T}}) where T<:Real = 10*log10.(S)
+decibel(S1::Union{Real, AbstractArray{T}},
    S2::Union{Real, AbstractArray{T}}) where T<:Real = 10*log10.(S1./S2)
 
 
@@ -360,7 +360,7 @@ In all methods if a function is provided by the optional keyword
 argument `func`, it is applied element-wise to the output. For example,
 - passing `func=x->x^2` will return the power,
 - passing `func=x->log(x^2)` will return the log-power,
-- passing `func=x->dB(x^2)` will return the power in deciBels.
+- passing `func=x->decibel(x^2)` will return the power in deciBels.
 
 **See**: [TFAnalyticSignal](@ref).
 
