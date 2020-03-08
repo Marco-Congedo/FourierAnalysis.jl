@@ -151,7 +151,6 @@ TFobjectsVector=Union{TFAnalyticSignalVector, TFAmplitudeVector, TFPhaseVector}
 #import DSP: dpss
 import Statistics.mean
 import Base: show, *, conj, real, imag #,
-import DSP: hamming
 
 export
 
