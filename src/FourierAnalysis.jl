@@ -127,6 +127,7 @@ struct TFAmplitude
 end
 TFAmplitudeVector = Vector{TFAmplitude}
 
+
 TFPhaseData = Matrix{T} where T<:Real
 struct TFPhase
     y          :: TFPhaseData # Analytic (Instantaneous) Phase, dim1=freq, dim2=time
@@ -150,7 +151,6 @@ TFobjectsVector=Union{TFAnalyticSignalVector, TFAmplitudeVector, TFPhaseVector}
 #import DSP: dpss
 import Statistics.mean
 import Base: show, *, conj, real, imag #,
-import DSP: dB
 
 export
 
@@ -208,7 +208,7 @@ fdf,
 brange,
 bbands,
 fbands,
-dB,
+decibel,
 amplitude,
 phase,
 polar,

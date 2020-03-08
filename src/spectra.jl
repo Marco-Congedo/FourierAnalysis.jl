@@ -98,7 +98,7 @@ spectra before returning them, including anonymous functions.
 Common choices are:
 - `func=sqrt` return the amplitude spectra,
 - `func=log` return the log-power spectra,
-- `func=dB` return the power spectra in deciBels (see [`dB`](@ref)),
+- `func=decibel` return the power spectra in deciBels (see [`decibel`](@ref)),
 By default no function is applied and the power spectra are returned.
 If smoothing has been requested (see below), it is applied after the function.
 
