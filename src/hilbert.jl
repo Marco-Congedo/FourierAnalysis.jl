@@ -171,7 +171,7 @@ function analyticsignal( X  :: Union{Vector{T}, Matrix{T}},
    # `two_wl⁻¹` = 2/wl
    # `e` (Int) the number of sliding windows
    # `𝚙` is the forward FFTW plan performing the FFT.
-   # `i𝚙` is the backward FFTW plan performing the iFFT (Hilber transform).
+   # `i𝚙` is the backward FFTW plan performing the iFFT (Hilbert transform).
    # `ζ`, =zeros(cT, wl-wl½_), a zero-vector append to the iFFT vectors, since the second half of the FFT is not computed
    # `f`, the lower limit (in samples) of the central half of each Hilbert transform to cumulate with respect to the FFT window
    # `g`, the upper limit (in samples) of the central half of each Hilbert transform to cumulate with respect to the FFT window
