@@ -14,7 +14,7 @@ In the frequency domain *FourierAnalysis* computes **spectra**, *linear* and
 
 Time-frequency representations are obtained applying a
 [filter-bank](https://en.wikipedia.org/wiki/Filter_bank) and the
-[Hilber transform](https://en.wikipedia.org/wiki/Hilbert_transform).
+[Hilbert transform](https://en.wikipedia.org/wiki/Hilbert_transform).
 This way *FourierAnalysis* computes the **analytic signal**, from which the **instantaneous amplitude** (envelope) and **instantaneous phase** are obtained, along with several popular *linear* and *non-linear*, *weighted*, *univariate* and *bivariate* statistics, such as
 - **mean amplitude** 
 - **mean direction** 
