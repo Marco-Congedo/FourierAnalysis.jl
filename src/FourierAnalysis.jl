@@ -34,6 +34,7 @@ const greyFont      = "\x1b[90m"
 # # # # # types # # # # #
 
 IntOrReal    = Union{Int, Real}
+RealOrComplex= Union{Real, Complex}
 
 # Frequency ranges (in Hz) for the mean function applying to (Cross)Spcetra objects
 fInterval    = Union{IntOrReal, Tuple{IntOrReal, IntOrReal}, Colon}

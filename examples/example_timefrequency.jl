@@ -30,7 +30,7 @@ X2=readEEG(S[2])
 
 
 ####################
-# test timefrequency
+# test time-frequency
 
 using Plots, FourierAnalysis
 sr, t, bandwidth=128, 512, 2
@@ -43,7 +43,7 @@ y2=sinusoidal(10, 16, sr, t, 0)
 y=Vector((y1+y2).*h.y+randn(t))
 
 # Vector of Time-Frequency Object for x and y
-𝒀 = TFanalyticsignal([x, y], sr, sr*4)
+𝒀 = TFanalyticsignal([x, y], sr, t)
 
 # compute the mean in a TF region (8:12Hz and samples 1:128) for the first object
 y=mean(𝒀[1], (8, 12), (1, 128))

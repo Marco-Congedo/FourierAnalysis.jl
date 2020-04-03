@@ -24,13 +24,6 @@ The main module does not contains functions, but it declares all
 
 ## types
 
-### IntOrReal
-```
-IntOrReal = Union{Int, Real}
-```
-
-This type is used internally and not exported.
-
 ### fInterval
 ```
 fInterval = Union{IntOrReal,Tuple{IntOrReal, IntOrReal}, Colon}
@@ -40,10 +33,10 @@ In several functions you are allowed to select a **frequency range** (in Hz).
 This can be
 - a single frequency (in Hz), given as an integer or a real number, e.g., 10,
 - a 2-tuple of integers or reals holding the lower and upper frequency limit (in Hz), e.g. (8, 10.5),
-- a colon, to indicate as usual in Julia all available frequencies, e.g., :
+- a colon, to indicate as usual in Julia all available frequencies.
 
-!!! note "'frequencies' in different domains"
-    Frequency ranges are used as argument in the functions [`mean`](@ref), [`extract`](@ref), [`meanAmplitude`](@ref), [`concentration`](@ref), [`meanDirection`](@ref), [`comodulation`](@ref) and [`coherence`](@ref). They apply both to frequency domain and to time-frequency domain data. In the frequency domain, the frequencies are the Fourier discrete frequencies with resolution ``sr/wl``, with or without the DC level in the first position, depending on how the object has been constructed. In the time-frequency domain, the frequencies actually are the center frequencies of the [filter bank](https://en.wikipedia.org/wiki/Filter_bank) used for constructing the object. Thus, The actual frequencies actually contained in a given position depends on the `bandwidth` argument used to construct the oject. See [`filterbank`](@ref).
+!!! note "Meaning of 'frequencies' in different domains"
+    Frequency ranges are used as argument in the functions [`mean`](@ref), [`extract`](@ref), [`meanAmplitude`](@ref), [`concentration`](@ref), [`meanDirection`](@ref), [`comodulation`](@ref) and [`coherence`](@ref). They apply both to frequency domain and to time-frequency domain data. In the frequency domain, the frequencies are the Fourier discrete frequencies with resolution ``sr/wl``, with or without the DC level in the first position, depending on how the object has been constructed. In the time-frequency domain, the frequencies actually are the center frequencies of the [filter bank](https://en.wikipedia.org/wiki/Filter_bank) used for constructing the object. Thus, the actual frequencies actually contained in a given position depends on the `bandwidth` argument used to construct the oject. See [`filterbank`](@ref).
 
 ### tInterval
 ```
@@ -54,10 +47,10 @@ In several functions you are allowed to select a **time range** (in samples).
 This can be
 - a single sample, given as an integer, e.g., 16,
 - a 2-tuple of integers holding the lower and upper time limit (in sampes), e.g. (1, 120),
-- a colon, to indicate as usual in Julia all available samples, e.g., :
+- a colon, to indicate as usual in Julia all available samples.
 
 These ranges are used as argument in the same functions where [fInterval](@ref)
-ranges are used, however they apply only to time-frequency domain data.
+ranges are used. Obviously, they apply only to time-frequency domain data.
 
 ### Smoother
 ```
@@ -72,7 +65,7 @@ end
 An instance of this type is requested by the [`smooth`](@ref) function,
 and as an optional keyword argument by several constructors. It apply both to objects created in the frequency domain and in the time-frequency domain.
 
-- `noSmoother` corresponds to no *smoothing*.
+- `noSmoother` corresponds to no smoothing.
 - `hannSmoother` is the *Hann* smoothing window (3-points)
 - `hammingSmoother` is the *Hamming* smoothing window (3-points)
 - `blackmanSmoother` is the *Blackman* smoothing window (5-points)
@@ -127,7 +120,7 @@ A vector of objects in the time-frequency (TF) domain, that is, the union of [TF
 
 ## data objects
 
-*FourierAnalysis* creates an *operator object*, the [`Planner`](@ref), which is used to create FFTW plans for FFT computations, and several *data objects*. All of them are Julia [structures](https://docs.julialang.org/en/v1/base/base/#struct)). Data objects all have a corresponding vector type:
+*FourierAnalysis* creates an *operator object*, the [`Planner`](@ref), which is used to create FFTW plans for FFT computations, and several *data objects*. All of them are Julia [structures](https://docs.julialang.org/en/v1/base/base/#struct). Data objects all have a corresponding vector type:
 
 |      data objects        |     domain     |         vector type        |
 |:------------------------:|:--------------:|:--------------------------:|
@@ -161,7 +154,7 @@ The field holding the data of all data objects is consistently named `.y`. As a 
 
 ## tips & tricks
 
-See the [recipes.jl](@ref) for tips on how to plot tapering windows,
+See [recipes.jl](@ref) for tips on how to plot tapering windows,
 spectra and time-frequency data.
 
 By convention, the *frequency* dimension of data arrays in
@@ -192,7 +185,7 @@ you can extract a time-frequency region passing with argument `mode` the
 with argument `mode` the [`mean`](@ref) function.
 
 Argument `func` allows you to apply any function to the extracted regions
-or means. Using this you can create a hell of new averaging
+or means. Using this you can obtain a lot of new averaging
 procedures. As an example, suppose that you want to use the
 [`meanAmplitude`](@ref) of a [TFAnalyticSignalVector](@ref) object,
 but instead of the arithmetic mean of the amplitude you want to compute
@@ -215,7 +208,7 @@ BLAS.set_num_threads(n)
 
 where `n` is the number of threads.
 By default, *FourierAnalysis* reserves to BLAS
-all CPU threads available on your computer (given by the output of `Sys.CPU_THREADS`). The number threads used by Julia
+all CPU threads available on your computer (given by the output of `Sys.CPU_THREADS`). The number of threads used by Julia
 for multi-threaded computations is given by the output of `Threads.nthreads()`.
 In Windows this latter number of threads is set to half the available threads.
 In Linux and OSX defaults to one and is controlled by an environment variable, i.e.,

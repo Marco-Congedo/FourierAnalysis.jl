@@ -20,10 +20,10 @@ Analytic signal in a time-frequency region,
 it does not matter if this is actually a single point,
 a vector or a matrix, is denoted such as
 
-``z=x+𝑖y=re^{𝑖𝜑}``,
+``z=x+\textit{i}y=re^{i\phi}``,
 
 where ``𝑖`` is the imaginary unit, ``r=\mid z \mid`` is the amplitude
-(modulus) of ``z`` and ``𝜑=\textrm{ArcTan}\space (x/y)`` the phase (argument)
+(modulus) of ``z`` and ``\phi=\textrm{ArcTan}\space (x/y)`` the phase (argument)
 of ``z``.
 
 Also, ``w`` denotes non-negative weights normalized so that their average is
@@ -47,11 +47,11 @@ The implemented measures are:
 
 #### (weighted) concentration
 
-``(w)Con=\mid\left<wz\right>\mid\big /\left<w\right>=\mid\left<wre^{𝑖𝜑}\right>\mid\big /\left<w\right>``.
+``(w)Con=\mid\left<wz\right>\mid\big /\left<w\right>=\mid\left<wre^{i\phi}\right>\mid\big /\left<w\right>``.
 
 #### (weighted) phase concentration
 
-``(w)PCon=\mid\left<we^{𝑖𝜑}\right>\mid\big /\left<w\right>``.
+``(w)PCon=\mid\left<we^{i\phi}\right>\mid\big /\left<w\right>``.
 
 This is the non-linear version of the *(weighted) concentration*.
 In the litetrature it is also known as

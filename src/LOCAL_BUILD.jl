@@ -26,12 +26,6 @@ begin
     srcDir      = juliaCodeDir*projectName*"\\src\\"
     docsDir     = juliaCodeDir*projectName*"\\docs\\"
 
-    # push!(LOAD_PATH, juliaCodeDir*"PosDefManifold"*"\\src\\")
-
-    # add other modules to be used, e.g.,
-    # push!(LOAD_PATH, juliaCodeDir*"Modules")
-    # using IOtxt
-
     push!(LOAD_PATH, srcDir)
     using Documenter, LinearAlgebra, Statistics, FFTW, AbstractFFTs,
           DSP, Revise, FourierAnalysis

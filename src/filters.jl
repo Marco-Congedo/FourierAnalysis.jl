@@ -76,9 +76,9 @@ on time-frequency reprsentations: [`TFanalyticsignal`](@ref),
 [`concentration`](@ref), [`meanDirection`](@ref), [`comodulation`](@ref),
 [`coherence`](@ref).
 
-**See**: [IntOrReal](@ref)
 
-# Examples:
+**Examples**:
+```
 using FourierAnalysis, DSP, Plots
 # generate a sinusoidal + noise
 f, sr, t = 8, 128, 512
@@ -96,7 +96,7 @@ for i=1:size(Y, 2) Y[:, i].+=convert(eltype(Y), i)*1.5 end
 mylabels=Array{String}(undef, 1, length(flabels))
 for i=1:length(flabels) mylabels[1, i]=string(flabels[i])*" Hz" end
 plot(Y; c=:grey, labels=mylabels)
-
+```
 """
 function filterbank(x         :: Vector{T},
                     sr        :: Int,

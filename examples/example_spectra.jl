@@ -51,7 +51,7 @@ plot!(v.*a.y)
 Σ=abs.(Ψ)
 bar!(Σ[2:end])
 
-# check the power at frequency f and neighbooring bins
+# check the amplitude at frequency f and neighbooring bins
 pos=f2b(f, sr, t, DC=true)
 
 Σ[pos-1]

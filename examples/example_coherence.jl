@@ -84,7 +84,9 @@ D=𝘾2.y
 # coherence of several data matrices at once
 
 # Compute the coherence altogether
-𝓒=coherence(𝐗, sr, t; tapering=slepians(sr, t))
+𝓒=coherence([X1, X2], sr, t; tapering=slepians(sr, t))
+
+𝐗=[X1, X2]
 
 # get all five kinds of coherences
 𝓒₁, 𝓒₂, 𝓒₃, 𝓒₄, 𝓒₅=coherence(𝐗, sr, t; tapering=slepians(sr, t), allkinds=true)

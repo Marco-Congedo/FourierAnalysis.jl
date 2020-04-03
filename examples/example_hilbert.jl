@@ -31,7 +31,16 @@ X2=readEEG(S[2])
 # Test Hilbert Transform Analytic Signal
 
 using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots, DSP
-t=128; lab=["x", "real(y)", "imag(y)"]
+t=128;
+lab=["x" "real(y)" "imag(y)"]
+lab2=["x1" "x2" "real(y1)" "real(y2)" "imag(y1)" "imag(y2)"]
+
+# Sliding-windows method analytic signal of one vector
+# (note edge effects)
+x=sinusoidal(10, 2, 128, t, π/2; DC=10) # cosine
+y=analyticsignal(x, t÷2)
+# note that real(y) is x without the DC level, i.e., x=real(y)+DC
+plot([x, real(y), imag(y)]; labels=lab)
 
 # Analytic signal of one vector
 x=sinusoidal(10, 2, 128, t, π/2; DC=10) # cosine
@@ -51,33 +60,46 @@ norm(s-imag(y2)) # should be zero
 plot([x, real(y2), imag(y2)]; labels=lab)
 
 # Analytic signal of multiple vectors
+x=sinusoidal(10, 2, 128, t, π/2; DC=10) # cosine
 x=hcat(x, sinusoidal(10, 3, 128, t, π/2; DC=10))
 y=analyticsignal(x)
+plot([x, real(y), imag(y)]; labels=lab2)
 
-# welch-like analytic signal of one vector
+
+# Sliding-windows analytic signal of one vector
 # (note edge effects)
 x=sinusoidal(10, 2, 128, t*4, π/2; DC=0)
 y=analyticsignal(x, t)
 plot([x, real(y), imag(y)]; labels=lab)
 
-# Welch-like analytic signal of multiple vectors
-x=hcat(x, sinusoidal(10, 3, 128, t*4, π/2; DC=0))
+# Sliding-windows analytic signal of multiple vectors
+x=sinusoidal(10, 2, 128, t*4, π/2; DC=10) # cosine
+x=hcat(x, sinusoidal(10, 3, 128, t*4, π/2; DC=10))
 y=analyticsignal(x, t)
+plot([x, real(y), imag(y)]; labels=lab2)
 
 
 t=256
 lim=512
 Y=analyticsignal(X1[1:lim, :], lim)
-plot([X1[1:lim, 1], real(Y[:, 1]), imag(Y[:, 1])])
+plot([X1[1:lim, 1], real(Y[:, 1]), imag(Y[:, 1])]; labels=lab)
 
-# compute Welch-like Analytis Signal altogether for X1 and X2
+# compute Sliding Windows Analytis Signal altogether for X1 and X2
 𝒀 = analyticsignal([X1[1:lim, :], X2[1:lim, :]], lim)
 
 ## test amplitude, phase and polar functions
 
-x=sinusoidal(10, 2, 128, t*4, 0).*sinusoidal(10, 1, 128, t*4, 0)
-
 # amplitude and phase of a vector using analytic signal standard method
+x=sinusoidal(10, 2, 128, t*4, 0)
+y=analyticsignal(x)
+a=amplitude(y)
+ϕ=phase(y)
+plot(x; labels="signal")
+plot!(a; labels="amplitude")
+plot!(ϕ; labels="phase")
+
+# another example
+x=sinusoidal(10, 2, 128, t*4, 0).*sinusoidal(10, 1, 128, t*4, 0)
 y=analyticsignal(x)
 a=amplitude(y)
 ϕ=phase(y, func=x->(x+π)/2π*50)
@@ -103,7 +125,7 @@ plot(A[:, 1:2])
 plot(𝛷[:, 1:1])
 
 # get Phase from analytic Signal and transform it in [-1, 1]
-𝛷=phase(Y, func=x->(x+π)/2π)
+𝛷=phase(Y, func=x->x/2π)
 plot(𝛷[:, 1:1])
 
 # get Phase from analytic Signal and transform it to the sine of the phase

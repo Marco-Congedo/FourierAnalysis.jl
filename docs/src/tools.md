@@ -17,7 +17,7 @@ This unit implements
 | [`brange`](@ref)     | range of bins for a real-FFT vector covering all Fourier discrete frequencies |
 | [`bbands`](@ref)     | limits of all bandwidth-spaced band-pass regions of a real-FFT vectors, in bins |
 | [`fbands`](@ref)     | limits of all bandwidth-spaced band-pass regions of a real-FFT vectors, in frequencies (Hz) |
-| [`dB`](@ref)         | convert a measure or a ratio between two measures into deciBels |
+| [`decibel`](@ref)         | convert a measure or a ratio between two measures into deciBels |
 
 ```@docs
 sinusoidal
@@ -28,7 +28,7 @@ fdf
 brange
 bbands
 fbands
-dB
+decibel
 ```
 
 ## specific methods
