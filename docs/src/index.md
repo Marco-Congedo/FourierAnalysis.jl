@@ -10,11 +10,9 @@ To install the package, execute the following command in Julia's REPL:
 
     ]add FourierAnalysis
 
-## Disclaimer
+## Contributions
 
-This package is still in a preliminary stage.
-It needs throughout testing.
-Any independent reviewer for both the code and the documentation is welcome.
+Independent testing and reviewers for both the code and the documentation are welcome.
 
 ## About the Author
 

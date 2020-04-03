@@ -170,12 +170,14 @@ function taper( kind :: TaperKind,
     elseif  kind == slepian    v    = Matrix{type}(dpss(wl, α, n, zerophase=false))
     end
 
-    # This has to be redone:
+    # This has to be checked:
 
     # normalize to unit mean or unit mean of absolute values
     if      kind ∉ (rectangular, slepian) v ./= mean(v) end
-    # if      taper == slepian for i=1:size(v, 2) v[:, i]./= (mean(abs.(v[:, i]))) end end
     if      kind == slepian v./=mean(abs.(a) for a in v) end
+
+    # if      kind == slepian v./=mean(v.^2; dims=1) end
+    # if      kind ∉ (rectangular, slepian) v ./= mean(v) end
 
     # normalization in DSP.jl
     #    if      taper == slepian for i=1:size(v, 2) v[:, i]./= (norm(v[:, i])/wl) end end

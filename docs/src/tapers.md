@@ -20,7 +20,13 @@ discrete prolate spheroidal sequences, the latter via the
 end
 ```
 
-Note that the Hann tapering window is also known as 'squared cosine' window and a the Riesz window is similar to window known as the 'cosine' window.
+!!! note "Using hamming and blackman tapers"
+    Those two identifiers conflicts with the DSP package. Until a better
+    solution is found, invoke them as `FourierAnalysis.hamming` and
+    `FourierAnalysis.blackman`.
+
+The Hann tapering window is also known as 'squared cosine' window and a
+the Riesz window is similar to a window known as the 'cosine' window.
 
 The design of tapering windows implies a trade-off between
 the *equivalent noise bandwidth* (enb),

@@ -101,7 +101,7 @@ this function is applied element-wise to the spectra.
 For instance,
 - `func=sqrt` will extract amplitude spectra,
 - `func=log` will extract log-spectra,
-- `func=dB` will extract spectra in deciBels (see [`dB`](@ref)).
+- `func=decibel` will extract spectra in deciBels (see [`decibel`](@ref)).
 By default the `identity` (do-nothing) function
 is applied, thus (power) spectra are extracted;
 

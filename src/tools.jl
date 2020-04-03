@@ -27,8 +27,6 @@ sampling rate `sr`, duration (in samples) `t`, angle `θ`
 and optional keyword argument `DC` (float), the DC level defaulting to zero.
 It is adopted the convention that a sine wave starts at zero.
 
-**See**: [IntOrReal](@ref)
-
 **Examples**:
 ```
 using FourierAnalysis, Plots
@@ -48,7 +46,7 @@ function sinusoidal(a  :: IntOrReal,
                     f  :: IntOrReal,
                     sr :: Int,
                     t  :: Int,
-                    θ  :: IntOrReal =0.;
+                    θ  :: IntOrReal = 0.;
                 DC = 0.)
     Δi = inv(sr)
     f2π = f * 2π
@@ -99,8 +97,6 @@ at bin 2.
 If `DC` is false return 0 for frequencies inferior to half the frequency
 resolution.
 
-**See**: [IntOrReal](@ref).
-
 **See also**: [`fres`](@ref), [`b2f`](@ref), [`fdf`](@ref), [`brange`](@ref).
 
 **Examples**:
@@ -112,7 +108,7 @@ f2b(10, 512, 1024) # return 20
 f2b(f  :: IntOrReal,
     sr :: Int,
     wl :: Int;
-  DC :: Bool = false) =
+    DC :: Bool = false) =
     !DC*fres(sr, wl)<=f<=sr/2 ? (return round(Int, (f*(wl/sr))-eps()) + DC) :
     @error 📌*", call to f2b function; invalid frequency argument. The frequency must be comprised between $(!DC*fres(sr, wl)) and $(sr/2) (half the sampling rate)" f
 #¤ if DC is true the first frequency is the DC level, hence !DC*fres(sr, wl)
@@ -148,7 +144,7 @@ f2b(10, 128, 128) # return 10
 b2f(bin :: Int,
     sr  :: Int,
     wl  :: Int;
-  DC :: Bool = false) =
+    DC :: Bool = false) =
     0<bin<=wl÷2+DC ? (return (bin-DC)*(sr/wl) ) :
     @error 📌*", call to b2f function; invalid bin argument. The bin must be comprised between 1 and half the window length (+ 1 if DC=true)" bin
 #¤ if DC is true there are wl÷2+1 bins, otherwise there are wl÷2 bins
@@ -178,7 +174,7 @@ fdf(8, 16)
 """
 fdf(sr :: Int,
     wl :: Int;
-  DC :: Bool = false) = [i*(sr/wl) for i=!DC:wl÷2]
+    DC :: Bool = false) = [i*(sr/wl) for i=!DC:wl÷2]
 #¤ if DC is true !DC=0, hence !DC:wl÷2 starts at zero
 
 
@@ -202,7 +198,7 @@ brange(0.5, 8) # return 1:4
 ```
 """
 brange(wl::Int;
-    DC::Bool=false) = (1:wl÷2+DC)
+        DC::Bool=false) = (1:wl÷2+DC)
 
 
 """
@@ -418,16 +414,16 @@ A
 ```
 """
 amplitude(c::Complex;
-                func::Function=identity) = func(abs(c))
+            func::Function=identity) = func(abs(c))
 
 amplitude(A::AbstractArray{T};
-                    func::Function=identity) where T<:Complex = @.func(abs(A))
+            func::Function=identity) where T<:Complex = @.func(abs(A))
 
 amplitude(A::TFAnalyticSignal;
-                    func::Function=identity) = amplitude(A.y, func)
+            func::Function=identity) = amplitude(A.y, func)
 
 amplitude(𝐀::TFAnalyticSignalVector;
-                    func::Function=identity) = [amplitude(A.y, func) for A ∈ 𝐀]
+            func::Function=identity) = [amplitude(A.y, func) for A ∈ 𝐀]
 
 # Standard atan function in other languages
 atan2(z::Complex) = atan(imag(z), real(z))
@@ -505,11 +501,12 @@ it is applied to the phase. For example
 phase(z::Complex; func::Function=identity) = func(atan2(z))
 
 phase(Z::AbstractArray{T};
-                unwrapdims::Int=0,
-                func::Function=identity) where T<:Complex =
+        unwrapdims::Int=0,
+        func::Function=identity) where T<:Complex =
     unwrapdims>0 ? func.(unwrapPhase(Z, unwrapdims=unwrapdims)) : @.func(atan2(Z))  # see Base.Broadcast.@__dot__
 
-phase(Z::TFAnalyticSignal; unwrapped::Bool=false, func::Function=identity) =
+phase(Z::TFAnalyticSignal;
+        unwrapped::Bool=false, func::Function=identity) =
     phase(Z.y; unwrapdims=2*unwrapped, func=func) # unwrap==true -> unwrapdims=2, else unwrapdims=0
 
 phase(𝐙::TFAnalyticSignalVector; unwrapped::Bool=false, func::Function=identity) =
@@ -781,7 +778,7 @@ end
 
 
 # Internal function: apply frequency-domain smoothing to the `X` vector
-# of real or complex numbers or real or complex lower-triangular matrices
+# of real or complex numbers, or real or complex lower-triangular matrices
 function __smooth(X, c, s, t)
     Y=similar(X)
     k=length(X)
@@ -808,8 +805,37 @@ function __smooth(X, c, s, t)
     return type(Y)
 end
 
-smooth(smoothing::Smoother, S::Union{Vector{<:Real}, Vector{<:Complex}}) =
-    return smoothing == noSmoother ? S : __smooth(S, _getSmoothCoeff(smoothing)...)
+
+smooth(smoothing::Smoother, v::Vector{R}) where R<:RealOrComplex =
+    return smoothing == noSmoother ? v : __smooth(v, _getSmoothCoeff(smoothing)...)
+
+function smooth(smoothing::Smoother, X::Matrix{R};
+                dims::Int=1) where R<:RealOrComplex
+    if smoothing == noSmoother
+        return X
+    end
+
+    if dims ∉ (1, 2)
+        throw(ArgumentError(📌*", function smooth: the `dims` keyword must be 1 or 2"))
+    end
+
+    if size(X, dims) < 3 && smoothing∉(hannSmoother, hammingSmoother)
+        throw(ArgumentError(📌*", function smooth: at least three points along dimension $dims must be available in order to apply a hannSmoother or a hammingSmoother"))
+    end
+
+    if size(X, dims) < 5 && smoothing≠blackmanSmoother
+        throw(ArgumentError(📌*", function smooth: at least three points along dimension $dims must be available in order to apply a blackmanSmoother"))
+    end
+
+    Y=similar(X)
+    coeff = _getSmoothCoeff(smoothing)
+    if dims==1
+        for i=1:size(X, 2) Y[:, i]=__smooth(X[:, i], coeff...) end
+    elseif dims==2
+        for i=1:size(X, 1) Y[i, :]=__smooth(X[i, :], coeff...) end
+    end
+    return Y
+end
 
 
 # Internal function: smooth the output of `spectra` function; spectra of a Matrix (columns)
@@ -835,43 +861,47 @@ _smooth(smoother::Smoother, 𝓢::Union{CrossSpectraVector, CoherenceVector}, γ
 """
 ```
 (1)
-function smooth(smoother :: Smoother,
-                       S :: Union{Vector{<:Real}, Vector{<:Complex}})
+function smooth(smoothing::Smoother,
+                v::Vector{R}) where R<:RealOrComplex
+
+
+(2)
+function smooth(smoothing::Smoother,
+                X::Matrix{R}; dims::Int=1) where R<:RealOrComplex
 
 (2)
 function smooth(smoother :: Smoother,
-                       S :: Union{FDobjects, FDobjectsVector})
+                S :: Union{FDobjects, FDobjectsVector})
 
 (3)
 function smooth(fsmoothing :: Smoother,
                 tsmoothing :: Smoother,
-                         Y :: Union{TFobjects, TFobjectsVector})
+                Y :: Union{TFobjects, TFobjectsVector})
 ```
 
 Apply a smoothing function of type [Smoother](@ref) to
 - (1) a vector of real or complex numbers,
-- (2) a [FDobjects](@ref) or all objects in a [FDobjectsVector](@ref),
-- (3) a [TFobjects](@ref) or all objects in a [TFobjectsVector](@ref).
+- (2) a real of complex matrix along dimension `dims` (default=1),
+- (3) a [FDobjects](@ref) or all objects in a [FDobjectsVector](@ref),
+- (4) a [TFobjects](@ref) or all objects in a [TFobjectsVector](@ref).
 
-This function is a constructor; for all methods the output is always of
-the same type as the input.
+Methods (1) and (2) are provided for low-level computations.
+Methods (3) and (4) are constructors;
+for all methods the output is always of the same type as the input.
 
-Method (1) is provided for low-level computations,
-but typically it is not needed.
-
-Method (2) smooths across the frequency dimension:
+Method (3) smooths across the frequency dimension:
 - for [Spectra](@ref) objects this amounts to smoothing the column vectors in their `.y` field,
 - for [CrossSpectra](@ref) and [Coherence](@ref) objects this amounts to smoothing adjacent matrices in their .y field.
 
-Method (3) smooths across the frequency dimension, time dimension or both.
-This amount to smooth across the column vectors (frequency) and/or row vectors
+Method (4) smooths across the frequency dimension, time dimension or both.
+This amounts to smoothing across the column vectors (frequency) and/or row vectors
 (time) in the `.y` field of the object.
 A smoother must be specified for the frequency dimension
 (`fsmoothing`) and for the time dimension (`tsmoothing`).
 Either one may be `noSmoother`, but if the two are different from `noSmoother`,
 then they must be the same. If smoothing is requested in both the frequency and
-time dimension, then the data is smoothed indipendently in those dimensions
-and the result of the two smoothings is averaged.
+time dimension, then the data is smoothed first in the time then in the
+frequency dimension.
 For [TFPhase](@ref) objects, smoothing is allowed only if the phase is unwrapped.
 
 This function allow smoothing frequency domain and time-frequency domain objects
@@ -879,8 +909,8 @@ after they have been created, however, smoothing can also be requested upon
 creation. For example, see the documentation of [Spectra](@ref).
 
 !!! note "Nota Bene"
-    For methods (1) and (2), if `Smoother` is `noSmoother`, then the input
-    is returned unchanged. For method (3) this is the case if both `fsmoother`
+    For methods (1), (2) and (3), if `Smoother` is `noSmoother`, then the input
+    is returned unchanged. For method (4) this is the case if both `fsmoother`
     and `tsmoother` are `noSmoother`.
 
     The data input must hold in the concerned dimension at least three elements
@@ -892,7 +922,7 @@ creation. For example, see the documentation of [Spectra](@ref).
 Smoothing of a series ``x`` composed of ``k`` elements is carried out at element
 ``i`` such as
 
-``x_{i}=ax_{i-2}+bx_i{-1}+cx_{i}+bx_{i+1}+ax_{i+2}``.
+``x_{i}=ax_{i-2}+bx_{i-1}+cx_{i}+bx_{i+1}+ax_{i+2}``.
 
 The coefficients are
 
@@ -981,11 +1011,9 @@ function _smooth(smoother  :: Smoother,
         Z_=Matrix{cT}(undef, size(Z.y))
         @inbounds for i=1:size(Z_, 2) Z_[:, i]=__smooth(Z.y[:, i], γ, c1, c2) end
     elseif frequency & time
-        Zf=Matrix{cT}(undef, size(Z.y))
-        @inbounds for i=1:size(Zf, 2) Zf[:, i]=__smooth(Z.y[:, i], γ, c1, c2) end
-        Zt=Matrix{cT}(undef, size(Z.y))
-        @inbounds for i=1:size(Zt, 1) Zt[i, :]=__smooth(Z.y[i, :], γ, c1, c2) end
-        Z_=(Zf+Zt)/2
+        Z_=Matrix{cT}(undef, size(Z.y))
+        @inbounds for i=1:size(Z_, 1) Z_[i, :]=__smooth(Z.y[i, :], γ, c1, c2) end
+        @inbounds for i=1:size(Z_, 2) Z_[:, i]=__smooth(Z_[:, i], γ, c1, c2) end
     end
 
     type=typeof(Z)

@@ -120,16 +120,16 @@ If `𝐗` holds data matrices, the ``k`` matrices in `𝐗` must have the same
 number of columns (i.e., the same number of time series),
 but may have any number of (at least `wl`) rows (samples).
 All other arguments have
-the same meaning as in method (1), with the following difference:
+the same meaning as in method (1), with the following differences:
 
-`⏩`: if true (default), the method run in multi-threaded mode across the
-``k`` data matrices if ``k`` is at least twice the number of threads Julia
-is instructed to use, otherwise this method attempts to run each spectra
-estimation in multi-threaded mode across series as per method (1).
-See [Threads](@ref).
+- `⏩`: if true (default), the method run in multi-threaded mode across the
+    ``k`` data matrices if ``k`` is at least twice the number of threads Julia
+    is instructed to use, otherwise this method attempts to run each spectra
+    estimation in multi-threaded mode across series as per method (1).
+    See [Threads](@ref).
 
-If a `planner` is not explicitly passed as an argument,
-the FFTW plan is computed once and applied for all spectral estimations.
+- If a `planner` is not explicitly passed as an argument,
+    the FFTW plan is computed once and applied for all spectral estimations.
 
 **See**: [Spectra](@ref), [plot spectra](@ref).
 
