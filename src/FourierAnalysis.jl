@@ -1,8 +1,8 @@
 #    Main Module of the FourierAnalysis Package for julia language
-#    v 1.0.0 - last update 9th of January 2020
+#    v 1.1.0 - last update 3rd of April 2020
 #
 #    MIT License
-#    Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#    Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #    https://sites.google.com/site/marcocongedo/home
 
 # __precompile__()
@@ -24,13 +24,12 @@ BLAS.set_num_threads(Sys.CPU_THREADS)
 
 
 # # # # # constants # # # # #
-const 📌            = "FourierAnalysis"
 #const qroot2        = 2^0.25
 const titleFont     = "\x1b[36m"
 const separatorFont = "\x1b[33;1m"
 const defaultFont   = "\x1b[0m"
 const greyFont      = "\x1b[90m"
-
+const 📌            = titleFont*"FourierAnalysis"*defaultFont
 # # # # # types # # # # #
 
 IntOrReal    = Union{Int, Real}
@@ -276,7 +275,7 @@ include("timefrequencybi.jl")
 include("recipes.jl")
 
 # welcome message
-println("\n⭐ "," Welcome to the","\x1b[36m"," FourierAnalysis.jl ","\x1b[0m","package", " ⭐\n")
+println("\n⭐ "," Welcome to the ", 📌, " package", " ⭐\n")
 @info(" ")
 println(" Your Machine `",gethostname(),"` (",Sys.MACHINE, ")")
 println(" runs on kernel ",Sys.KERNEL," with word size ",Sys.WORD_SIZE,".")

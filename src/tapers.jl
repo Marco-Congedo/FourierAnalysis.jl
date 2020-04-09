@@ -1,7 +1,7 @@
 #   Unit "tapers" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
