@@ -24,7 +24,7 @@ Coherence(y, sr, wl, taper) =
 #############################################################################
 
 """
-```
+```julia
 (1)
 function coherence(𝙎    :: CrossSpectra;
                allkinds :: Bool = false)
@@ -174,7 +174,7 @@ which is the `𝕃Vector₂` type used in PosDefManifold.
 **See**: [crossspectra.jl](@ref), [Spectra](@ref), [Coherence](@ref).
 
 **Examples**:
-```
+```julia
 ## common code for methods (1)-(4)
 
 using FourierAnalysis, LinearAlgebra
@@ -336,6 +336,7 @@ using BenchmarkTools
 ...
 ...
 ```
+
 """
 function coherence(𝙎    :: CrossSpectra;
                allkinds :: Bool = false)

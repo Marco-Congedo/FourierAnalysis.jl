@@ -7,7 +7,7 @@ the following structure:
 
 **Categories**: [data objects](@ref), [FDobjects](@ref).
 
-```
+```julia
 struct CrossSpectra
     y           :: Union{Vector{LowerTriangular}, Vector{Hermitian}}
     sr          :: Int
@@ -95,13 +95,13 @@ Manual constructors are also possible, for which you have to provide
 appropriate arguments. The default manual constructor of *CrossSpectra*
 objects is
 
-```
+```julia
 CrossSpectra(y, sr, wl, DC, taper, flabels, nonlinear, smoothing, tril)
 ```
 
 Other constructors are also provided:
 
-```
+```julia
 CrossSpectra(y, sr, wl, DC, taper, nonlinear)
 ```
 enable construction giving only `y`, `sr`, `wl`, `DC`, `taper`
@@ -109,7 +109,7 @@ and `nonlinear` argument.
 `flabels` is generated automatically, `smoothing` is set to `noSmoother`
 and `tril` is set to false;
 
-```
+```julia
 CrossSpectra(y, sr, wl, taper)
 ```
 

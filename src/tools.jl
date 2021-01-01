@@ -12,7 +12,7 @@
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 
 """
-```
+```julia
 function sinusoidal(a :: IntOrReal,
                     f :: IntOrReal,
                    sr :: Int,
@@ -28,7 +28,7 @@ and optional keyword argument `DC` (float), the DC level defaulting to zero.
 It is adopted the convention that a sine wave starts at zero.
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots
 
 # create and plot a sinusoidal wave of 128 samples with
@@ -55,7 +55,7 @@ end
 
 
 """
-```
+```julia
 function fres(sr :: Int,
               wl :: Int)
 ```
@@ -65,7 +65,7 @@ FFT **f**requency **res**olution given sampling rate `sr` and window length `wl`
 **See also**: [`f2b`](@ref), [`b2f`](@ref), [`fdf`](@ref), [`brange`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 fres(1024, 2048) # return 0.5
 ```
@@ -75,7 +75,7 @@ fres(sr :: Int,
 
 
 """
-```
+```julia
 function f2b(f :: IntOrReal,
             sr :: Int,
             wl :: Int;
@@ -100,7 +100,7 @@ resolution.
 **See also**: [`fres`](@ref), [`b2f`](@ref), [`fdf`](@ref), [`brange`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 f2b(10, 512, 1024) # return 20
 ```
@@ -116,7 +116,7 @@ f2b(f  :: IntOrReal,
 
 
 """
-```
+```julia
 function b2f(bin :: Int,
               sr :: Int,
               wl :: Int;
@@ -135,7 +135,7 @@ frequency at bin 2.
 **See also**: [`f2b`](@ref), [`fres`](@ref), [`fdf`](@ref), [`brange`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 f2b(20, 512, 1024) # return 40
 f2b(10, 128, 128) # return 10
@@ -151,7 +151,7 @@ b2f(bin :: Int,
 
 
 """
-```
+```julia
 function fdf(sr :: Int,
              wl :: Int;
           DC :: Bool = false)
@@ -165,7 +165,7 @@ and the length of the vector is ``(wl÷2)+1``.
 **See also**: [`f2b`](@ref), [`fres`](@ref), [`b2f`](@ref), [`brange`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 fdf(8, 16)
 # return the 8-element Array{Float64,1}:
@@ -179,7 +179,7 @@ fdf(sr :: Int,
 
 
 """
-```
+```julia
 function brange(wl :: Int;
              DC :: Bool = false)
 ```
@@ -192,7 +192,7 @@ otherwise it is ``1:(wl÷2)+1``.
 **See also**: [`f2b`](@ref), [`fres`](@ref), [`b2f`](@ref), [`fdf`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 brange(0.5, 8) # return 1:4
 ```
@@ -202,7 +202,7 @@ brange(wl::Int;
 
 
 """
-```
+```julia
 function bbands(sr :: Int,
                 wl :: Int,
          bandwidth :: IntOrReal;
@@ -223,7 +223,7 @@ To know the frequencies in Hz to which these bins correspond, call
 **See also**: [`fbands`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 bbands(128, 256, 16) # return [1, 32, 64, 96, 128]
 fbands(128, 256, 16) # return [0.5, 16.0, 32.0, 48.0, 64.0]
@@ -251,7 +251,7 @@ function bbands(sr        :: Int,
 end
 
 """
-```
+```julia
 function fbands(sr :: Int,
                 wl :: Int,
          bandwidth :: IntOrReal;
@@ -271,7 +271,7 @@ fbands(sr        :: Int,
 
 
 """
-```
+```julia
 (1)
 function decibel(S :: Union{Real, AbstractArray{T}}) where T<:Real
 
@@ -288,7 +288,7 @@ Input measures can be real numbers or real arrays of any dimensions.
 For array input, the ratio and the conversion is computed element-wise.
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 v=sinusoidal(3., 1, 128, 256, 0)
 s=spectra(v, 128, 256; func=decibel) # compute the spectra in dB
@@ -308,7 +308,7 @@ decibel(S1::Union{Real, AbstractArray{T}},
 
 
 """
-```
+```julia
 (1)
 function amplitude(c::Complex;
                         func::Function=identity) = func(abs(c))
@@ -361,7 +361,7 @@ argument `func`, it is applied element-wise to the output. For example,
 **See**: [TFAnalyticSignal](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots
 x=sinusoidal(10, 2, 128, t*4, 0).*sinusoidal(10, 1, 128, t*4, 0)
 
@@ -429,7 +429,7 @@ amplitude(𝐀::TFAnalyticSignalVector;
 atan2(z::Complex) = atan(imag(z), real(z))
 
 """
-```
+```julia
 (1)
 function phase(z::Complex; func::Function=identity)
 
@@ -513,7 +513,7 @@ phase(𝐙::TFAnalyticSignalVector; unwrapped::Bool=false, func::Function=identi
     [phase(Z; unwrapped=unwrapped, func=func) for Z ∈ 𝐙]
 
 """
-```
+```julia
 (1)
 function polar(c::Complex)
 
@@ -569,7 +569,7 @@ polar(Z::TFAnalyticSignal) = polar(Z.y)
 
 
 """
-```
+```julia
 (1)
 function unwrapPhase(Z::AbstractArray{T};
                                 unwrapdims::Int=0) where T<:Complex
@@ -639,7 +639,7 @@ unwrapPhase(𝚯::TFPhaseVector) =
 
 
 """
-```
+```julia
 function sameParams(𝐒        :: FDobjectsVector,
                     funcname :: String)
 ```
@@ -679,7 +679,7 @@ sameParams(𝐒        :: FDobjectsVector,
 
 
 """
-```
+```julia
 function sameParams(𝒀        :: TFobjectsVector,
                     funcname :: String) =
 ```
@@ -707,7 +707,7 @@ sameParams(𝒀        :: TFobjectsVector,
 
 
 """
-```
+```julia
 function isLinear(𝒀::Union{FDobjectsVector, TFobjectsVector})
 ```
 Return true if all objects in `𝒀` are linear.
@@ -724,7 +724,7 @@ isLinear(𝒀::TFobjectsVector) =
    𝒀 isa TFAmplitudeVector ? true : sum(Y.nonlinear for Y ∈ 𝒀)==0
 
 """
-```
+```julia
 function isNonLinear(𝒀::Union{FDobjectsVector, TFobjectsVector})
 ```
 Return true if all objects in `𝒀` are non-linear.
@@ -742,7 +742,7 @@ isNonLinear(𝒀::TFobjectsVector) =
    𝒀 isa TFAmplitudeVector ? false : sum(Y.nonlinear for Y ∈ 𝒀)==length(𝒀)
 
 """
-```
+```julia
 (1)
 function isUnwrapped(ϴ::TFPhase)
 
@@ -859,7 +859,7 @@ _smooth(smoother::Smoother, 𝓢::Union{CrossSpectraVector, CoherenceVector}, γ
 
 
 """
-```
+```julia
 (1)
 function smooth(smoothing::Smoother,
                 v::Vector{R}) where R<:RealOrComplex
@@ -959,7 +959,7 @@ and the last as
 **See**: [Smoother](@ref)
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots
 sr, t, f, a = 128, 128, 10, 0.5
 # create a sinusoidal superimposed to white noise
@@ -1132,7 +1132,7 @@ _mean(𝐒::Union{CrossSpectraVector, CoherenceVector}, frange::UnitRange{Int64}
     typeof(𝐒[1].y)([_mean(S, frange) for S ∈ 𝐒])
 
 """
-```
+```julia
 (1)
 function extract(S :: FDobjects,
             frange :: fInterval)
@@ -1208,7 +1208,7 @@ Set it to false to improve speed.
 **See also**: [`mean`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 
 # example with univariate Spectra objects (one series -> one spectrum)
@@ -1282,7 +1282,7 @@ extract(𝐒::FDobjectsVector, frange::fInterval;
 
 
 """
-```
+```julia
 (1)
 function mean(S :: FDobjects,
          frange :: fInterval)
@@ -1344,7 +1344,7 @@ of the input objects are all the same (for example, sampling rate, bandwidth, et
 **See also**: [`extract`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots
 
 # example with univariate Spectra objects (one series -> one spectrum)
@@ -1513,7 +1513,7 @@ extr=extract
 ### Band-pass Averages ###
 
 """
-```
+```julia
 function bands(S :: Union{FDobjects, FDobjectsVector}
        bandwidth :: IntOrReal)
 ```
@@ -1537,7 +1537,7 @@ The output of this function is as it follows:
 **See**: [`bbands`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots
 
 # example with univariate Spectra objects (one series -> one spectrum)

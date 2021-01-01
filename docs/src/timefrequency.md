@@ -23,7 +23,7 @@ Taken together these three objects are referred to as [TFobjects](@ref) and vect
 
 An analytic signal object has the following structure:
 
-```
+```julia
 struct TFAnalyticSignal
     y          :: Matrix{T} where T<:Complex
     bandwidth  :: IntOrReal
@@ -61,7 +61,10 @@ samples (time). If no time smoothing has been applied,
 it is equal to `noSmoother`, which is the default in all constructors.
 
 **Note**: In Julia the fields are accessed by the usual dot notation, e.g., you may verify that for *TFAnalyticSignal* object `Y`,
-```length(Y.flabels) == dim(Y.z, 1)```.
+
+```julia
+length(Y.flabels) == dim(Y.z, 1)
+```
 
 A vector of *TFAnalyticSignal* objects is of type [TFAnalyticSignalVector](@ref).
 
@@ -95,7 +98,7 @@ Manual constructors are also possible, for which you have to provide
 appropriate arguments. The default manual constructor of *TFAnalyticSignal*
 objects is
 
-```
+```julia
 TFAnalyticSignal(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing).
 ```
 
@@ -108,7 +111,7 @@ No other generic constructor is provided for this object.
 
 An amplitude object has the following structure:
 
-```
+```julia
 struct TFAmplitude
     y          :: Matrix{T} where T<:Real
     bandwidth  :: IntOrReal
@@ -178,19 +181,19 @@ Manual constructors are also possible, for which you have to provide
 appropriate arguments. The default manual constructor of *TFAmplitude*
 objects is
 
-```
+```julia
 TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing, func).
 ```
 
 Other generic constructors are also provided:
 
-```
+```julia
 TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing)
 ```
 enables construction giving only `y`, `bandwidth`, `flabels`, `fsmoothing`
 and `tsmoothing`. `func` is set automatically to `identity`;
 
-```
+```julia
 TFAmplitude(y, bandwidth, flabels)
 ```
 acts like the constructor above, but sets by default also both `fsmoothing`
@@ -203,7 +206,7 @@ and `tsmoothing` to `noSmoother`.
 
 A phase object has the following structure:
 
-```
+```julia
 struct TFPhase
     y          :: Matrix{T} where T<:Real
     bandwidth  :: IntOrReal
@@ -292,21 +295,21 @@ Manual constructors are also possible, for which you have to provide
 appropriate arguments. The default manual constructor of *TFPhase*
 objects is
 
-```
+```julia
 TFPhase(y, bandwidth, flabels, nonlinear,
         fsmoothing, tsmoothing, unwrapped, func).
 ```
 
 Other generic constructors are also provided:
 
-```
+```julia
 TFPhase(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing)
 ```
 enables construction giving only `y`, `bandwidth`, `flabels`, `fsmoothing`
 and `tsmoothing`. `unwrapped` is set to `false` and `func` is set
 to `identity`;
 
-```
+```julia
 TFPhase(y, bandwidth, flabels)
 ```
 acts like the constructor above, but sets by default also `nonlinear` to `true`

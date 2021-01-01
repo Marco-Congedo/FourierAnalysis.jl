@@ -55,7 +55,7 @@ end
 ### Time-domain tapering ###
 ###############################################################################
 """
-```
+```julia
 function taper( kind  :: TaperKind,
                 wl    :: Int;
             α       :: Real    = 2.,
@@ -103,7 +103,7 @@ those should be discarded.
 **See also**: [`slepians`](@ref), [`taperinfo`](@ref)
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 
 ## Use the constructor
@@ -213,7 +213,7 @@ in constructors [`spectra`](@ref), [`crossSpectra`](@ref) and
 **See**: [plot tapering windows](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 sr, t, f, a = 128, 128, 10, 0.5
 # create a sinusoidal superimposed to white noise
@@ -240,7 +240,9 @@ end
 ###############################################################################
 
 """
-    function taperinfo(taper::Taper)
+```julia
+function taperinfo(taper::Taper)
+```
 
 Return the name of the
 tapering window(s) encapsulated in the [Taper](@ref) object
@@ -251,7 +253,7 @@ their parameters, namely, ``α`` (half-bandwidth)
 and ``n`` (number of windows), are reported within parentheses as well.
 
 **Examples**:
-```
+```julia
 H=taper(hamming, 128*8)
 taperinfo(H)
 

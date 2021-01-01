@@ -9,7 +9,7 @@
 #   estimations for signals of arbitrary length, using FFTW.
 
 """
-```
+```julia
    (1)
    function analyticsignal( X  :: Union{Vector{T}, Matrix{T}},
                             wl :: Int     = size(X, 1);
@@ -119,7 +119,7 @@ Computing the Discrete-Time Analytic Signal via FFT.
 IEEE Transactions on Signal Processing 47(9), 2600-3.
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, FFTW, LinearAlgebra, Statistics, Plots, DSP
 t=128; lab=["x", "real(y)", "imag(y)"]
 

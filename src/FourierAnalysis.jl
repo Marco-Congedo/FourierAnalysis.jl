@@ -275,7 +275,7 @@ include("timefrequencybi.jl")
 include("recipes.jl")
 
 # welcome message
-println("\n⭐ "," Welcome to the ", 📌, " package", " ⭐\n")
+println("\n⭐ "," Welcome to the ", 📌," package", " ⭐\n")
 @info(" ")
 println(" Your Machine `",gethostname(),"` (",Sys.MACHINE, ")")
 println(" runs on kernel ",Sys.KERNEL," with word size ",Sys.WORD_SIZE,".")

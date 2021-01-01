@@ -7,7 +7,7 @@ via the Hilbert transform.
 At the bottom of this page you can find [notes on DSP package useful functions](@ref).
 
 ### FilterDesign
-```
+```julia
 FilterDesign = Union{ZeroPoleGain, FIRWindow}
 ```
 
@@ -19,7 +19,7 @@ filterbank
 ```
 
 ### notes on DSP package useful functions
-```
+```julia
 using DSP, Plots
 
 ### create a time-series with dominant frequency at 10Hz

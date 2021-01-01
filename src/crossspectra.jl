@@ -23,7 +23,7 @@ CrossSpectra(y, sr, wl, taper) =
 #############################################################################
 
 """
-```
+```julia
 (1)
 function crossSpectra( X    :: Matrix{T},
                        sr   :: Int,
@@ -141,7 +141,7 @@ which is the `𝕃Vector₂` type used in PosDefManifold.
 **See also**: [`spectra`](@ref), [`coherence`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots, LinearAlgebra
 
 function generateSomeData(sr::Int, t::Int; noise::Real=1.)
@@ -280,8 +280,8 @@ using BenchmarkTools
 ...
 
 
-
 ```
+
 """
 function crossSpectra( X    :: Matrix{T},
                        sr   :: Int,

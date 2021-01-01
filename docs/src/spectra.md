@@ -6,7 +6,7 @@ Spectra objects created by *FourierAnalysis* are incapsulated in the following s
 
 **Categories**: [data objects](@ref), [FDobjects](@ref)
 
-```
+```julia
 struct Spectra
     y           :: AbstractArray{T} where T<:Real
     sr          :: Int
@@ -47,7 +47,9 @@ which is the default in all constructors.
 **Note**: In Julia the fields are accessed by the usual dot notation, e.g.,
 you may verify that for *Spectra* object `S`,
 
-```length(S.flabels) == size(S.y, 1) == (S.wl/2)+S.DC```.
+```julia
+length(S.flabels) == size(S.y, 1) == (S.wl/2)+S.DC
+```
 
 A vector of *Spectra* objects is of type [SpectraVector](@ref).
 
@@ -71,26 +73,26 @@ is what you will use in practice most of the time.
 Manual constructors are also possible, for which you have to provide
 appropriate arguments. The default manual constructor of *Spectra* objects is
 
-```
+```julia
 Spectra(y, sr, wl, DC, taper, flabels, func, smoothing).
 ```
 
 Other constructors are also provided:
 
-```
+```julia
 Spectra(y, sr, wl, DC, tapers)
 ```
 
 generate the appropriate `flabels`, set `func` to `identity`
 (do-nothing) and `smoothing` to `noSmoother`;
 
-```
+```julia
 Spectra(y, sr, wl, taper)
 ```
 
 is like the constructor here above, but also set `DC` to false;
 
-```
+```julia
 Spectra(𝙎::CrossSpectra;
         func::Function=identity)
 ```
@@ -109,7 +111,7 @@ is applied, thus (power) spectra are extracted;
     If the CrossSpectra object is non-linear, the spectra are
     uniformly equal to 1.0. See [`crossSpectra`](@ref).
 
-```
+```julia
 Spectra(𝙎::CrossSpectraVector;
         func::Function=identity)
 ```
