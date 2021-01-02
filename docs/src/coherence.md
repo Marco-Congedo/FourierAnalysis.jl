@@ -146,7 +146,7 @@ In the time-frequency domain coherence estimates are given as Julia ``Matrix``
 objects. In the frequency-domain they are encapsulated in the
 following structure:
 
-```
+```julia
 struct Coherence
    <same fields of the CrossSpectra structure>
 end

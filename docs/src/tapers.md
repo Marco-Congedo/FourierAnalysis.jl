@@ -6,7 +6,7 @@ discrete prolate spheroidal sequences, the latter via the
 
 
 ## TaperKind
-```
+```julia
 @enum TaperKind begin
     rectangular = 1
     triangular  = 2
@@ -55,7 +55,7 @@ For reducing the variance of the spectral estimations, use the (Slepian) *discre
 
 Tapering windows in **FourirAnalysis** are encapsulated in the following structure:
 
-```
+```julia
 struct Taper
     y    :: Union{Vector{T}, Matrix{T}} where T<:Real
     kind :: TaperKind

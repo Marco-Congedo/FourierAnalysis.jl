@@ -1,7 +1,7 @@
 #   Unit "timefrequencybi" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -13,7 +13,7 @@
 # see Congedo, 2018: https://hal.archives-ouvertes.fr/hal-01868538v2/document
 
 """
-```
+```julia
 (1)
 function comodulation( 𝐀₁     :: TFAnalyticSignalVector,
                        𝐀₂     :: TFAnalyticSignalVector,
@@ -103,7 +103,7 @@ and applied for all amplitude estimations.
 **See also**: [`coherence`](@ref), [timefrequencybi.jl](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 
 # generate 100 pairs of data vectors
@@ -257,7 +257,7 @@ com = comodulation
 
 
 """
-```
+```julia
 (5)
 function coherence(𝐙₁     :: TFAnalyticSignalVector,
                    𝐙₂     :: TFAnalyticSignalVector,

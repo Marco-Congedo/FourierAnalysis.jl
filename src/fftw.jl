@@ -1,7 +1,7 @@
 #   Unit "fftw.jl" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -55,11 +55,13 @@ here below.
 
 **Constructors**
 
-    Planner(flags :: UInt32,
-        timelimit :: Union{Int, Float64},
-               wl :: Int,
-             type :: Type,
-               bw :: Bool = false)
+```julia
+Planner(flags :: UInt32,
+    timelimit :: Union{Int, Float64},
+           wl :: Int,
+         type :: Type,
+           bw :: Bool = false)
+```
 
 Use this to create a Planner object, passing as argument a FFTW `flags` constant
 and `timelimit`, the window length `wl` and the type of the input data `type`,
@@ -73,22 +75,31 @@ For example, suppose 𝐗 is a vector of many matrices of multivariate time-seri
 sampled at 128 samples per second and that we want to compute the spectra
 for all of them using a 256-point FFT. We first create a plan by
 
-    p=Planner(plan_exhaustive, 10.0, 256, eltype(𝐗[1]))
+```julia
+p=Planner(plan_exhaustive, 10.0, 256, eltype(𝐗[1]))
+```
 
 Then we invoke the [Spectra](@ref) function passing the plan as argument:
 
-    𝐒=spectra(𝐗, sr, t; planner=p)
+```julia
+𝐒=spectra(𝐗, sr, t; planner=p)
+```
 
 A shorter construction syntax is available when only the
 forward plan is needed and the type of the data is Float64:
 
-    Planner(flags :: UInt32,
-        timelimit :: Union{Int, Float64},
-               wl :: Int)
+```julia
+Planner(flags :: UInt32,
+    timelimit :: Union{Int, Float64},
+           wl :: Int)
+```
 
 For example, the line above could have been written more shortly as
 
-    p=Planner(plan_exhaustive, 10.0, 256)
+```julia
+p=Planner(plan_exhaustive, 10.0, 256)
+```
+
 """
 struct Planner
     flags     ::  UInt32            # see

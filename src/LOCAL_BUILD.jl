@@ -27,7 +27,7 @@ begin
     docsDir     = juliaCodeDir*projectName*"\\docs\\"
 
     push!(LOAD_PATH, srcDir)
-    using Documenter, LinearAlgebra, Statistics, FFTW, AbstractFFTs,
+    using Documenter, LinearAlgebra, Statistics, AbstractFFTs, FFTW,
           DSP, Revise, FourierAnalysis
 
     # for compiling the documentation

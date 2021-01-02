@@ -1,7 +1,7 @@
 #   Unit "gortzel" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -26,11 +26,13 @@
 #   ~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~~¤~  #
 
 """
-    function goertzel( x   :: Vector{T},
-                       f   :: IntOrReal,
-                       sr  :: Int,
-                       wl  :: Int,
-                   startAT :: Int = 1) where T<:Union{Real, Complex}
+```julia
+function goertzel( x   :: Vector{T},
+                   f   :: IntOrReal,
+                   sr  :: Int,
+                   wl  :: Int,
+               startAT :: Int = 1) where T<:Union{Real, Complex}
+```
 
 Given a time series as input vector `x` sampled at `sr` sampling rate,
 return the DFT complex coefficient at the discrete Fourier frequency which is
@@ -44,7 +46,7 @@ If `startAT`=1 (default) the first `wl` samples of the vector are considered.
 **See also**: [`goertzel_fast`](@ref), [`goertzel2`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 sr, t, f, a = 128, 128, 5, 10
 v=sinusoidal(a, f, sr, t, 0)
@@ -64,13 +66,15 @@ end
 
 
 """
-    function goertzel_fast( x  :: Vector{T},
-                            wl :: Int,
-                            a  :: Real,
-                            c  :: Real,
-                            s  :: Real,
-                            d  :: Real,
-                        startAT:: Int = 1) where T<:Union{Real, Complex}
+```julia
+function goertzel_fast( x  :: Vector{T},
+                        wl :: Int,
+                        a  :: Real,
+                        c  :: Real,
+                        s  :: Real,
+                        d  :: Real,
+                    startAT:: Int = 1) where T<:Union{Real, Complex}
+```
 
 Fast version of the [`goertzel`](@ref) function to be preferred if the function
 is invoked repeatedly and speed is of concern. The user provides as arguments:
@@ -103,11 +107,13 @@ end
 
 
 """
-    function goertzel2( x  :: Vector{T},
-                        f  :: IntOrReal,
-                        sr :: Int,
-                        wl :: Int,
-                    startAT:: Int = 1) where T<:Union{Real, Complex}
+```julia
+function goertzel2( x  :: Vector{T},
+                    f  :: IntOrReal,
+                    sr :: Int,
+                    wl :: Int,
+                startAT:: Int = 1) where T<:Union{Real, Complex}
+```
 
 Like the [`goertzel`](@ref) function, but allows estimating the DFT coefficient
 in the whole positive real line up to the Nyquist frequency.
@@ -122,7 +128,7 @@ frequencies.
 **See also**: [`goertzel_fast`](@ref), [`goertzel`](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 sr, t, f, a = 128, 128, 5, 10
 ftrue=f+0.15

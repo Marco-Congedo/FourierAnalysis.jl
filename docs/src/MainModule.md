@@ -25,7 +25,7 @@ The main module does not contains functions, but it declares all
 ## types
 
 ### fInterval
-```
+```julia
 fInterval = Union{IntOrReal,Tuple{IntOrReal, IntOrReal}, Colon}
 ```
 
@@ -39,7 +39,7 @@ This can be
     Frequency ranges are used as argument in the functions [`mean`](@ref), [`extract`](@ref), [`meanAmplitude`](@ref), [`concentration`](@ref), [`meanDirection`](@ref), [`comodulation`](@ref) and [`coherence`](@ref). They apply both to frequency domain and to time-frequency domain data. In the frequency domain, the frequencies are the Fourier discrete frequencies with resolution ``sr/wl``, with or without the DC level in the first position, depending on how the object has been constructed. In the time-frequency domain, the frequencies actually are the center frequencies of the [filter bank](https://en.wikipedia.org/wiki/Filter_bank) used for constructing the object. Thus, the actual frequencies actually contained in a given position depends on the `bandwidth` argument used to construct the oject. See [`filterbank`](@ref).
 
 ### tInterval
-```
+```julia
 tInterval = Union{Int, Tuple{Int, Int}, Colon}
 ```
 
@@ -53,7 +53,7 @@ These ranges are used as argument in the same functions where [fInterval](@ref)
 ranges are used. Obviously, they apply only to time-frequency domain data.
 
 ### Smoother
-```
+```julia
 @enum Smoother begin
     noSmoother       = 1
     hannSmoother     = 2
@@ -201,7 +201,7 @@ Some functions in *FourierAnalysis* calls BLAS routine implicitly
 via Julia. You can set the number of threads
 the BLAS library should use by:
 
-```
+```julia
 using LinearAlgebra
 BLAS.set_num_threads(n)
 ```

@@ -1,7 +1,7 @@
 #   Unit "timefrequencyuni" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -17,7 +17,7 @@
 # If w is a positive weight vector a weighted version <wr>/<w> is computed.
 # NB: w must be normalized so that the denominator is 1.0
 """
-```
+```julia
 (1)
 function meanAmplitude( 𝐀      :: TFAmplitudeVector,
                         frange :: fInterval,
@@ -119,7 +119,7 @@ for their meaning.
 [timefrequencybi.jl](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 
 # generate 100 vectors of data
@@ -263,7 +263,7 @@ mamp = meanAmplitude
 
 
 """
-```
+```julia
 (1)
 function concentration( 𝐙       :: TFAnalyticSignalVector,
                         frange  :: fInterval,
@@ -393,7 +393,7 @@ con = concentration
 
 
 """
-```
+```julia
 (1)
 function meanDirection( 𝐙         :: TFAnalyticSignalVector,
                         frange    :: fInterval,
@@ -424,6 +424,7 @@ function meanDirection( 𝐱      :: Vector{Vector{T}},
                  planner       :: Planner      = getplanner,
                  ⏩           :: Bool         = true) where T<:Real
 ```
+
 This function features two methods that use exactly the same syntax
 as the two corresponding methods of the [`concentration`](@ref) function.
 All arguements have exactly the same meaning as therein.

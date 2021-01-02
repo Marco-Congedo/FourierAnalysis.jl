@@ -12,7 +12,7 @@ while operator `:=` forces the plot attribute to a specific value.
 
 ## plot tapering windows
 
-```
+```julia
 @recipe function f(::Type{Taper}, taper::Taper)
     title               --> taperinfo(taper)
     background_color    --> :white
@@ -33,7 +33,7 @@ of the standard Julia plot package.
 
 **Examples**:
 
-```
+```julia
 using FourierAnalysis, Plots
 
 plot(taper(parzen, 256))
@@ -46,7 +46,7 @@ plot(H)
 
 ## plot spectra
 
-```
+```julia
 @recipe function f(::Type{Spectra}, S::Spectra;
             fmax   = S.sr/2,
             xspace = 4,
@@ -98,7 +98,7 @@ Useful attributes for plotting spectra are:
 
 **Examples**:
 
-```
+```julia
 using FourierAnalysis, Plots, Plots.Measures
 
 sr, t, f, a = 128, 128, 16, 0.5
@@ -160,7 +160,7 @@ Useful attributes for plotting time-frequency objects are:
 - ```top_margin     = 2mm```
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, Plots, Plots.PlotMeasures
 sr, t, f, a, s = 128, 128, 8, 2.5, sinusoidal
 # create a sinusoidal at 8Hz modulated by a sinusoidal at 0.125Hz

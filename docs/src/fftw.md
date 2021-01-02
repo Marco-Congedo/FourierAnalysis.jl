@@ -13,7 +13,7 @@ In order to use effectively FFTW, see [window length in FFTW](@ref).
 The following are constants used by FFTW as flags in creating FFT plans.
 See [here](http://www.fftw.org/fftw3_doc/Planner-Flags.html) for details.
 
-```
+```julia
 plan_estimate        = UInt32(64)      # (1 << 6)   very small search
 plan_measure         = UInt32(0)       #            small search
 plan_patient         = UInt32(32)      # (1 << 5)   large search

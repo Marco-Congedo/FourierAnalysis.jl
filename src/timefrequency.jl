@@ -1,7 +1,7 @@
 #   Unit "timefrequency" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -12,7 +12,7 @@
 #### Time-Frequency Analytic Signal ####
 
 """
-```
+```julia
 (1)
 function TFanalyticsignal(x         :: Vector{T},
                           sr        :: Int,
@@ -95,7 +95,7 @@ estimations.
 **See**: [`filterbank`](@ref), [`analyticsignal`](@ref), [`smooth`](@ref).
 
 **Examples**:
-```
+```julia
 using Plots, FourierAnalysis
 
 # generate some data
@@ -440,7 +440,7 @@ TFAmplitude(y, bandwidth, flabels) =
 # Constructors from Data
 ##############################################
 """
-```
+```julia
 (1)
 function TFamplitude(Z::TFAnalyticSignal;
                 func::Function=identity)
@@ -602,7 +602,7 @@ TFPhase(y, bandwidth, flabels) =
 # Constructors from Data
 ##############################################
 """
-```
+```julia
 (1)
 function TFphase(Z :: TFAnalyticSignal;
             func      :: Function = identity,

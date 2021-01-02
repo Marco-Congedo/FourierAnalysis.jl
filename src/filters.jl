@@ -1,7 +1,7 @@
 #   Unit "filters" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -12,14 +12,15 @@ FilterDesign = Union{ZeroPoleGain, FIRWindow}
 
 #######################################################################
 """
-    function filterbank(x         :: Vector{T},
-                        sr        :: Int,
-                        bandwidth :: IntOrReal    = 2;
-                    filtkind      :: FilterDesign = Butterworth(2),
-                    fmin          :: IntOrReal    = bandwidth,
-                    fmax          :: IntOrReal    = sr÷2,
-                    ⏩           :: Bool         = true) where T<:Real
-
+```julia
+function filterbank(x         :: Vector{T},
+                    sr        :: Int,
+                    bandwidth :: IntOrReal    = 2;
+                filtkind      :: FilterDesign = Butterworth(2),
+                fmin          :: IntOrReal    = bandwidth,
+                fmax          :: IntOrReal    = sr÷2,
+                ⏩           :: Bool         = true) where T<:Real
+```
 
 Pass signal vector `x` throught a bank of band-pass filters,
 given sampling rate `sr` and `bandwidth` parameter.
@@ -78,7 +79,7 @@ on time-frequency reprsentations: [`TFanalyticsignal`](@ref),
 
 
 **Examples**:
-```
+```julia
 using FourierAnalysis, DSP, Plots
 # generate a sinusoidal + noise
 f, sr, t = 8, 128, 512

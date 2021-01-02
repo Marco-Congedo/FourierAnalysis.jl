@@ -1,7 +1,7 @@
 #   Unit "spectra" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -33,7 +33,7 @@ Spectra(𝙎::CrossSpectraVector; func::Function=identity) =
 
 #############################################################################
 """
-```
+```julia
 (1)
 function spectra( X     :: Union{Vector{T}, Matrix{T}},
                   sr    :: Int,
@@ -136,7 +136,7 @@ the same meaning as in method (1), with the following differences:
 **See also**: [`crossSpectra`](@ref), [`coherence`](@ref), [goertzel.jl](@ref).
 
 **Examples**:
-```
+```julia
 using FourierAnalysis
 
 ###################################################################
