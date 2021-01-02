@@ -104,7 +104,7 @@ Other constructors are also provided:
 ```julia
 CrossSpectra(y, sr, wl, DC, taper, nonlinear)
 ```
-enable construction giving only `y`, `sr`, `wl`, `DC`, `taper`
+enables construction giving only `y`, `sr`, `wl`, `DC`, `taper`
 and `nonlinear` argument.
 `flabels` is generated automatically, `smoothing` is set to `noSmoother`
 and `tril` is set to false;

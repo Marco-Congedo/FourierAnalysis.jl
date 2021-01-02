@@ -83,7 +83,7 @@ Other constructors are also provided:
 Spectra(y, sr, wl, DC, tapers)
 ```
 
-generate the appropriate `flabels`, set `func` to `identity`
+generates the appropriate `flabels`, set `func` to `identity`
 (do-nothing) and `smoothing` to `noSmoother`;
 
 ```julia
@@ -97,7 +97,7 @@ Spectra(𝙎::CrossSpectra;
         func::Function=identity)
 ```
 
-create a *Spectra* object extracting the spectra from a [CrossSpectra](@ref)
+creates a *Spectra* object extracting the spectra from a [CrossSpectra](@ref)
 object. If a function is provided with the `func` argument,
 this function is applied element-wise to the spectra.
 For instance,
