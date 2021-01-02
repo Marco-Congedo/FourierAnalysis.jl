@@ -39,7 +39,7 @@ Independent reviewers are more then welcome.
 ## About the Author
 
 [Marco Congedo](https://sites.google.com/site/marcocongedo) is
-a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working at [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble (France), the city where Jean-Baptiste Joseph Fourier has served as a Prefect:).
+a Research Director of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working at [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble (France), the city where Jean-Baptiste Joseph Fourier has served as a Prefect:).
 
 ## Contact 
 first name *dot* last name *at* gmail *dot* com
