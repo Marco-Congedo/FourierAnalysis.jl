@@ -80,7 +80,7 @@ Spectra(y, sr, wl, DC, taper, flabels, func, smoothing).
 Other constructors are also provided:
 
 ```julia
-Spectra(y, sr, wl, DC, tapers)
+Spectra(y, sr, wl, DC, taper)
 ```
 
 generates the appropriate `flabels`, set `func` to `identity`
