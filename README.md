@@ -58,7 +58,7 @@ v = sinusoidal(0.5, 10, sr, wl*16) + randn(wl*16)
 S = spectra(v, sr, wl; tapering=rectangular)
 
 # Plot the power spectrum:
-plot(S; maxf=24)
+plot(S; fmax=24)
 
 # The same syntax applies in the case of multivariate data (e.g., 4 time-series):
 V = randn(t*16, 4)
