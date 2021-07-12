@@ -824,8 +824,8 @@ function smooth(smoothing::Smoother, X::Matrix{R};
         throw(ArgumentError(📌*", function smooth: at least three points along dimension $dims must be available in order to apply a hannSmoother or a hammingSmoother"))
     end
 
-    if size(X, dims) < 5 && smoothing≠blackmanSmoother
-        throw(ArgumentError(📌*", function smooth: at least three points along dimension $dims must be available in order to apply a blackmanSmoother"))
+    if size(X, dims) < 5 && smoothing==blackmanSmoother
+        throw(ArgumentError(📌*", function smooth: at least five points along dimension $dims must be available in order to apply a blackmanSmoother"))
     end
 
     Y=similar(X)
