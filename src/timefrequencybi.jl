@@ -1,7 +1,8 @@
 #   Unit "timefrequencybi" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2020, Marco Congedo, CNRS, Grenobe, France:
+#   Copyright (c) 2019-2021,
+#   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
 # ? CONTENTS :
@@ -10,13 +11,13 @@
 
 
 ################### BIVARIATE MEASURE ##########################
-# see Congedo, 2018: https://hal.archives-ouvertes.fr/hal-01868538v2/document
+# see Congedo(2018): https://hal.archives-ouvertes.fr/hal-01868538v2/document
 
 """
 ```julia
 (1)
-function comodulation( 𝐀₁     :: TFAnalyticSignalVector,
-                       𝐀₂     :: TFAnalyticSignalVector,
+function comodulation( 𝐀₁     :: TFAmplitudeVector,
+                       𝐀₂     :: TFAmplitudeVector,
                        frange :: fInterval,
                        trange :: tInterval;
                   mode  :: Function = extract,

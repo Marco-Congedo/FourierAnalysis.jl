@@ -17,7 +17,7 @@ Independent testing and reviewers for both the code and the documentation are we
 ## About the Author
 
 [Marco Congedo](https://sites.google.com/site/marcocongedo) is
-a research scientist of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working in [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble, France, the city where [Jean-Baptiste Joseph Fourier](https://en.wikipedia.org/wiki/Joseph_Fourier) has served as a Governor. **Contact**: first name dot last name at gmail dot com
+a Research Director of [CNRS](http://www.cnrs.fr/en) (Centre National de la Recherche Scientifique), working in [UGA](https://www.univ-grenoble-alpes.fr/english/) (University of Grenoble Alpes), in Grenoble, France, the city where [Jean-Baptiste Joseph Fourier](https://en.wikipedia.org/wiki/Joseph_Fourier) has served as a Governor. **Contact**: first name dot last name at gmail dot com
 
 ## Overview
 
