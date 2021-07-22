@@ -90,10 +90,10 @@ be the auto-spectrum of ``i`` , ``j``. In the frequency domain those
 are function of frequency, whereas in the time-frequency domain they are
 functions of both time and frequency.
 
-Finally, for time-frequency data let ``w`` denote non-negative weights normalized so that their average is 1. Those are weights for the pairs on which the averages are computed.
+Finally, for time-frequency data non-negative weights may applied for the pairs on which the averages are computed.
 Setting all weights equal to 1, gives the unweighted version
 of all measures, which is the only supported option in the FD, since
-therein the average is taken across windows and since windows segmentation is arbitrary, weighting is usually meaningless.
+therein the average is taken across windows and since windows segmentation is arbitrary, weighting is usually meaningless. In the formula below weights are ignored.
 
 All kinds of coherences estimated in *FourierAnalysis* are summarized
 in the following table:
