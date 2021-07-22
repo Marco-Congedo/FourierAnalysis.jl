@@ -100,11 +100,11 @@ in the following table:
 
 |   kind         |                linear                       |              non-linear              |
 |---------------:|:-------------------------------------------:|:------------------------------------:|
-|    *total*     | ``\left<w\mid s_{ij} \mid^2\right>\big /\left<ws_is_j\right>`` | ``\left<w\mid s_{ij} \mid^2\right>``  |
-|    *real*      | ``\left<w\mid \Bbb R(s_{ij}) \mid^2\right>\big/\left<ws_is_j\right>`` | ``\left<w\mid \Bbb R(s_{ij})\mid^2\right>`` |
-|  *imaginary*   | ``\left<w\mid \Bbb C(s_{ij}) \mid^2\right>\big/\left<ws_is_j\right>`` | ``\left<w\mid \Bbb C(s_{ij}) \mid^2\right>`` |
-| *instantaneous*| ``\left<w\mid \Bbb R(s_{ij}) \mid^2\right>\big/\left<w(s_is_j-\mid \Bbb C(s_{ij}) \mid^2)\right>`` | ``\left<w\mid \Bbb R(s_{ij}) \mid^2\right>\big/\left<w(1-\mid \Bbb C(s_{ij}) \mid^2)\right>`` |
-|   *lagged*     | ``\left<w\mid \Bbb C(s_{ij}) \mid^2\right>\big/\left<w(s_is_j-\mid \Bbb R(s_{ij}) \mid^2)\right>`` | ``\left<w\mid \Bbb C(s_{ij}) \mid^2\right>\big/\left<w(1-\mid \Bbb R(s_{ij}) \mid^2)\right>`` |
+|    *total*     | ``\left<\mid s_{ij} \mid^2\right>\big /\big(\left<s_i\right>\left<s_j\right>\big)`` | ``\left<\mid s_{ij} \mid^2\right>``  |
+|    *real*      | ``\left<\mid \Bbb R(s_{ij}) \mid^2\right>\big/\big(\left<s_i\right>\left<s_j\right>\big)`` | ``\left<\mid \Bbb R(s_{ij})\mid^2\right>`` |
+|  *imaginary*   | ``\left<\mid \Bbb C(s_{ij}) \mid^2\right>\big/\big(\left<s_i\right>\left<s_j\right>\big)`` | ``\left<\mid \Bbb C(s_{ij}) \mid^2\right>`` |
+| *instantaneous*| ``\left<\mid \Bbb R(s_{ij}) \mid^2\right>\big/\big(\left<s_i\right>\left<s_j\right>-\left<\mid \Bbb C(s_{ij}) \mid^2\right>\big)`` | ``\left<\mid \Bbb R(s_{ij}) \mid^2\right>\big/\big(1-\left<\mid \Bbb C(s_{ij}) \mid^2\right>\big)`` |
+|   *lagged*     | ``\left<\mid \Bbb C(s_{ij}) \mid^2\right>\big/\big(\left<s_i\right>\left<s_j\right>-\left<\mid \Bbb R(s_{ij}) \mid^2\right>\big)`` | ``\left<\mid \Bbb C(s_{ij}) \mid^2\right>\big/\big(1-\left<\mid \Bbb R(s_{ij}) \mid^2\right>\big)`` |
 
 The *linear* **total**  coherence is the classical *squared coherence* measure
 and its *non-linear* counterpart is known as *phase-locking value* or
