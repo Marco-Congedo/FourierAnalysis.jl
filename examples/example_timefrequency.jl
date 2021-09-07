@@ -71,7 +71,7 @@ tfArgs=(right_margin = 2mm,
         ytickfont = font(10, "Times"))
 
 # plot the real part of the AS
-heatmap(tfAxes(Y)..., real(Y.y); c=:pu_or, tfArgs...)
+heatmap(tfAxes(Y)..., real(Y.y); c=:fire, tfArgs...)
 
 # ...the imaginary part of the AS
 heatmap(tfAxes(Y)..., imag(Y.y); c=:bluesreds, tfArgs...)
@@ -103,7 +103,7 @@ heatmap(tfAxes(Y)..., phase(Y.y);
 ϴ=TFphase(Y)
 # and plot it
 heatmap(tfAxes(ϴ)..., ϴ.y;
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 
 # compute and plot phase in [0, 2π]
 heatmap(tfAxes(Y)..., TFphase(Y; func=x->x+π).y;
@@ -148,12 +148,12 @@ heatmap(tfAxes(A)..., A.y;
 
 ϴ=smooth(blackmanSmoother, blackmanSmoother, TFphase(Y, unwrapped=true))
 heatmap(tfAxes(ϴ)..., ϴ.y;
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 
 # smooth again
 ϴ=smooth(blackmanSmoother, blackmanSmoother, ϴ)
 heatmap(tfAxes(ϴ)..., ϴ.y;
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 # and again ...
 
 # you may also create all these objects already smoothed, for example
@@ -270,7 +270,7 @@ Pz=15
 𝐘=TFanalyticsignal(𝐱, sr, t, bandwidth; fmax=32, nonlinear=false)
 𝐀=TFamplitude(𝐘)
 heatmap(tfAxes(𝐀[1])..., 𝐀[1].y; c=:amp, tfArgs...)
-heatmap(tfAxes(𝐀[2])..., 𝐀[2].y; c=:pu_or, tfArgs...)
+heatmap(tfAxes(𝐀[2])..., 𝐀[2].y; c=:fire, tfArgs...)
 
 # plot the power over time from instantaneous amplitude
 plot([sum(𝐀[2].y[:, t]) for t=1:size(𝐀[2].y, 2)])

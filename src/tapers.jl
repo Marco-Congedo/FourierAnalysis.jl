@@ -67,6 +67,8 @@ function taper( kind  :: TaperKind,
 ```
 Universal constructor of [Taper](@ref) objects, given a tapering window
 `kind`, of type [TaperKind](@ref) and the window length `wl`.
+NB: for the `hamming` type use FourierAnalysis.hamming to avoid
+conflicts with the DSP package.
 
 Return a vector of length `wl` for all types of tapers, but for the dpss
 (Slepian multi-tapers), for which return a matrix of size `wl` x `n`.

@@ -21,8 +21,7 @@ end
 ```
 
 !!! note "Using hamming and blackman tapers"
-    Those two identifiers conflicts with the DSP package. Until a better
-    solution is found, invoke them as `FourierAnalysis.hamming` and
+    Those two identifiers conflict with the DSP package. Until a better solution is found, invoke them as `FourierAnalysis.hamming` and
     `FourierAnalysis.blackman`.
 
 The Hann tapering window is also known as 'squared cosine' window and a
