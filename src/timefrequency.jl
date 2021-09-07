@@ -1,4 +1,4 @@
-fire#   Unit "timefrequency" of the FourierAnalysis Package for julia language
+#   Unit "timefrequency" of the FourierAnalysis Package for julia language
 #
 #   MIT License
 #   Copyright (c) 2019-2021,
