@@ -142,7 +142,7 @@ tfArgs=(right_margin = 2mm,
         ytickfont = font(10, "Times"))
 
 heatmap(tfAxes(Y)..., real(Y.y);
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 
 # ...the imaginary part
 heatmap(tfAxes(Y)..., imag(Y.y);
@@ -170,7 +170,7 @@ heatmap(tfAxes(A)..., A.y;
 ϴ=TFphase(Y)
 # and plot it (with custom colors)
 heatmap(tfAxes(ϴ)..., ϴ.y;
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 
 # compute and plot phase in [0, 2π]
 heatmap(tfAxes(Y)..., TFphase(Y; func=x->x+π).y;
@@ -218,12 +218,12 @@ heatmap(tfAxes(A)..., A.y;
 
 ϴ=smooth(blackmanSmoother, blackmanSmoother, TFphase(Y, unwrapped=true))
 heatmap(tfAxes(ϴ)..., ϴ.y;
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 
 # smooth again
 ϴ=smooth(blackmanSmoother, blackmanSmoother, ϴ)
 heatmap(tfAxes(ϴ)..., ϴ.y;
-        c=:pu_or, tfArgs...)
+        c=:fire, tfArgs...)
 # and again ...
 
 # create directly smoothed AS

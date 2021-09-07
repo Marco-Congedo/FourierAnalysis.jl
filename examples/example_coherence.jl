@@ -46,22 +46,23 @@ plot!(w)
 plot!(y)
 plot!(z)
 
-𝘾=coherence(X, sr, t; tapering=tapering, tril=true)
-𝘾=coherence(X, sr, t; tapering=tapering, tril=false)
+# in order to avoid conflict with the DSP package also exporting 'coherence'
+𝘾=FourierAnalysis.coherence(X, sr, t; tapering=tapering, tril=true)
+𝘾=FourierAnalysis.coherence(X, sr, t; tapering=tapering, tril=false)
 # get all five kinds of coherences
-𝘾₁, 𝘾₂, 𝘾₃, 𝘾₄, 𝘾₅=coherence(X, sr, t; tapering=tapering, tril=true, allkinds=true)
-𝘾₁, 𝘾₂, 𝘾₃, 𝘾₄, 𝘾₅=coherence(X, sr, t; tapering=tapering, tril=false, allkinds=true)
+𝘾₁, 𝘾₂, 𝘾₃, 𝘾₄, 𝘾₅=FourierAnalysis.coherence(X, sr, t; tapering=tapering, tril=true, allkinds=true)
+𝘾₁, 𝘾₂, 𝘾₃, 𝘾₄, 𝘾₅=FourierAnalysis.coherence(X, sr, t; tapering=tapering, tril=false, allkinds=true)
 # check result against cross-spectra
 𝐒=crossSpectra(X, sr, t; tapering=tapering, tril=true)
 # compute coherence from a CrossSpectra object (lower triangles only)
-𝘾=coherence(𝐒)
+𝘾=FourierAnalysis.coherence(𝐒)
 
 𝐒=crossSpectra(X, sr, t; tapering=tapering, tril=false)
 # compute coherence from a CrossSpectra object (full matrices)
-𝘾=coherence(𝐒)
+𝘾=FourierAnalysis.coherence(𝐒)
 
 # compute all five kinds of coherence from a CrossSpectra object
-𝘾₁, 𝘾₂, 𝘾₃, 𝘾₄, 𝘾₅=coherence(𝐒, allkinds=true)
+𝘾₁, 𝘾₂, 𝘾₃, 𝘾₄, 𝘾₅=FourierAnalysis.coherence(𝐒, allkinds=true)
 
 # average full coherence in range 4:8Hz
 Y=mean(𝘾, (4, 8))
@@ -78,15 +79,15 @@ C=𝘾.y
 D=𝘾2.y
 
 # or get directly smoothed coherence
-𝘾3=coherence(X, sr, t; tapering=tapering, smoothing=hannSmoother, tril=true)
+𝘾3=FourierAnalysis.coherence(X, sr, t; tapering=tapering, smoothing=hannSmoother, tril=true)
 
 ############################################
 # coherence of several data matrices at once
 
 # Compute the coherence altogether
-𝓒=coherence([X1, X2], sr, t; tapering=slepians(sr, t))
+𝓒=FourierAnalysis.coherence([X1, X2], sr, t; tapering=slepians(sr, t))
 
 𝐗=[X1, X2]
 
 # get all five kinds of coherences
-𝓒₁, 𝓒₂, 𝓒₃, 𝓒₄, 𝓒₅=coherence(𝐗, sr, t; tapering=slepians(sr, t), allkinds=true)
+𝓒₁, 𝓒₂, 𝓒₃, 𝓒₄, 𝓒₅=FourierAnalysis.coherence(𝐗, sr, t; tapering=slepians(sr, t), allkinds=true)

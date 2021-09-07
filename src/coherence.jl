@@ -58,6 +58,10 @@ function coherence(𝐗 :: Vector{Matrix{T}},
 
 **alias**: coh
 
+!!! note "export conflict"
+    This identifier may conflict with the DSP package.
+    Invoke it as `FourierAnalysis.coherence`.
+    
 (1)
 
 Construct a [Coherence](@ref) object from a [CrossSpectra](@ref) object,
@@ -202,10 +206,10 @@ X=generateSomeData(sr, t) # multivariate data matrix 8192x4
 S=crossSpectra(X, sr, wl)
 
 # Only classical coherence
-C=coherence(S)
+C=FourierAnalysis.coherence(S)
 
 # All 5 kinds of coherence
-Ctot, C2real, C3inst, C4imag, C5lag=coherence(S, allkinds=true);
+Ctot, C2real, C3inst, C4imag, C5lag=FourierAnalysis.coherence(S, allkinds=true);
 Ctot
 
 # (2)
@@ -217,10 +221,10 @@ X=[generateSomeData(sr, t) for i=1:3]
 S=crossSpectra(X, sr, wl)
 
 # Only classical coherence
-C=coherence(S)
+C=FourierAnalysis.coherence(S)
 
 # All 5 kinds of coherence
-Ctot, C2real, C3inst, C4imag, C5lag=coherence(S, allkinds=true);
+Ctot, C2real, C3inst, C4imag, C5lag=FourierAnalysis.coherence(S, allkinds=true);
 Ctot
 
 # (3)
@@ -228,25 +232,25 @@ Ctot
 X=generateSomeData(sr, t) # multivariate data matrix 8192x4
 
 # coherence using default harris4 tapering window
-C=coherence(X, sr, wl)
+C=FourierAnalysis.coherence(X, sr, wl)
 
 # check the coherence matrix at frequency 5Hz
 C.y[f2b(5, sr, wl)]
 
 # coherence using hann tapering window
-C=coherence(X, sr, wl; tapering=hann)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=hann)
 
 # using Slepian's multi-tapering
-C=coherence(X, sr, wl; tapering=slepians(sr, wl))
+C=FourierAnalysis.coherence(X, sr, wl; tapering=slepians(sr, wl))
 
 # compute non-linear coherence (phase-locking value)
-C=coherence(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
 
 # compute only the lower triangle of coherence matrices
-C=coherence(X, sr, wl; tapering=slepians(sr, wl), tril=true)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=slepians(sr, wl), tril=true)
 
 # compute all five kinds of coherence
-Ctot, Creal, Cinst, Cimag, Clag=coherence(X, sr, wl;
+Ctot, Creal, Cinst, Cimag, Clag=FourierAnalysis.coherence(X, sr, wl;
     tapering=slepians(sr, wl), tril=true, allkinds=true);
 Ctot
 
@@ -254,7 +258,7 @@ Ctot
 C2=smooth(blackmanSmoother, C)
 
 # or compute coherence already smoothed
-C=coherence(X, sr, wl;
+C=FourierAnalysis.coherence(X, sr, wl;
             tapering=slepians(sr, wl), tril=true, smoothing=blackmanSmoother)
 
 # mean coherence matrix in 8Hz-12Hz range
@@ -279,7 +283,7 @@ X=[generateSomeData(sr, t) for i=1:3]
 
 # coherence using the default harris4 tapering window
 # this creates a CoherenceVector object
-C=coherence(X, sr, wl)
+C=FourierAnalysis.coherence(X, sr, wl)
 
 # check the first Coherence object
 C[1]
@@ -288,19 +292,19 @@ C[1]
 C[1].y[f2b(5, sr, wl)]
 
 # coherence using Hann tapering window
-C=coherence(X, sr, wl; tapering=hann)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=hann)
 
 # using Slepian's multi-tapering
 C=coherence(X, sr, wl; tapering=slepians(sr, wl))
 
 # compute non-linear coherence
-C=coherence(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
 
 # compute only the lower triangle of coherence matrices
-C=coherence(X, sr, wl; tapering=slepians(sr, wl), tril=true)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=slepians(sr, wl), tril=true)
 
 # compute all five kinds of coherence
-Ctot, Creal, Cinst, Cimag, Clag=coherence(X, sr, wl;
+Ctot, Creal, Cinst, Cimag, Clag=FourierAnalysis.coherence(X, sr, wl;
     tapering=slepians(sr, wl), tril=true, allkinds=true);
 Ctot
 
@@ -308,7 +312,7 @@ Ctot
 C2=smooth(blackmanSmoother, C)
 
 # or compute them all already smoothed
-C=coherence(X, sr, wl; tapering=parzen, smoothing=blackmanSmoother)
+C=FourierAnalysis.coherence(X, sr, wl; tapering=parzen, smoothing=blackmanSmoother)
 
 # mean coherence matrix in 8Hz-12Hz range for all coherence objects
 M=mean(C, (8, 12)) # or also M=mean(C, (8.0, 12.0))
@@ -328,12 +332,12 @@ B=bands(C, 2)
 # Pre-compute a FFT planner and pass it as argument
 # (this interesting if the function is to be called repeatedly).
 plan=Planner(plan_exhaustive, 10.0, wl, eltype(X[1])) # wait 10s
-C=coherence(X, sr, wl; planner=plan)
+C=FourierAnalysis.coherence(X, sr, wl; planner=plan)
 
 # how faster is this?
 using BenchmarkTools
-@benchmark(coherence(X, sr, wl))
-@benchmark(coherence(X, sr, wl; planner=plan))
+@benchmark(FourierAnalysis.coherence(X, sr, wl))
+@benchmark(FourierAnalysis.coherence(X, sr, wl; planner=plan))
 ...
 ...
 ```

@@ -73,20 +73,21 @@ Com=comodulation(𝐀₁, 𝐀₂, (8, 12), (1, 512); mode=extract)
 Com=comodulation(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=extract)
 
 # All these operations can be done also for coherence measures, for example
-Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean)
-Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=extract)
+# avoid conflict with package DSP, which also exports 'coherence'
+Coh=FourierAnalysis.coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean)
+Coh=FourierAnalysis.coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=extract)
 
 # Compute all 5 coherence types
-Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=extract, allkinds=true)
+Coh=FourierAnalysis.coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=extract, allkinds=true)
 
 
 # phase coherence (phase-locking value)
 𝐘₁=TFanalyticsignal(𝐱₁, sr, wl, bandwidth; fmax=32, nonlinear=true)
 𝐘₂=TFanalyticsignal(𝐱₂, sr, wl, bandwidth; fmax=32, nonlinear=true)
-Coh=coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean, nonlinear=true)
+Coh=FourierAnalysis.coherence(𝐘₁, 𝐘₂, (8, 12), (1, 512); mode=mean, nonlinear=true)
 
 # or directly from data (no need to compute non-linear analytic signal in this case)
-Coh=coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean, nonlinear=true)
+Coh=FourierAnalysis.coherence(𝐱₁, 𝐱₂, sr, wl, (8, 12), (1, 512), bandwidth; mode=mean, nonlinear=true)
 
 # and also for non-linear meausures
 # compute non-linear analyticSignal
