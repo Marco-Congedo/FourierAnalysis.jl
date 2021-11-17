@@ -61,7 +61,7 @@ S = spectra(v, sr, wl; tapering=rectangular)
 plot(S; fmax=24)
 
 # The same syntax applies in the case of multivariate data (e.g., 4 time-series):
-V = randn(t*16, 4)
+V = randn(wl*16, 4)
 S = spectra(V, sr, wl; tapering=hamming)
 plot(S)
 
