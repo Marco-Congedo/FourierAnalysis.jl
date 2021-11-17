@@ -69,7 +69,7 @@ plot(S)
 A = TFamplitude(v, sr, wl; fmax=24)
 
 # plot the analytic amplitude:
-heatmap(A)
+heatmap(A.y)
 
 ```
 
