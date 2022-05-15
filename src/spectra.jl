@@ -1,7 +1,7 @@
 #   Unit "spectra" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2021,
+#   Copyright (c) 2019-2022,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -156,6 +156,7 @@ V=Matrix{Float64}(undef, t, wl)
 for i=1:wl V[:, i]=sinusoidal(10*i, b2f(i, sr, t), sr, t, π/6) end
 
 # using FFTW.jl only
+using FFTW
 P=plan_rfft(V, 1)*(2/t);
 Σ=abs.(P*V)
 using Plots
