@@ -5,7 +5,7 @@
 #   It is used for developing purposes using the Julia
 #   `Revise` package (that you need to have installed on your PC,
 #   together with the `Documenter` package for building the documentation).
-#   You won't need this script for using the package.
+#   You won't need tinclude("make.jl")his script for using the package.
 #
 #   DIRECTIONS:
 #   1) If you have installed the FourierAnalysis package

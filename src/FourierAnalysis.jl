@@ -2,7 +2,7 @@
 #    v 1.2.0 - last update September 2021
 #
 #   MIT License
-#   Copyright (c) 2019-2021,
+#   Copyright (c) 2019-2022,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -152,6 +152,7 @@ TFobjectsVector=Union{TFAnalyticSignalVector, TFAmplitudeVector, TFPhaseVector}
 #import DSP: dpss
 import Statistics.mean
 import Base: show, *, conj, real, imag #,
+import DSP: coherence
 
 export
 

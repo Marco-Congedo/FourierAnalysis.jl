@@ -1,7 +1,7 @@
 #   Unit "tapers" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2021,
+#   Copyright (c) 2019-2022,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -67,8 +67,8 @@ function taper( kind  :: TaperKind,
 ```
 Universal constructor of [Taper](@ref) objects, given a tapering window
 `kind`, of type [TaperKind](@ref) and the window length `wl`.
-NB: for the `hamming` type use FourierAnalysis.hamming to avoid
-conflicts with the DSP package.
+NB: for the `hamming` and `blackman` type use `FourierAnalysis.hamming` and `FourierAnalysis.blackman` 
+to avoid conflicts with the DSP package.
 
 Return a vector of length `wl` for all types of tapers, but for the dpss
 (Slepian multi-tapers), for which return a matrix of size `wl` x `n`.

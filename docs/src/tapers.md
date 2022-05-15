@@ -24,7 +24,7 @@ end
     Those two identifiers conflict with the DSP package. Until a better solution is found, invoke them as `FourierAnalysis.hamming` and
     `FourierAnalysis.blackman`.
 
-The Hann tapering window is also known as 'squared cosine' window and a
+The Hann tapering window is also known as 'squared cosine' window and
 the Riesz window is similar to a window known as the 'cosine' window.
 
 The design of tapering windows implies a trade-off between
