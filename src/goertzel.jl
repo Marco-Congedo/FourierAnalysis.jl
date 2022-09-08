@@ -28,7 +28,7 @@
 
 """
 ```julia
-function goertzel( x   :: Vector{T},
+function goertzel( x   :: AbstractVector{T},
                    f   :: IntOrReal,
                    sr  :: Int,
                    wl  :: Int,
@@ -54,7 +54,7 @@ v=sinusoidal(a, f, sr, t, 0)
 c=goertzel(v, f, sr, t) # should output 0+aim
 ```
 """
-function goertzel( x   :: Vector{T},
+function goertzel( x   :: AbstractVector{T},
                    f   :: IntOrReal,
                    sr  :: Int,
                    wl  :: Int,
@@ -68,7 +68,7 @@ end
 
 """
 ```julia
-function goertzel_fast( x  :: Vector{T},
+function goertzel_fast( x  :: AbstractVector{T},
                         wl :: Int,
                         a  :: Real,
                         c  :: Real,
@@ -90,7 +90,7 @@ is invoked repeatedly and speed is of concern. The user provides as arguments:
 
 **See also**: [`goertzel`](@ref), [`goertzel2`](@ref).
 """
-function goertzel_fast( x  :: Vector{T},
+function goertzel_fast( x  :: AbstractVector{T},
                         wl :: Int,
                         a  :: Real,
                         c  :: Real,
@@ -109,7 +109,7 @@ end
 
 """
 ```julia
-function goertzel2( x  :: Vector{T},
+function goertzel2( x  :: AbstractVector{T},
                     f  :: IntOrReal,
                     sr :: Int,
                     wl :: Int,
@@ -138,7 +138,7 @@ c=goertzel(v, f, sr, t) # should be 0+aim, but clearly fails
 d=goertzel2(v, ftrue, sr, t) # this get closer
 ```
 """
-function goertzel2( x  :: Vector{T},
+function goertzel2( x  :: AbstractVector{T},
                     f  :: IntOrReal,
                     sr :: Int,
                     wl :: Int,
