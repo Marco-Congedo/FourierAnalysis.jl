@@ -170,7 +170,7 @@ S=crossSpectra(X, sr, wl)
 S.y[f2b(5, sr, wl)]
 
 # check only the diagonal part of this matrix as a vector
-diag(Diagonal(S.y[f2b(5, sr, wl)]))
+diag(S.y[f2b(5, sr, wl)])
 
 # cross-spectra using hann tapering window
 S=crossSpectra(X, sr, wl; tapering=hann)
@@ -230,7 +230,7 @@ S=crossSpectra(X, sr, wl)
 S[1].y[f2b(5, sr, wl)]
 
 # check only the diagonal part of this matrix as a vector
-diag(Diagonal(S[1].y[f2b(5, sr, wl)]))
+diag(S[1].y[f2b(5, sr, wl)])
 
 # cross-spectra using Hamming's tapering window
 S=crossSpectra(X, sr, wl; tapering=hamming)
