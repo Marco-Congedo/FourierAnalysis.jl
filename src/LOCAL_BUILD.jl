@@ -21,7 +21,7 @@
 #   you have identified the 'srcDir' to be used in the push command.
 
 begin
-    juliaCodeDir= homedir()*"\\Documents\\Code\\julia\\"
+    juliaCodeDir= homedir()*"\\Documents\\@ Documenti\\Code\\julia\\"
     projectName = "FourierAnalysis"
     srcDir      = juliaCodeDir*projectName*"\\src\\"
     docsDir     = juliaCodeDir*projectName*"\\docs\\"
