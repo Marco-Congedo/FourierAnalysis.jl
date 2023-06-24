@@ -1,8 +1,8 @@
 #    Main Module of the FourierAnalysis Package for julia language
-#    v 1.2.0 - last update September 2021
+#    v 1.2.3 - last update June 2023
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -197,6 +197,7 @@ TaperKind,
     riesz,
     parzen,
     slepian,
+Taper,    
 taper,
 slepians,
 taperinfo,

@@ -1,7 +1,7 @@
 #   Unit "plots" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 

@@ -1,7 +1,7 @@
 #   Unit "fftw.jl" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -100,6 +100,13 @@ For example, the line above could have been written more shortly as
 ```julia
 p=Planner(plan_exhaustive, 10.0, 256)
 ```
+
+In order to create also a backward plan you would use instead
+
+```julia
+p=Planner(plan_exhaustive, 10.0, 256, eltype(𝐗[1]), true)
+```
+
 
 """
 struct Planner

@@ -21,13 +21,13 @@
 #   you have identified the 'srcDir' to be used in the push command.
 
 begin
-    juliaCodeDir= homedir()*"\\Documents\\Code\\julia\\"
+    juliaCodeDir= homedir()*"\\Documents\\@ Documenti\\Code\\julia\\"
     projectName = "FourierAnalysis"
     srcDir      = juliaCodeDir*projectName*"\\src\\"
     docsDir     = juliaCodeDir*projectName*"\\docs\\"
 
     push!(LOAD_PATH, srcDir)
-    using Documenter, LinearAlgebra, Statistics, AbstractFFTs, FFTW,
+    using LinearAlgebra, Statistics, AbstractFFTs, FFTW,
           DSP, Revise, FourierAnalysis
 
     # for compiling the documentation
