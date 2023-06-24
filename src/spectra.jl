@@ -1,7 +1,7 @@
 #   Unit "spectra" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -473,7 +473,7 @@ function _paramSP!( X        :: AbstractArray{T},
 
     tₐₗₗ, wl½, wl⁻¹, n = size(X, 1), (wl>>1), inv(wl), size(X, 2)
     wl½_ = wl½ + DC
-    tₐₗₗ < wl && @error 📌*", the number of samples in input matrix is smaller than the desired window length."
+    tₐₗₗ < wl && @error 📌*", the number of samples in input matrix is smaller than the desired window length." tₐₗₗ wl
     planner ≠ getplanner ? 𝚙=planner.p :
         𝚙=plan_rfft(zeros(T, wl), flags=plan_estimate, timelimit=-1.0)
     tapering isa Taper ? 𝜏=tapering : 𝜏=taper(tapering, wl) # tapering window

@@ -1,7 +1,7 @@
 #   Unit "coherence" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -505,7 +505,7 @@ function Base.show(io::IO, ::MIME{Symbol("text/plain")}, C::Coherence)
     println(io, "sampling rate    (.sr): $(C.sr)")
     println(io, "epoch length     (.wl): $(C.wl)")
     println(io, "DC level         (.DC): $(C.DC)")
-    println(io, "taper kind (.tapering): $(C.taper)")
+    println(io, "taper kind    (.taper): $(C.taper)")
     println(io, "freq. lab.  (.flabels): $(l)-", typeof(C.flabels))
     println(io, "data              (.y): $(l)-", typeof(C.y))
     # println(io, C.y)

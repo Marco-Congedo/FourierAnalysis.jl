@@ -1,7 +1,7 @@
 #   Unit "tools" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -1310,7 +1310,7 @@ function mean(𝒀 :: TFobjectsVector,
 Return the mean of data in a frequency region from [FDobjects](@ref) and data in a
 time-frequency region from [TFobjects](@ref). The frequency and time region
 are indicated by `frange` and `trange`, which are of type [fInterval](@ref)
-and [fInterval](@ref), respectively.
+and [tInterval](@ref), respectively.
 
 The complete input/output types for this function is reported in the following table:
 

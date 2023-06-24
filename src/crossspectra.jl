@@ -1,7 +1,7 @@
 #   Unit "crossspectra" of the FourierAnalysis Package for julia language
 #
 #   MIT License
-#   Copyright (c) 2019-2022,
+#   Copyright (c) 2019-2023,
 #   Marco Congedo, CNRS, Grenobe, France:
 #   https://sites.google.com/site/marcocongedo/home
 
@@ -406,7 +406,7 @@ function Base.show(io::IO, ::MIME{Symbol("text/plain")}, S::CrossSpectra)
     println(io, "sampling rate    (.sr): $(S.sr)")
     println(io, "epoch length     (.wl): $(S.wl)")
     println(io, "DC level         (.DC): $(S.DC)")
-    println(io, "taper kind (.tapering): $(S.taper)")
+    println(io, "taper kind    (.taper): $(S.taper)")
     println(io, "freq. lab.  (.flabels): $(l)-", typeof(S.flabels))
     println(io, "data              (.y): $(l)-", typeof(S.y))
     # println(io, S.y)
