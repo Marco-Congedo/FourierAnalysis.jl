@@ -4,10 +4,10 @@ using Documenter, DocumenterTools, DocumenterCitations, DocumenterInterLinks
 using FourierAnalysis
 
 makedocs(
-   sitename="FourierAnalysis",
+   sitename = "FourierAnalysis",
    format = Documenter.HTML(),
-   authors="Marco Congedo, CNRS, France",
-   modules=[FourierAnalysis],
+   authors = "Marco Congedo, CNRS, France",
+   modules = [FourierAnalysis],
    pages =  ["index.md"]
 )
 
