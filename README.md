@@ -1,6 +1,6 @@
 | **Documentation**  | 
 |:---------------------------------------:|
-| [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev) |
+| [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |
 
 ![](/docs/src/assets/Fig1.jpg)
 
@@ -73,7 +73,6 @@ heatmap(A.y)
 
 ```
 
-
 | **Documentation**  | 
 |:---------------------------------------:|
-| [![](https://img.shields.io/badge/docs-dev-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/dev) |
+| [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |

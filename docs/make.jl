@@ -1,6 +1,6 @@
 push!(LOAD_PATH,"../src/")
 push!(LOAD_PATH, @__DIR__)
-using Documenter
+using Documenter, DocumenterTools
 using FourierAnalysis
 
 makedocs(
