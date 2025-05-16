@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Cross-Spectral Matrices · FourierAnalysis</title><meta name="title" content="Cross-Spectral Matrices · FourierAnalysis"/><meta property="og:title" content="Cross-Spectral Matrices · FourierAnalysis"/><meta property="twitter:title" content="Cross-Spectral Matrices · FourierAnalysis"/><meta name="description" content="Documentation for FourierAnalysis."/><meta property="og:description" content="Documentation for FourierAnalysis."/><meta property="twitter:description" content="Documentation for FourierAnalysis."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img class="docs-light-only" src="../assets/logo.png" alt="FourierAnalysis logo"/><img class="docs-dark-only" src="../assets/logo-dark.png" alt="FourierAnalysis logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">FourierAnalysis</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">FourierAnalysis Documentation</a></li><li><a class="tocitem" href="../MainModule/">Main Module</a></li><li><a class="tocitem" href="../tapers/">Tapering Windows</a></li><li><span class="tocitem">frequency domain</span><ul><li><a class="tocitem" href="../spectra/">Spectral Estimations</a></li><li class="is-active"><a class="tocitem" href>Cross-Spectral Matrices</a><ul class="internal"><li><a class="tocitem" href="#CrossSpectra"><span>CrossSpectra</span></a></li></ul></li><li><a class="tocitem" href="../coherence/">Coherence Matrices</a></li><li><a class="tocitem" href="../goertzel/">Goertzel&#39;s Algorithms</a></li></ul></li><li><span class="tocitem">time-frequency(TF) domain</span><ul><li><a class="tocitem" href="../timefrequency/">TF Representations</a></li><li><a class="tocitem" href="../timefrequencyuni/">TF Univariate Measures</a></li><li><a class="tocitem" href="../timefrequencybi/">TF Bivariate Measures </a></li></ul></li><li><span class="tocitem">utilities</span><ul><li><a class="tocitem" href="../recipes/">Plots</a></li><li><a class="tocitem" href="../tools/">Tools</a></li><li><a class="tocitem" href="../fftw/">FFTW planners</a></li><li><a class="tocitem" href="../filters/">Filter Banks</a></li><li><a class="tocitem" href="../hilbert/">Hilbert Transform</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">frequency domain</a></li><li class="is-active"><a href>Cross-Spectral Matrices</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Cross-Spectral Matrices</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/master/docs/src/crossspectra.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="crossspectra.jl"><a class="docs-heading-anchor" href="#crossspectra.jl">crossspectra.jl</a><a id="crossspectra.jl-1"></a><a class="docs-heading-anchor-permalink" href="#crossspectra.jl" title="Permalink"></a></h1><p>Cross-spectra objects created by <em>FourierAnalysis</em> are incapsulated in the following structure:</p><h2 id="CrossSpectra"><a class="docs-heading-anchor" href="#CrossSpectra">CrossSpectra</a><a id="CrossSpectra-1"></a><a class="docs-heading-anchor-permalink" href="#CrossSpectra" title="Permalink"></a></h2><p><strong>Categories</strong>: <a href="../MainModule/#data-objects">data objects</a>, <a href="../MainModule/#FDobjects">FDobjects</a>.</p><pre><code class="language-julia hljs">struct CrossSpectra
+    y           :: Union{Vector{LowerTriangular}, Vector{Hermitian}}
+    sr          :: Int
+    wl          :: Int
+    DC          :: Bool
+    taper       :: String
+    flabels     :: Vector{T} where T&lt;:Union{Real, Int}
+    nonlinear   :: Bool
+    smoothing   :: Smoother
+    tril        :: Bool
+end</code></pre><p><strong>Fields</strong>:</p><p><code>y</code>: a real vector of <code>LowerTriangular</code> or <code>Hermitian</code> matrices (see <a href="https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/">Linear Algebra</a> Julia standard package), depending on the <code>tril</code> field, as explained below, holding the <em>cross-spectral</em> matrices.</p><p><code>sr</code>: the <em>sampling rate</em> of the data on which the cross-spectra have been estimated.</p><p><code>wl</code>: the FFT <em>window length</em> used for estimating the cross-spectra.</p><p><code>DC</code>: if true, the first matrix holds the cross-spectra of the <em>DC level</em>, otherwise it holds the cross-spectra of the first positive frequency. Thus, if <code>DC</code> is false, the number of matrices in <code>y</code> is equal to <span>$wl÷2$</span> (integer division), otherwise it is equal to <span>$(wl÷2)+1$</span> (see <a href="../#Overview">Overview</a>). In all constructors it is false by default.</p><p><code>taper</code>: the time-domain <em>tapering window</em> used for FFT computation, as a string, with parameters in parentheses for Slepian&#39;s dpss. See <a href="../tapers/#tapers.jl">tapers.jl</a>.</p><p><code>flabels</code>: a vector holding all Fourier discrete frequencies in Hz. Those are the <em>frequency labels</em> for the matrices in <code>y</code>. If <code>DC</code> is true, the first label is <span>$0$</span>, otherwise it is the first positive frequency, which is equal to the frequency resolution <span>$sr/wl$</span>.</p><p><code>nonlinear</code>: if true, the amplitude information has been eliminated from the DFT coefficients, that is, the coefficients have been normalized by their modulus before being averaged to obtain the cross-spectra. This leads to non-linear estimates (Congedo, 2018; Pascual-Marqui 2007) where the diagonal elements of the cross-spectral matrices (the spectra) are 1.0 for all frequencies. In all constructors it is false by default.</p><p><code>smoothing</code>: a <a href="../MainModule/#Smoother">Smoother</a> flag indicating whether the cross-spectral matrices have been smoothed across adjacent frequencies. If no smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><code>tril</code>: if false, the cross-spectral matrices in <code>y</code> are full <code>Hermitian</code> matrices, otherwise they are <code>LowerTriangular</code> matrices holding only the lower triangles of the cross-spectra. In all constructors it is false by default.</p><p><strong>Note</strong>: In Julia the fields are accessed by the usual dot notation, e.g., you may verify that for <em>CrossSpectra</em> object <code>S</code>, <code>length(S.flabels) == length(S.y)== (S.wl/2)+S.DC</code>.</p><p>A vector of <em>CrossSpectra</em> objects is of type <a href="../MainModule/#CrossSpectraVector">CrossSpectraVector</a>.</p><p><strong>Methods for CrossSpectra and CrossSpectraVector objects</strong></p><table><tr><th style="text-align: left">method</th><th style="text-align: center">CrossSpectra</th><th style="text-align: center">CrossSpectraVector</th></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.bands"><code>bands</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.extract"><code>extract</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#Statistics.mean"><code>mean</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.sameParams"><code>sameParams</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isLinear"><code>isLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isNonLinear"><code>isNonLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr></table><p><strong>Generic Constructors</strong>:</p><p>In order to construct a <em>CrossSpectra</em> object from multivariate data using the Welch method, <em>FourierAnalysis</em> provides two <a href="#FourierAnalysis.crossSpectra"><code>crossSpectra</code></a> constuctors, which is what you will use in practice most of the time.</p><p>Manual constructors are also possible, for which you have to provide appropriate arguments. The default manual constructor of <em>CrossSpectra</em> objects is</p><pre><code class="language-julia hljs">CrossSpectra(y, sr, wl, DC, taper, flabels, nonlinear, smoothing, tril)</code></pre><p>Other constructors are also provided:</p><pre><code class="language-julia hljs">CrossSpectra(y, sr, wl, DC, taper, nonlinear)</code></pre><p>enables construction giving only <code>y</code>, <code>sr</code>, <code>wl</code>, <code>DC</code>, <code>taper</code> and <code>nonlinear</code> argument. <code>flabels</code> is generated automatically, <code>smoothing</code> is set to <code>noSmoother</code> and <code>tril</code> is set to false;</p><pre><code class="language-julia hljs">CrossSpectra(y, sr, wl, taper)</code></pre><p>as above, but setting by default also <code>DC</code> and <code>nonlinear</code> to false.</p><p><strong>Constructors from data</strong>:</p><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="FourierAnalysis.crossSpectra" href="#FourierAnalysis.crossSpectra"><code>FourierAnalysis.crossSpectra</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">(1)
+function crossSpectra( X    :: Matrix{T},
+                       sr   :: Int,
+                       wl   :: Int;
+                  tapering  :: Union{Taper, TaperKind} = harris4,
+                  planner   :: Planner                 = getplanner,
+                  slide     :: Int                     = 0,
+                  DC        :: Bool                    = false,
+                  nonlinear :: Bool                    = false,
+                  smoothing :: Smoother                = noSmoother,
+                  tril      :: Bool                    = false,
+                  ⏩       :: Bool                    = true) where T&lt;:Real
+
+(2)
+function crossSpectra( 𝐗    :: Vector{Matrix{T}},
+              &lt; same argument sr, ..., ⏩ of method (1) &gt; where T&lt;:Real
+</code></pre><p>(1)</p><p>Construct a <a href="#CrossSpectra">CrossSpectra</a> objects from real multivariate data using the Welch method.</p><p>Given sampling rate <code>sr</code> and epoch length <code>wl</code>, compute the cross-spectral matrices of dimension <span>$n$</span>x<span>$n$</span> for a multivariate data matrix <code>X</code> of dimension <span>$t$</span>x<span>$n$</span>, where <span>$t$</span> is the number of samples (rows) and <code>n&gt;1</code> is the number of time-series (columns).</p><p>The cross-spectral matrices are hold in the <code>.y</code> vector field of the created object. The length of <code>.y</code> depends upon the <code>wl</code> argument and <code>DC</code> optional keyword argument (see below).</p><p><strong>Optional Keyword Arguments</strong>:</p><p><code>sr</code>, <code>wl</code>, <code>tapering</code>, <code>planner</code> and <code>slide</code> have the same meaning as for the <a href="../spectra/#FourierAnalysis.spectra"><code>spectra</code></a> function.</p><p><code>DC</code>: if true the cross-spectral matrix of the DC level is returned in the first position of <code>y</code> (see the fields of the <a href="#CrossSpectra">CrossSpectra</a> object), otherwise (default) the matrices in <code>y</code> start with the first positive discrete frequency, that is, <span>$sr/wl$</span> Hz.</p><p><code>nonlinear</code>: if true, the amplitude information is eliminated from the DFT coefficients, that is, they are normalized by their modulus before being averaged. This leads to non-linear estimates (Congedo, 2018; Pascual-Marqui 2007) where the diagonal elements of the cross-spectral matrices (the spectra) are 1.0 for all frequencies. By default, it is false.</p><p><code>smoothing</code>: apply a smoothing function of type <a href="../MainModule/#Smoother">Smoother</a> to the cross-spectral matrices across frequencies. By default no smoothing is applied.</p><p><code>tril</code>: if false (default), the whole cross-spectra matrices will be computed, otherwise only their lower triangular part (see below).</p><p><code>⏩</code>: if true (default), the method is run in multi-threaded mode across the series in <code>X</code> if the number of series is at least twice the number of threads Julia is instructed to use. See <a href="../MainModule/#Threads">Threads</a>.</p><p><strong>Return</strong></p><p>If <code>tril</code> is false (default), the output is of type <code>Array{Hermitian,1}</code>, which is the <code>ℍVector</code> type used in package <a href="https://github.com/Marco-Congedo/PosDefManifold.jl">PosDefManifold</a>. Since cross-spectral estimates are Hermitian positive definite, they can be straightaway used as argument to PosDefManifold&#39;s functions, e.g., for computing matrix moves on <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#Geodesic-equations-1">geodesics</a>, matrix <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#PosDefManifold.distance">distances</a>, etc. and the the whole vector output to compute matrix <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#Means-1">means</a>, <a href="https://marco-congedo.github.io/PosDefManifold.jl/dev/riemannianGeometry/#PosDefManifold.spectralEmbedding">spectral embedding</a> and more.</p><p>If <code>tril</code> is true, the output is of type <code>Array{LowerTriangular,1}</code>, which is the <code>𝕃Vector</code> type used in PosDefManifold, that is, only the lower triangle of the cross-spectra is computed in order to save time and memory.</p><p>(2)</p><p>Construct a <a href="../MainModule/#CrossSpectraVector">CrossSpectraVector</a> object from a vector of real multivariate data matrices. Compute the cross-spectral matrices using the Welch method as per method (1) for all <span>$k$</span> data matrices in <code>𝐗</code>.</p><p>The <span>$k$</span> matrices in <code>𝐗</code> must have the same number of columns (i.e., the same number of time-series), but may have any number of (at least <code>wl</code>) rows (samples). All other arguments have the same meaning as in method (1), with the following difference:</p><p><code>⏩</code>: if true (default), the method is run in multi-threaded mode across the <span>$k$</span> data matrices if <span>$k$</span> is at least twice the number of threads Julia is instructed to use, otherwise this method attempts to run each cross-spectral estimation in multi-threaded mode across series as per method (1). See <a href="../MainModule/#Threads">Threads</a>.</p><p>If a <code>planner</code> is not explicitly passed as an argument, the FFTW plan is computed once and applied for all cross-spectral estimations.</p><p><strong>Return</strong></p><p>If <code>tril</code> is false, the output is of type <code>Array{Array{Hermitian,1},1}</code>, which is the <code>ℍVector₂</code> type used in <a href="https://github.com/Marco-Congedo/PosDefManifold.jl">PosDefManifold</a>.</p><p>If <code>tril</code> is true, the output is of type <code>Array{Array{LowerTriangular,1},1}</code>, which is the <code>𝕃Vector₂</code> type used in PosDefManifold.</p><p><strong>See</strong>: <a href="#CrossSpectra">CrossSpectra</a>.</p><p><strong>See also</strong>: <a href="../spectra/#FourierAnalysis.spectra"><code>spectra</code></a>, <a href="../coherence/#DSP.Periodograms.coherence"><code>coherence</code></a>.</p><p><strong>Examples</strong>:</p><pre><code class="language-julia hljs">using FourierAnalysis, Plots, LinearAlgebra
+
+function generateSomeData(sr::Int, t::Int; noise::Real=1.)
+    # four sinusoids of length t samples and sr sampling rate
+    # peak amplitude: 0.7, 0.6, 0.5, 0.4
+    # frequency:        5,   7,  13,  27
+    # phase:            0, π/4, π/2,   π
+    v1=sinusoidal(0.7, 5,  sr, t, 0)
+    v2=sinusoidal(0.6, 7,  sr, t, π/4)
+    v3=sinusoidal(0.5, 13, sr, t, π/2)
+    v4=sinusoidal(0.4, 27, sr, t, π)
+    return hcat(v1, v2, v3, v4) + (randn(t, 4)*noise)
+end
+
+sr, wl, t = 128, 512, 8192
+
+# (1)
+
+X=generateSomeData(sr, t) # multivariate data matrix 8192x4
+
+# cross-spectra using default harris4 tapering window
+S=crossSpectra(X, sr, wl)
+
+# check the cross-spectral matrix at frequency 5Hz
+S.y[f2b(5, sr, wl)]
+
+# check only the diagonal part of this matrix as a vector
+diag(S.y[f2b(5, sr, wl)])
+
+# cross-spectra using hann tapering window
+S=crossSpectra(X, sr, wl; tapering=hann)
+
+# using Slepian&#39;s multi-tapering
+S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl))
+
+# compute non-linear cross-spectra
+S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
+
+# compute only the lower triangle of cross-spectral matrices
+S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl), tril=true)
+
+# smooth a-posteriori the cross-spectra
+S2=smooth(blackmanSmoother, S)
+
+# or compute cross-spectra already smoothed
+S=crossSpectra(X, sr, wl;
+               tapering=slepians(sr, wl), tril=true, smoothing=blackmanSmoother)
+
+# mean cross-spectral matrix in 8Hz-12Hz range
+M=mean(S, (8, 12)) # or also M=mean(S, (8.0, 12.0))
+
+# extract all cross-spectral matrices in 8Hz-12Hz range
+E=extract(S, (8, 12))
+
+# cross-spectral matrices averaged in 2Hz band-pass regions
+B=bands(S, 2)
+
+# Get the spectra from a CrossSpectra object
+PowerSpectra=Spectra(S)
+
+# Get the amplitude spectra from a CrossSpectra object
+AmpSpectra=Spectra(S, func=√)
+
+# Get the log10-spectra from a CrossSpectra object
+log10Spectra=Spectra(S, func=log10)
+
+# plot the spectra (see recipes.jl)
+plot(AmpSpectra; fmax=32, xspace=4, ytitle=&quot;Amplitude&quot;)
+
+# (2)
+# generate 3 multivariate data matrices 8192x4
+X=[generateSomeData(sr, t) for i=1:3]
+
+# The examples here below use exactly the same syntax as the previous method.
+# However, since the input here is a vector of data matrices
+# and not a single data matrix, the examples here below create a vector
+# of the object created by the examples above.
+# For example:
+
+# cross-spectra using the default harris4 tapering window
+# this creates a CrossSpectraVector object
+S=crossSpectra(X, sr, wl)
+
+# check the cross-spectral matrix at fr. 5Hz for the first CrossSpectra object
+S[1].y[f2b(5, sr, wl)]
+
+# check only the diagonal part of this matrix as a vector
+diag(S[1].y[f2b(5, sr, wl)])
+
+# cross-spectra using Hamming&#39;s tapering window
+S=crossSpectra(X, sr, wl; tapering=hamming)
+
+# using Slepian&#39;s multi-tapering
+S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl))
+
+# compute non-linear cross-spectra
+S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl), nonlinear=true)
+
+# compute only the lower triangle of cross-spectral matrices
+S=crossSpectra(X, sr, wl; tapering=slepians(sr, wl), tril=true)
+
+# smooth a-posteriori all CrossSpectra objects in S
+S2=smooth(blackmanSmoother, S)
+
+# or compute them all already smoothed
+S=crossSpectra(X, sr, wl; tapering=parzen, smoothing=blackmanSmoother)
+
+# mean cross-spectral matrix in 8Hz-12Hz range for all CrossSpectra (CS) objects
+M=mean(S, (8, 12)) # or also M=mean(S, (8.0, 12.0))
+
+# grand-average mean of the above across all CS objects
+meanM=mean(mean(S, (8, 12)))
+
+# extract all cross-spectral matrices in 8Hz-12Hz range for all CS objects
+E=extract(S, (8, 12))
+
+# grand average of cross-spectral matrices in 8Hz-12Hz range for all CS objects
+meanE=mean(extract(S, (8, 12)))
+
+# cross-spectral matrices averaged in 2Hz band-pass regions for all CS objects
+B=bands(S, 2)
+
+# Get and plot the spectra from a CrossSpectra object
+plot(Spectra(S[1]); fmax=32, xspace=4)
+
+# Pre-compute a FFT planner and pass it as argument
+# (this interesting if the function is to be called repeatedly).
+plan=Planner(plan_exhaustive, 10.0, wl, eltype(X[1])) # wait 10s
+S=crossSpectra(X, sr, wl; planner=plan)
+
+# how faster is this?
+using BenchmarkTools
+@benchmark(crossSpectra(X, sr, wl))
+@benchmark(crossSpectra(X, sr, wl; planner=plan))
+...
+...
+
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/5b8dbd48265cdeeb05cb15fadc534644177ad329/src/crossspectra.jl#L26-L286">source</a></section></article><p><strong>References</strong>:</p><p>M. Congedo (2018), <a href="https://hal.archives-ouvertes.fr/hal-01868538v2/document">Non-Parametric Synchronization Measures used in EEG and MEG</a>, Technical Report. GIPSA-lab, CNRS, University Grenoble Alpes, Grenoble INP.</p><p>R. Pascual-Marqui (2007), <a href="https://arxiv.org/ftp/arxiv/papers/0711/0711.1455.pdf">Instantaneous and lagged measurements of linear and nonlinear dependence between groups of multivariate time series: frequency decomposition</a>, arXiv:0711.1455.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../spectra/">« Spectral Estimations</a><a class="docs-footer-nextpage" href="../coherence/">Coherence Matrices »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.11.4 on <span class="colophon-date" title="Friday 16 May 2025 17:52">Friday 16 May 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
