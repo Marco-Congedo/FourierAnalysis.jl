@@ -8,11 +8,9 @@
 
 To install the package, execute the following command in Julia's REPL:
 
+```julia
     ]add FourierAnalysis
-
-## Contributions
-
-Independent testing and reviewers for both the code and the documentation are welcome.
+```
 
 ## About the Author
 
