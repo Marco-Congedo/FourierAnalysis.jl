@@ -2,6 +2,9 @@
 |:---------------------------------------:|
 | [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |
 
+**Related Publications**
+[Technical report](https://hal.science/hal-01868538/document)
+
 ![](/docs/src/assets/Fig1.jpg)
 
 **FourierAnalysis** is a signal-processing [**Julia**](https://julialang.org/) package for
@@ -77,5 +80,4 @@ heatmap(A.y)
 |:---------------------------------------:|
 | [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |
 
-**Related Publications**
-[Technical report](https://hal.science/hal-01868538/document)
+
