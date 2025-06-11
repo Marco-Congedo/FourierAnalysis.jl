@@ -76,3 +76,6 @@ heatmap(A.y)
 | **Documentation**  | 
 |:---------------------------------------:|
 | [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |
+
+**Related Publications**
+[Technical report](https://hal.science/hal-01868538/document)
