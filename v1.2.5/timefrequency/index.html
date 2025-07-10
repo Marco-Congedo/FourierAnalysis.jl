@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>TF Representations · FourierAnalysis</title><meta name="title" content="TF Representations · FourierAnalysis"/><meta property="og:title" content="TF Representations · FourierAnalysis"/><meta property="twitter:title" content="TF Representations · FourierAnalysis"/><meta name="description" content="Documentation for FourierAnalysis."/><meta property="og:description" content="Documentation for FourierAnalysis."/><meta property="twitter:description" content="Documentation for FourierAnalysis."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img class="docs-light-only" src="../assets/logo.png" alt="FourierAnalysis logo"/><img class="docs-dark-only" src="../assets/logo-dark.png" alt="FourierAnalysis logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">FourierAnalysis</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">FourierAnalysis Documentation</a></li><li><a class="tocitem" href="../MainModule/">Main Module</a></li><li><a class="tocitem" href="../tapers/">Tapering Windows</a></li><li><span class="tocitem">frequency domain</span><ul><li><a class="tocitem" href="../spectra/">Spectral Estimations</a></li><li><a class="tocitem" href="../crossspectra/">Cross-Spectral Matrices</a></li><li><a class="tocitem" href="../coherence/">Coherence Matrices</a></li><li><a class="tocitem" href="../goertzel/">Goertzel&#39;s Algorithms</a></li></ul></li><li><span class="tocitem">time-frequency(TF) domain</span><ul><li class="is-active"><a class="tocitem" href>TF Representations</a><ul class="internal"><li><a class="tocitem" href="#TFAnalyticSignal"><span>TFAnalyticSignal</span></a></li><li><a class="tocitem" href="#TFAmplitude"><span>TFAmplitude</span></a></li><li><a class="tocitem" href="#TFPhase"><span>TFPhase</span></a></li></ul></li><li><a class="tocitem" href="../timefrequencyuni/">TF Univariate Measures</a></li><li><a class="tocitem" href="../timefrequencybi/">TF Bivariate Measures </a></li></ul></li><li><span class="tocitem">utilities</span><ul><li><a class="tocitem" href="../recipes/">Plots</a></li><li><a class="tocitem" href="../tools/">Tools</a></li><li><a class="tocitem" href="../fftw/">FFTW planners</a></li><li><a class="tocitem" href="../filters/">Filter Banks</a></li><li><a class="tocitem" href="../hilbert/">Hilbert Transform</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">time-frequency(TF) domain</a></li><li class="is-active"><a href>TF Representations</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>TF Representations</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/master/docs/src/timefrequency.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="timefrequency.jl"><a class="docs-heading-anchor" href="#timefrequency.jl">timefrequency.jl</a><a id="timefrequency.jl-1"></a><a class="docs-heading-anchor-permalink" href="#timefrequency.jl" title="Permalink"></a></h1><p>This unit implements time-frequency representations based on analytic signal estimations. It uses the <a href="../filters/#filters.jl">filters.jl</a> unit for filtering the signals in a <a href="https://en.wikipedia.org/wiki/Filter_bank">filter bank</a> and the <a href="../hilbert/#hilbert.jl">hilbert.jl</a> unit for computing the <a href="https://en.wikipedia.org/wiki/Hilbert_transform">Hilbert transform</a>.</p><p>The main object in the time-frequency domain is the <a href="#TFAnalyticSignal">TFAnalyticSignal</a>, from which the <a href="#TFAmplitude">TFAmplitude</a> and <a href="#TFPhase">TFPhase</a> objects are derived. Taken together these three objects are referred to as <a href="../MainModule/#TFobjects">TFobjects</a> and vectors of them are a <a href="../MainModule/#TFobjectsVector">TFobjectsVector</a> type.</p><table><tr><th style="text-align: center">Object</th><th style="text-align: center">Vector type</th><th style="text-align: center">Constructors from data</th></tr><tr><td style="text-align: center"><a href="#TFAnalyticSignal">TFAnalyticSignal</a></td><td style="text-align: center"><a href="../MainModule/#TFAnalyticSignalVector">TFAnalyticSignalVector</a></td><td style="text-align: center"><a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a></td></tr><tr><td style="text-align: center"><a href="#TFAmplitude">TFAmplitude</a></td><td style="text-align: center"><a href="../MainModule/#TFAmplitudeVector">TFAmplitudeVector</a></td><td style="text-align: center"><a href="#FourierAnalysis.TFamplitude"><code>TFamplitude</code></a></td></tr><tr><td style="text-align: center"><a href="#TFPhase">TFPhase</a></td><td style="text-align: center"><a href="../MainModule/#TFPhaseVector">TFPhaseVector</a></td><td style="text-align: center"><a href="#FourierAnalysis.TFphase"><code>TFphase</code></a></td></tr></table><h2 id="TFAnalyticSignal"><a class="docs-heading-anchor" href="#TFAnalyticSignal">TFAnalyticSignal</a><a id="TFAnalyticSignal-1"></a><a class="docs-heading-anchor-permalink" href="#TFAnalyticSignal" title="Permalink"></a></h2><p><strong>Categories</strong>: <a href="../MainModule/#data-objects">data objects</a>, <a href="../MainModule/#TFobjects">TFobjects</a>.</p><p>An analytic signal object has the following structure:</p><pre><code class="language-julia hljs">struct TFAnalyticSignal
+    y          :: Matrix{T} where T&lt;:Complex
+    bandwidth  :: IntOrReal
+    flabels    :: Vector{S} where S&lt;:Real
+    nonlinear  :: Bool
+    fsmoothing :: Smoother
+    tsmoothing :: Smoother
+end</code></pre><p><strong>Fields</strong>:</p><p><code>y</code>: a <em>complex</em> matrix holding the <em>analytic signal</em> in the time-frequency domain, with frequency band-pass regions (in Hz) in rows and time (samples) in columns.</p><p><code>bandwidth</code>: the <em>bandwidth</em> (in Hz) of the filter bank band-pass regions. See constructor <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> for details. It can be an integer or a real number.</p><p><code>flabels</code>: a vector holding all center frequencies (in Hz) of the filter bank band-pass regions. Those are the <em>frequency labels</em> for the rows of <code>y</code>.</p><p><code>non-linear</code>: a flag indicating whether the analytic signal has been normalized so as to have amplitude<span>$1.0$</span> at all points. Such normalization allows non-linear univariate and bivariate estimations (see <a href="../timefrequencyuni/#timefrequencyuni.jl">timefrequencyuni.jl</a> and <a href="../timefrequencybi/#timefrequencybi.jl">timefrequencybi.jl</a>).</p><p><code>fsmoothing</code>: a flag of the <a href="../MainModule/#Smoother">Smoother</a> type indicating whether the analytic signal has been smoothed across adjacent frequency band-pass regions. If no frequency smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><code>tsmoothing</code>: a flag of the <a href="../MainModule/#Smoother">Smoother</a> type indicating whether the analytic signal has been smoothed across adjacent samples (time). If no time smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><strong>Note</strong>: In Julia the fields are accessed by the usual dot notation, e.g., you may verify that for <em>TFAnalyticSignal</em> object <code>Y</code>,</p><pre><code class="language-julia hljs">length(Y.flabels) == dim(Y.z, 1)</code></pre><p>A vector of <em>TFAnalyticSignal</em> objects is of type <a href="../MainModule/#TFAnalyticSignalVector">TFAnalyticSignalVector</a>.</p><p><strong>Methods for TFAnalyticSignal and TFAnalyticSignalVector objects</strong></p><table><tr><th style="text-align: left">method</th><th style="text-align: center">TFAnalyticSignal</th><th style="text-align: center">TFAnalyticSignalVector</th></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.amplitude"><code>amplitude</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.phase"><code>phase</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.polar"><code>polar</code></a></td><td style="text-align: center">✔</td><td style="text-align: center"></td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.extract"><code>extract</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#Statistics.mean"><code>mean</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.sameParams"><code>sameParams</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isLinear"><code>isLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isNonLinear"><code>isNonLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../timefrequencyuni/#FourierAnalysis.concentration"><code>concentration</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../timefrequencybi/#FourierAnalysis.comodulation"><code>comodulation</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../timefrequencyuni/#FourierAnalysis.meanDirection"><code>meanDirection</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../coherence/#DSP.Periodograms.coherence"><code>coherence</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr></table><p><strong>Generic Constructors</strong>:</p><p>In order to construct a <em>TFAnalyticSignal</em> object from univariate data, <em>FourierAnalysis</em> provides two <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constuctors, which is what you will use in practice most of the time.</p><p>Manual constructors are also possible, for which you have to provide appropriate arguments. The default manual constructor of <em>TFAnalyticSignal</em> objects is</p><pre><code class="language-julia hljs">TFAnalyticSignal(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing).</code></pre><p>No other generic constructor is provided for this object.</p><h2 id="TFAmplitude"><a class="docs-heading-anchor" href="#TFAmplitude">TFAmplitude</a><a id="TFAmplitude-1"></a><a class="docs-heading-anchor-permalink" href="#TFAmplitude" title="Permalink"></a></h2><p><strong>Categories</strong>: <a href="../MainModule/#data-objects">data objects</a>, <a href="../MainModule/#TFobjects">TFobjects</a>.</p><p>An amplitude object has the following structure:</p><pre><code class="language-julia hljs">struct TFAmplitude
+    y          :: Matrix{T} where T&lt;:Real
+    bandwidth  :: IntOrReal
+    flabels    :: Vector{S} where S&lt;:Real
+    fsmoothing :: Smoother
+    tsmoothing :: Smoother
+    func       :: Function
+end</code></pre><p><strong>Fields</strong>:</p><p><code>y</code>: a <em>real</em> matrix holding the <em>amplitude</em> (modulus) of an analytic signal in the time-frequency domain, often referred to as the <em>envelope</em>, with frequency band-pass regions (in Hz) in rows and time (samples) in columns.</p><p><code>bandwidth</code>: the <em>bandwidth</em> (in Hz) of the filter bank band-pass regions. See constructor <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> for details. It can be an integer or a real number.</p><p><code>flabels</code>: a vector holding all center frequencies (in Hz) of the filter bank band-pass regions. Those are the <em>frequency labels</em> for the rows of <code>y</code>.</p><p><code>fsmoothing</code>: a flag of the <a href="../MainModule/#Smoother">Smoother</a> type indicating whether the amplitude has been smoothed across adjacent frequency band-pass regions. If no frequency smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><code>tsmoothing</code>: a flag of the <a href="../MainModule/#Smoother">Smoother</a> type indicating whether the amplitude has been smoothed across adjacent samples (time). If no time smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><strong>Note</strong>: Smoothing flags in this object indicate that the amplitude has been smoothed, whereas in the <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object indicate that the analytic signal has been smoothed. Note that it is not equivalent to obtain amplitude from smoothed analytic signal (e.g., using the <a href="../tools/#FourierAnalysis.amplitude"><code>amplitude</code></a> function) or to smooth the amplitude of analytic signal, e.g., using the <a href="#FourierAnalysis.TFamplitude"><code>TFamplitude</code></a> constructor.</p><p><code>func</code>: a name of a function that has been applied element-wise to the matrix <code>.y</code> holding the amplitude. All constructors from data by default use the <code>identity</code> (do nothing) function.</p><p>A vector of <em>TFAmplitude</em> objects is of type <a href="../MainModule/#TFAmplitudeVector">TFAmplitudeVector</a>.</p><p><strong>Methods for TFAmplitude and TFAmplitudeVector objects</strong></p><table><tr><th style="text-align: left">method</th><th style="text-align: center">TFAmplitude</th><th style="text-align: center">TFAmplitudeVector</th></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.extract"><code>extract</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#Statistics.mean"><code>mean</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.sameParams"><code>sameParams</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isLinear"><code>isLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isNonLinear"><code>isNonLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../timefrequencyuni/#FourierAnalysis.meanAmplitude"><code>meanAmplitude</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../timefrequencybi/#FourierAnalysis.comodulation"><code>comodulation</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr></table><p><strong>Generic Constructors</strong>:</p><p>In order to construct a <code>TFAmplitude</code> object from univariate data, <em>FourierAnalysis</em> provides four <a href="#FourierAnalysis.TFamplitude"><code>TFamplitude</code></a> constuctors, which is what you will use in practice most of the time.</p><p>Manual constructors are also possible, for which you have to provide appropriate arguments. The default manual constructor of <em>TFAmplitude</em> objects is</p><pre><code class="language-julia hljs">TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing, func).</code></pre><p>Other generic constructors are also provided:</p><pre><code class="language-julia hljs">TFAmplitude(y, bandwidth, flabels, fsmoothing, tsmoothing)</code></pre><p>enables construction giving only <code>y</code>, <code>bandwidth</code>, <code>flabels</code>, <code>fsmoothing</code> and <code>tsmoothing</code>. <code>func</code> is set automatically to <code>identity</code>;</p><pre><code class="language-julia hljs">TFAmplitude(y, bandwidth, flabels)</code></pre><p>acts like the constructor above, but sets by default also both <code>fsmoothing</code> and <code>tsmoothing</code> to <code>noSmoother</code>.</p><h2 id="TFPhase"><a class="docs-heading-anchor" href="#TFPhase">TFPhase</a><a id="TFPhase-1"></a><a class="docs-heading-anchor-permalink" href="#TFPhase" title="Permalink"></a></h2><p><strong>Categories</strong>: <a href="../MainModule/#data-objects">data objects</a>, <a href="../MainModule/#TFobjects">TFobjects</a>.</p><p>A phase object has the following structure:</p><pre><code class="language-julia hljs">struct TFPhase
+    y          :: Matrix{T} where T&lt;:Real
+    bandwidth  :: IntOrReal
+    flabels    :: Vector{S} where S&lt;:Real
+    nonlinear  :: Bool
+    fsmoothing :: Smoother
+    tsmoothing :: Smoother
+    unwrapped  :: Bool
+    func       :: Function
+end</code></pre><p><strong>Fields</strong>:</p><p><code>y</code>: a <em>real</em> matrix holding the <em>phase</em> (argument) of an analytic signal in the time-frequency domain, with frequency band-pass regions (in Hz) in rows and time (samples) in columns. By default the phase is represented in <span>$[−π, π]$</span>.</p><p><code>bandwidth</code>: the <em>bandwidth</em> (in Hz) of the filter bank band-pass regions. See constructor <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> for details. It can be an integer or a real number.</p><p><code>flabels</code>: a vector holding all center frequencies (in Hz) of the filter bank band-pass regions. Those are the <em>frequency labels</em> for the rows of <code>y</code>.</p><p><code>non-linear</code>: a flag indicating whether the phase has been estimated from analytic signal normalized so as to have amplitude<span>$1.0$</span> at all points. Such normalization allows non-linear univariate and bivariate estimations (see <a href="../timefrequencyuni/#timefrequencyuni.jl">timefrequencyuni.jl</a> and <a href="../timefrequencybi/#timefrequencybi.jl">timefrequencybi.jl</a>).</p><p><code>fsmoothing</code>: a flag of <a href="../MainModule/#Smoother">Smoother</a> indicating whether the phase has been smoothed across adjacent frequency band-pass regions. If no frequency smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><code>tsmoothing</code>: a flag of the <a href="../MainModule/#Smoother">Smoother</a> type indicating whether the phase has been smoothed across adjacent samples (time). If no time smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><strong>Note</strong>: Smoothing raw phase estimates is unappropriate since the phase is a discontinous function, however it makes sense to smooth phase if the phase is unwrapped (see below).</p><p><strong>Note</strong>: Smoothing flags in this object indicate that the (unwrapped) phase has been smoothed, whereas in the <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object indicate that the analytic signal has been smoothed. Note that it is not equivalent to obtain unwrapped phase from smoothed analytic signal (e.g., using the <a href="../tools/#FourierAnalysis.phase"><code>phase</code></a> function) or to smooth the unwrapped phase of analytic signal, e.g., using the <a href="#FourierAnalysis.TFphase"><code>TFphase</code></a> constructor.</p><p><code>unwrapped</code>: a flag indicating if the phase has been unwrapped. The unwrapped phase is defined as the cumulative sum of the phase along the time dimension once the phase is represented in <span>$[0, 2π]$</span>.</p><p><code>func</code>: a name of a function that has been applied element-wise to the matrix <code>.y</code> holding the phase. All constructors from data by default use the <code>identity</code> (do nothing) function. Examples of possible functions:</p><ul><li><code>func=x-&gt;x+π</code> return the phase in [0, 2π],</li><li><code>func=x-&gt;x/π</code> return the phase in [-1, 1],</li><li><code>func=sin</code> return the sine of the phase.</li></ul><p>A vector of <em>TFPhase</em> objects is of type <a href="../MainModule/#TFPhaseVector">TFPhaseVector</a>.</p><p><strong>Methods for TFPhase and TFPhaseVector objects</strong></p><table><tr><th style="text-align: left">method</th><th style="text-align: center">TFAmplitude</th><th style="text-align: center">TFAmplitudeVector</th></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.unwrapPhase"><code>unwrapPhase</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isUnwrapped"><code>isUnwrapped</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.extract"><code>extract</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#Statistics.mean"><code>mean</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.sameParams"><code>sameParams</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isLinear"><code>isLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.isNonLinear"><code>isNonLinear</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr></table><p><strong>Generic Constructors</strong>:</p><p>In order to construct a <em>TFPhase</em> object from univariate data, <em>FourierAnalysis</em> provides four <a href="#FourierAnalysis.TFphase"><code>TFphase</code></a> constuctors, which is what you will use in practice most of the time.</p><p>Manual constructors are also possible, for which you have to provide appropriate arguments. The default manual constructor of <em>TFPhase</em> objects is</p><pre><code class="language-julia hljs">TFPhase(y, bandwidth, flabels, nonlinear,
+        fsmoothing, tsmoothing, unwrapped, func).</code></pre><p>Other generic constructors are also provided:</p><pre><code class="language-julia hljs">TFPhase(y, bandwidth, flabels, nonlinear, fsmoothing, tsmoothing)</code></pre><p>enables construction giving only <code>y</code>, <code>bandwidth</code>, <code>flabels</code>, <code>fsmoothing</code> and <code>tsmoothing</code>. <code>unwrapped</code> is set to <code>false</code> and <code>func</code> is set to <code>identity</code>;</p><pre><code class="language-julia hljs">TFPhase(y, bandwidth, flabels)</code></pre><p>acts like the constructor above, but sets by default also <code>nonlinear</code> to <code>true</code> and both <code>fsmoothing</code> and <code>tsmoothing</code> to <code>noSmoother</code>.</p><p><strong>Constructors from data</strong>:</p><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="FourierAnalysis.TFanalyticsignal" href="#FourierAnalysis.TFanalyticsignal"><code>FourierAnalysis.TFanalyticsignal</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">(1)
+function TFanalyticsignal(x         :: Vector{T},
+                          sr        :: Int,
+                          wl        :: Int          = 0,
+                          bandwidth :: IntOrReal    = 2;
+                      fmin          :: IntOrReal    = bandwidth,
+                      fmax          :: IntOrReal    = sr÷2,
+                      filtkind      :: FilterDesign = Butterworth(2),
+                      nonlinear     :: Bool         = false,
+                      fsmoothing    :: Smoother     = noSmoother,
+                      tsmoothing    :: Smoother     = noSmoother,
+                      planner       :: Planner      = getplanner,
+                      ⏩           :: Bool         = true) where T&lt;:Real
+
+(2)
+function TFanalyticsignal(𝐱         :: Vector{Vector{T}},
+                      &lt;same arguments as method (1)&gt;
+</code></pre><p>(1)</p><p>Given sampling rate <code>sr</code>, construct a <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object from univariate data <code>x</code>, that is, a time-frequency representation of real vector <code>x</code>.</p><p>Call three functions in series performing the three following operations:</p><p>i. pass the data throught a bank of pass-band filters calling function <a href="../filters/#FourierAnalysis.filterbank"><code>filterbank</code></a>,</p><p>ii. compute the analytic signal calling function <a href="../hilbert/#FourierAnalysis.analyticsignal"><code>analyticsignal</code></a> (method (1) therein),</p><p>iii. If requested, smooth the analytic signal along the time and/or frequency dimension calling function <a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a>.</p><p>The arguments passed to each of these functions are:</p><table><tr><th style="text-align: center">filterbank</th><th style="text-align: center">analyticsignal</th><th style="text-align: center">smooth</th></tr><tr><td style="text-align: center"><code>x</code></td><td style="text-align: center"><code>wl</code></td><td style="text-align: center"><code>fsmoothing</code></td></tr><tr><td style="text-align: center"><code>sr</code></td><td style="text-align: center"><code>nonlinear</code></td><td style="text-align: center"><code>tsmoothing</code></td></tr><tr><td style="text-align: center"><code>bandwidth</code></td><td style="text-align: center"><code>planner</code></td><td style="text-align: center"></td></tr><tr><td style="text-align: center"><code>filtkind</code></td><td style="text-align: center"><code>⏩</code></td><td style="text-align: center"></td></tr><tr><td style="text-align: center"><code>fmin</code></td><td style="text-align: center"></td><td style="text-align: center"></td></tr><tr><td style="text-align: center"><code>fmax</code></td><td style="text-align: center"></td><td style="text-align: center"></td></tr><tr><td style="text-align: center"><code>⏩</code></td><td style="text-align: center"></td><td style="text-align: center"></td></tr></table><p>Refer to the documentation of each function to learn the meaning of each argument.</p><p>By default the <code>wl</code> argument is set to <code>length(x)</code>.</p><p>If <code>⏩</code> is true (default), filtering and computation fo the analytic signal are multi-threaded across band-pass regions as long as the number of the regions is at least twice the number of threads Julia is instructed to use. See <a href="../MainModule/#Threads">Threads</a>.</p><p>(2)</p><p>Given sampling rate <code>sr</code>, construct a <a href="../MainModule/#TFAnalyticSignalVector">TFAnalyticSignalVector</a> object from a vector of univariate data <code>𝐱</code>, that is, from the time-frequency representations of the vectors in <code>𝐱</code>.</p><p>This method operates as method (1) with the following exceptions:</p><p>By default the <code>wl</code> argument is set to <code>length(x)</code> for each vectors in <code>𝐱</code>. If another values is given, it will be used for all of them.</p><p>If <code>⏩</code> is true (default), the method is run in multi-threaded mode across the vectors in <code>𝐱</code> as long as their number is at least twice the number of threads Julia is instructed to use, otherwise this method attempts to run each analytic signal estimation in multi-threaded mode like in method (1). See <a href="../MainModule/#Threads">Threads</a>.</p><p>If a <code>Planner</code> is not explicitly passed as an argument, the FFTW plan is computed once and applied for all analytic signal estimations.</p><p><strong>See</strong>: <a href="../filters/#FourierAnalysis.filterbank"><code>filterbank</code></a>, <a href="../hilbert/#FourierAnalysis.analyticsignal"><code>analyticsignal</code></a>, <a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a>.</p><p><strong>Examples</strong>:</p><pre><code class="language-julia hljs">using Plots, FourierAnalysis
+
+# generate some data
+sr, t, bandwidth=128, 512, 2
+h=taper(harris4, t)
+x1=sinusoidal(10, 8, sr, t, 0)
+x2=sinusoidal(10, 19, sr, t, 0)
+x=Vector((x1+x2).*h.y+randn(t))
+y1=sinusoidal(10, 6, sr, t, 0)
+y2=sinusoidal(10, 16, sr, t, 0)
+y=Vector((y1+y2).*h.y+randn(t))
+plot([x, y])
+
+# TFAnalyticSignal object for x (method (1))
+Y = TFanalyticsignal(x, sr, sr*4; fmax=32)
+
+# vector of TFAnalyticSignal objects for x and y (method (2))
+𝒀 = TFanalyticsignal([x, y], sr, sr*4; fmax=32)
+
+# (for shortening comments: TF=time-frequency, AS=analytic signal)
+
+# mean AS in a TF region (8:12Hz and samples 1:128) for the first object
+m=mean(𝒀[1], (8, 12), (1, 128)) # Output a complex number
+
+# extract the AS in a TF region (8:12Hz and samples 1:128) for the first object
+E=extract(𝒀[1], (8, 12), (1, 128)) # Output a complex matrix
+
+# mean AS in a TF region (8:12Hz and samples 1:128) for the two objects
+𝐦=mean(𝒀, (8, 12), (1, 128)) # Output a vector of complex numbers
+# same computation without checking homogeneity of the two objects in 𝒀 (faster)
+𝐦=mean(𝒀, (8, 12), (1, 128); check=false)
+
+# extract the AS in a TF region (8:12Hz and samples 1:128) for the two objects
+𝐄=extract(𝒀, (8, 12), (8, 12)) # Output a vector of complex matrices
+
+# plot the real part of the AS of x (see unit recipes.jl)
+
+# gather first useful attributes for the plot
+using Plots.Measures
+tfArgs=(right_margin = 2mm,
+        top_margin = 2mm,
+        xtickfont = font(10, &quot;Times&quot;),
+        ytickfont = font(10, &quot;Times&quot;))
+
+heatmap(tfAxes(Y)..., real(Y.y);
+        c=:fire, tfArgs...)
+
+# ...the imaginary part
+heatmap(tfAxes(Y)..., imag(Y.y);
+        c=:bluesreds, tfArgs...)
+
+# ...the amplitude
+heatmap(tfAxes(Y)..., amplitude(Y.y);
+        c=:amp, tfArgs...)
+
+# ...the amplitude of the AS smoothed in frequency and time
+heatmap(tfAxes(Y)..., amplitude(smooth(hannSmoother, hannSmoother, Y).y);
+        c=:fire, tfArgs...)
+
+# ...the phase
+heatmap(tfAxes(Y)..., phase(Y.y);
+        c=:bluesreds, tfArgs...)
+
+# or generate a TFAmplitude object from the AS
+A=TFamplitude(Y)
+# and plot it (with different colors)
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
+
+# generate a TFPhase object
+ϴ=TFphase(Y)
+# and plot it (with custom colors)
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:fire, tfArgs...)
+
+# compute and plot phase in [0, 2π]
+heatmap(tfAxes(Y)..., TFphase(Y; func=x-&gt;x+π).y;
+        c=:amp, tfArgs...)
+
+# compute and plot unwrapped phase
+heatmap(tfAxes(Y)..., TFphase(Y; unwrapped=true).y;
+        c=:amp, tfArgs...)
+
+# smooth time-frequency AS: smooth frequency
+Z=smooth(blackmanSmoother, noSmoother, Y)
+
+# plot amplitude of smoothed analytic signal
+heatmap(tfAxes(Z)..., amplitude(Z.y);
+        c=:amp, tfArgs...)
+
+# not equivalently (!), create an amplitude object and smooth it:
+# in this case the amplitude is smoothed, not the AS
+A=smooth(blackmanSmoother, noSmoother, TFamplitude(Y))
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
+
+# Smoothing raw phase estimates is unappropriate
+# since the phase is a discontinous function, however it makes sense
+# to smooth phase if the phase is unwrapped.
+heatmap(tfAxes(Y)...,
+        smooth(blackmanSmoother, noSmoother, TFphase(Y; unwrapped=true)).y;
+        c=:amp, tfArgs...)
+
+# smooth AS: smooth both frequency and time
+E=smooth(blackmanSmoother, blackmanSmoother, Y)
+
+# plot amplitude of smoothed analytic signal
+heatmap(tfAxes(E)..., amplitude(E.y);
+        c=:fire, tfArgs...)
+
+# plot phase of smoothed analytic signal
+heatmap(tfAxes(E)..., phase(E.y);
+        c=:bluesreds, tfArgs...)
+
+# not equivalently (!), create amplitude and phase objects and smooth them
+A=smooth(blackmanSmoother, blackmanSmoother, TFamplitude(Y))
+heatmap(tfAxes(A)..., A.y;
+        c=:fire, tfArgs...)
+
+ϴ=smooth(blackmanSmoother, blackmanSmoother, TFphase(Y, unwrapped=true))
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:fire, tfArgs...)
+
+# smooth again
+ϴ=smooth(blackmanSmoother, blackmanSmoother, ϴ)
+heatmap(tfAxes(ϴ)..., ϴ.y;
+        c=:fire, tfArgs...)
+# and again ...
+
+# create directly smoothed AS
+Y=TFanalyticsignal(x, sr, t, bandwidth;
+                   fmax=32,
+                   fsmoothing=hannSmoother,
+                   tsmoothing=hannSmoother)
+
+# plot amplitude of smoothed analytic signal
+heatmap(tfAxes(Y)..., amplitude(Y.y);
+        c=:amp, tfArgs...)
+
+# create directly smoothed Amplitude
+A=TFamplitude(x, sr, t, bandwidth;
+              fmax=32,
+              fsmoothing=hannSmoother,
+              tsmoothing=hannSmoother)
+
+# plot smoothed amplitude
+heatmap(tfAxes(A)..., A.y;
+        c=:amp, tfArgs...)
+
+# compute a TFAnalyticSignal object with non-linear AS
+Y=TFanalyticsignal(x, sr, t, bandwidth; fmax=32, nonlinear=true)
+
+# check that it is non-linear
+Y.nonlinear
+
+# check that the amplitude is now 1.0 everywhere
+norm(amplitude(Y.y)-ones(eltype(Y.y), size(Y.y))) # must be zero
+
+# plot non-linear phase
+heatmap(tfAxes(Y)..., phase(Y.y);
+        c=:bkr, tfArgs...)
+
+# get the center frequencies of TFAmplitude object A
+A.flabels
+
+# extract the amplitude in a time-frequency region
+extract(A, (2, 10), (1, 256)) # output a real matrix
+
+# extract the amplitude in a time-frequency region at only one frequency
+extract(A, 10, (1, 256)) # output a row vector
+
+# extract the amplitude at one temporal sample at one frequency
+extract(A, 10, 12) # or extract(A, 10.0, 12)
+
+# extract amplitude at one temporal sample in a frequency region
+extract(A, (10, 12), 12) # or extract(A, (10.0, 12.0), 12)
+
+# extract amplitude at one temporal sample and all frequencies
+extract(A, :, 12) # output a (column) vector
+
+# compute the mean in a time-frequency region:
+mean(A, (2, 10), (1, 256)) # output a real number
+# is equivalent to (but may be less efficient than)
+mean(extract(A, (2, 10), (1, 256)))
+
+# using column sign for extracting all time samples
+extract(A, (2, 10), :)
+
+# This:
+extract(A, :, :)
+# is equivalent to this:
+A.y
+# but if you don&#39;t need to extract all frequencies,
+# use the extract function to control what frequencies will be extracted:
+# This
+extract(A, (4, 5), 10)
+# is not equivalent to this
+A.y[4:5, 10]
+# since the `extract` function finds the correct rows corresponding
+# to the sought frequencies (in Hz), while A.y[4:5, 10]
+# just returns the elements [4:5, 10] in the TF amplitude object
+
+# Although the first center frequency in A is 2Hz, its
+# band-pass region is 1-3Hz, therefore the frequency range 1:10 is accepted
+mean(A, (1, 10), (1, 256))
+# but this result in an error (see the REPL) since 0.5 is out of range:
+mean(A, (0.5, 10), (1, 256))
+
+# using a colon sign for time range
+a=mean(A, (1, 10), :)
+# using an integer for time range (indicates one specific sample)
+a=mean(A, (1, 10), 16)
+
+# using a colon sign for frequency range
+a=mean(A, :, (1, 16))
+# using a real number for frequency range
+a=mean(A, 8.5, (1, 16))
+
+# NB: the `extract` and `mean` functions work with the same syntax
+#     for objects TFAnayticSignal, TFAmplitude and TFPhase.</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/4294f6537a7cfe8427f826492d53135cee91622a/src/timefrequency.jl#L15-L321">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="FourierAnalysis.TFamplitude" href="#FourierAnalysis.TFamplitude"><code>FourierAnalysis.TFamplitude</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">(1)
+function TFamplitude(Z::TFAnalyticSignal;
+                func::Function=identity)
+
+(2)
+function TFamplitude(𝐙::TFAnalyticSignalVector;
+                func::Function=identity)
+
+(3)
+function TFamplitude(x         :: Vector{T},
+                     sr        :: Int,
+                     wl        :: Int,
+                     bandwidth :: IntOrReal = 2;
+                func       :: Function     = identity,
+                filtkind   :: FilterDesign = Butterworth(2),
+                fmin       :: IntOrReal    = bandwidth,
+                fmax       :: IntOrReal    = sr÷2,
+                fsmoothing :: Smoother     = noSmoother,
+                tsmoothing :: Smoother     = noSmoother,
+                planner    :: Planner      = getplanner,
+                ⏩        :: Bool         = true) where T&lt;:Real =
+
+(4)
+function TFamplitude(𝐱 :: Vector{Vector{T}},
+                &lt; same arguments as method (3) &gt;</code></pre><p>(1)</p><p>Construct a <a href="#TFAmplitude">TFAmplitude</a> object computing the amplitude of <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object <code>Z</code>. Optional keyword argument <code>func</code> is a function to be applied element-wise to the data matrix of the output. By default, the <code>identity</code> (do nothing) function is applied.</p><p>(2)</p><p>Construct a <a href="../MainModule/#TFAmplitudeVector">TFAmplitudeVector</a> object from a <a href="../MainModule/#TFAnalyticSignalVector">TFAnalyticSignalVector</a> object executing method (1) for all <a href="#TFAnalyticSignal">TFAnalyticSignal</a> objects in <code>𝐙</code></p><p>(3)</p><p>Call <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> to obtain the time-frequency analytic signal of real signal vector <code>x</code> and construct a <a href="#TFAmplitude">TFAmplitude</a> object holding the time-frequency amplitude (the mudulus, often referred to as the <em>envelope</em>) of <code>x</code>.</p><p>All arguments are used for regulating the estimation of the analytic signal, with the exception of <code>func</code>, <code>fsmoothing</code> and <code>fsmoothing</code>:</p><p><code>func</code> is an optional function to be applied to the amplitude data matrix output.</p><p>In order to estimate the analytic signal in the time-frequency domain this function calls the <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constructor (method (1) therein), with both <code>fsmoothing</code> and <code>tsmoothing</code> arguments set to <code>noSmoother</code>. Arguments <code>fsmoothing</code> and <code>fsmoothing</code> are then used to smooth the amplitude.</p><p>In order to obtain amplitude estimations on smoothed analytic signal instead, create a <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object passing a <a href="../MainModule/#Smoother">Smoother</a> to the <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constructor and then use method (1) to obtain the amplitude. Such amplitude estimation can be further smoothed using the <a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a> function, as shown in the examples.</p><p>For the meaning of all other arguments, which are passed to function <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a>, see the documentation therein.</p><p>(4)</p><p>Construct a <a href="../MainModule/#TFAmplitudeVector">TFAmplitudeVector</a> object from a vector of real signal vectors <code>𝐱</code>, executing method (3) for all of them. In order to estimate the time-frequency analytic signal for a vector of signals, method (2) of <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> is called.</p><p><strong>See</strong>: <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a>, <a href="#TFAmplitude">TFAmplitude</a>.</p><p><strong>See also</strong>: <a href="../tools/#FourierAnalysis.amplitude"><code>amplitude</code></a>.</p><p><strong>Examples</strong>: see the examples of <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/4294f6537a7cfe8427f826492d53135cee91622a/src/timefrequency.jl#L443-L526">source</a></section></article><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="FourierAnalysis.TFphase" href="#FourierAnalysis.TFphase"><code>FourierAnalysis.TFphase</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">(1)
+function TFphase(Z :: TFAnalyticSignal;
+            func      :: Function = identity,
+            unwrapped :: Bool     = false)
+
+(2)
+function TFphase(𝐙 :: TFAnalyticSignalVector;
+            func      ::Function = identity,
+            unwrapped ::Bool     = false)
+
+(3)
+function TFphase(x         :: Vector{T},
+                 sr        :: Int,
+                 wl        :: Int,
+                 bandwidth :: IntOrReal = 2;
+           unwrapped  :: Bool         = false,
+           func       :: Function     = identity,
+           filtkind   :: FilterDesign = Butterworth(2),
+           fmin       :: IntOrReal    = bandwidth,
+           fmax       :: IntOrReal    = sr÷2,
+           nonlinear  :: Bool         = false,
+           fsmoothing :: Smoother     = noSmoother,
+           tsmoothing :: Smoother     = noSmoother,
+           planner    :: Planner      = getplanner,
+           ⏩        :: Bool         = true) where T&lt;:Real
+
+(4)
+function TFphase(𝐱 :: Vector{Vector{T}},
+                &lt; same arguments as method (3) &gt;</code></pre><p>(1)</p><p>Construct a <a href="#TFPhase">TFPhase</a> object computing the phase of <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object <code>Z</code>. By default the phase is represented in <span>$[−π, π]$</span>.</p><p>If optional keyword argument <code>unwrapped</code> is true (false by defalut), the phase is unwrapped, that is, it holds the cumulative sum of the phase along the time dimension once this is represented in <span>$[0, 2π]$</span>.</p><p>Optional keyword argument <code>func</code> is a function to be applied element-wise to the data matrix of the output. By default, the <code>identity</code> (do nothing) function is applied. If <code>unwrapped</code> is true, the function is applied on the unwrapped phase.</p><p>(2)</p><p>Construct a <a href="../MainModule/#TFPhaseVector">TFPhaseVector</a> object from a <a href="../MainModule/#TFAnalyticSignalVector">TFAnalyticSignalVector</a> object executing method (1) for all <a href="#TFAnalyticSignal">TFAnalyticSignal</a> objects in <code>𝐙</code></p><p>(3)</p><p>Call <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> to obtain the time-frequency analytic signal of real signal vector <code>x</code> and construct a <a href="#TFPhase">TFPhase</a> object holding the time-frequency phase (argument) of <code>x</code>.</p><p>All arguments are used for regulating the estimation of the analytic signal, with the exception of <code>unwrapped</code>, <code>func</code>, <code>fsmoothing</code> and <code>fsmoothing</code>.</p><p><code>unwrapped</code> has the same meaning as in method (1) and (2).</p><p><code>func</code> is an optional function to be applied to the phase data matrix output. If <code>unwrapped</code> is true, it is applied to the unwrapped phase.</p><p>In order to estimate the analytic signal in the time-frequency domain this function calls the <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constructor (method (1) therein), with both <code>fsmoothing</code> and <code>tsmoothing</code> arguments set to <code>noSmoother</code>. <code>fsmoothing</code> and <code>fsmoothing</code> are then used to smooth the phase if <code>unwrapped</code> is true.</p><p>In order to obtain phase estimations on smoothed analytic signal instead, create a <a href="#TFAnalyticSignal">TFAnalyticSignal</a> object passing a <a href="../MainModule/#Smoother">Smoother</a> to the <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> constructor and then use method (1) to obtain the phase.</p><p>For the meaning of all other arguments, which are passed to function <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a>, see the documentation therein.</p><p>(4)</p><p>Construct a <a href="../MainModule/#TFPhaseVector">TFPhaseVector</a> object from a vector of real signal vectors <code>𝐱</code>, executing method (3) for all of them. In order to estimate the time-frequency analytic signal for a vector of signals, method (2) of <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a> is called.</p><p><strong>See</strong>: <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a>, <a href="#TFPhase">TFPhase</a>.</p><p><strong>See also</strong>: <a href="../tools/#FourierAnalysis.phase"><code>phase</code></a>, <a href="../tools/#FourierAnalysis.unwrapPhase"><code>unwrapPhase</code></a>, <a href="../tools/#FourierAnalysis.polar"><code>polar</code></a>.</p><p><strong>Examples</strong>: see the examples of <a href="#FourierAnalysis.TFanalyticsignal"><code>TFanalyticsignal</code></a>.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/4294f6537a7cfe8427f826492d53135cee91622a/src/timefrequency.jl#L605-L700">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../goertzel/">« Goertzel&#39;s Algorithms</a><a class="docs-footer-nextpage" href="../timefrequencyuni/">TF Univariate Measures »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Thursday 10 July 2025 12:03">Thursday 10 July 2025</span>. Using Julia version 1.11.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
