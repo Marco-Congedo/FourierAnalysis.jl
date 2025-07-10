@@ -1,5 +1,5 @@
 #    Main Module of the FourierAnalysis Package for julia language
-#    v 1.2.4 - last update May 2025
+#    v 1.2.5 - last update May 2025
 #
 #   MIT License
 #   Copyright (c) 2019-2025,

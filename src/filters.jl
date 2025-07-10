@@ -111,7 +111,7 @@ function filterbank(x         :: Vector{T},
     df, dm, ff, Bp=digitalfilter, filtkind, filtfilt, Bandpass # aliases for DSP.jl stuff
     fb=_ffilterbank(sr, bandwidth; fmin=fmin, fmax=fmax) # get limits for band-passes
     nf=length(fb)-2 # eliminate last frequency, which may be the Nyquist frequency
-    flt=[df(Bp(fb[f], fb[f+2]; fs=sr), dm) for f=1:nf] # f band-pass filters
+    flt=[df(Bp(fb[f], fb[f+2]), dm; fs=sr) for f=1:nf] # f band-pass filters
     x_=[zeros(T, sr); x; zeros(T, sr)]     # Before filtering, `x` is padded with `sr` zeros at both sides in order to symmetrize the distortion of DSP.jl butterworth filters.
     Y=Matrix{T}(undef, length(x_), nf)
     _thread(⏩, nf) ? (@threads for f=1:nf Y[:, f]=ff(flt[f], x_) end) :
