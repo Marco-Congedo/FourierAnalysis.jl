@@ -39,9 +39,9 @@ z=filtfilt(filterBP, v)
 plot([v, z])
 
 ### FIR filters
-responsetype = Bandpass(8, 12; fs=sr)
+responsetype = Bandpass(8, 12)
 filtkind = FIRWindow(hanning(64))
-filterBP = digitalfilter(responsetype, filtkind)
+filterBP = digitalfilter(responsetype, filtkind; fs=sr)
 # forward filter, unlinear phase response
 z=filt(digitalfilter(responsetype, filtkind), v)
 plot([v, z])

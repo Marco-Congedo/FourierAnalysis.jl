@@ -36,5 +36,6 @@ makedocs(
 deploydocs(
     repo = "github.com/Marco-Congedo/FourierAnalysis.jl.git",
     target = "build",
-    devurl = "dev"
+    devurl = "dev",
+    push_preview = true,
 )
