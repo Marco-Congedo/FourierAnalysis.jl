@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Plots · FourierAnalysis</title><meta name="title" content="Plots · FourierAnalysis"/><meta property="og:title" content="Plots · FourierAnalysis"/><meta property="twitter:title" content="Plots · FourierAnalysis"/><meta name="description" content="Documentation for FourierAnalysis."/><meta property="og:description" content="Documentation for FourierAnalysis."/><meta property="twitter:description" content="Documentation for FourierAnalysis."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img class="docs-light-only" src="../assets/logo.png" alt="FourierAnalysis logo"/><img class="docs-dark-only" src="../assets/logo-dark.png" alt="FourierAnalysis logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">FourierAnalysis</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">FourierAnalysis Documentation</a></li><li><a class="tocitem" href="../MainModule/">Main Module</a></li><li><a class="tocitem" href="../tapers/">Tapering Windows</a></li><li><span class="tocitem">frequency domain</span><ul><li><a class="tocitem" href="../spectra/">Spectral Estimations</a></li><li><a class="tocitem" href="../crossspectra/">Cross-Spectral Matrices</a></li><li><a class="tocitem" href="../coherence/">Coherence Matrices</a></li><li><a class="tocitem" href="../goertzel/">Goertzel&#39;s Algorithms</a></li></ul></li><li><span class="tocitem">time-frequency(TF) domain</span><ul><li><a class="tocitem" href="../timefrequency/">TF Representations</a></li><li><a class="tocitem" href="../timefrequencyuni/">TF Univariate Measures</a></li><li><a class="tocitem" href="../timefrequencybi/">TF Bivariate Measures </a></li></ul></li><li><span class="tocitem">utilities</span><ul><li class="is-active"><a class="tocitem" href>Plots</a><ul class="internal"><li><a class="tocitem" href="#plot-tapering-windows"><span>plot tapering windows</span></a></li><li><a class="tocitem" href="#plot-spectra"><span>plot spectra</span></a></li><li><a class="tocitem" href="#plot-time-frequency-objects"><span>plot time-frequency objects</span></a></li></ul></li><li><a class="tocitem" href="../tools/">Tools</a></li><li><a class="tocitem" href="../fftw/">FFTW planners</a></li><li><a class="tocitem" href="../filters/">Filter Banks</a></li><li><a class="tocitem" href="../hilbert/">Hilbert Transform</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">utilities</a></li><li class="is-active"><a href>Plots</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Plots</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/master/docs/src/recipes.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="recipes.jl"><a class="docs-heading-anchor" href="#recipes.jl">recipes.jl</a><a id="recipes.jl-1"></a><a class="docs-heading-anchor-permalink" href="#recipes.jl" title="Permalink"></a></h1><p>This unit implements plot recipes for plotting data produced by <strong>Fourier Analysis</strong>.</p><p>In the following recipes, operator <code>--&gt;</code> sets the default plot attribute, while operator <code>:=</code> forces the plot attribute to a specific value.</p><div class="admonition is-info" id="Nota-Bene-7be88ce22c7d40"><header class="admonition-header">Nota Bene<a class="admonition-anchor" href="#Nota-Bene-7be88ce22c7d40" title="Permalink"></a></header><div class="admonition-body"><p>Working with plot recipes <em>you must</em> put the <code>;</code> symbol in your argument list to separate optional keyword arguments.</p></div></div><h2 id="plot-tapering-windows"><a class="docs-heading-anchor" href="#plot-tapering-windows">plot tapering windows</a><a id="plot-tapering-windows-1"></a><a class="docs-heading-anchor-permalink" href="#plot-tapering-windows" title="Permalink"></a></h2><pre><code class="language-julia hljs">@recipe function f(::Type{Taper}, taper::Taper)
+    title               --&gt; taperinfo(taper)
+    background_color    --&gt; :white
+    gridcolor           --&gt; :white
+    legend              --&gt; false
+    dpi                 --&gt; 300
+    taper.y
+end</code></pre><p>Plot the data of a <a href="../tapers/#Taper">Taper</a> object, that is, the tapering window(s) hold in its <code>.y</code> field. This is a single tapering window for all kind of tapering windows, but for Slepian&#39;s discrete prolate spheroidal sequences, which are multi-tapering.</p><p>The recipes allows to pass any other optional keyword argument of the standard Julia plot package.</p><p><strong>Examples</strong>:</p><pre><code class="language-julia hljs">using FourierAnalysis, Plots
+
+plot(taper(parzen, 256))
+plot!(taper(harris4, 256))
+
+# discrete prolate spheroidal sequences
+H=taper(slepian, 256, α=4, n=7)
+plot(H)</code></pre><h2 id="plot-spectra"><a class="docs-heading-anchor" href="#plot-spectra">plot spectra</a><a id="plot-spectra-1"></a><a class="docs-heading-anchor-permalink" href="#plot-spectra" title="Permalink"></a></h2><pre><code class="language-julia hljs">@recipe function f(::Type{Spectra}, S::Spectra;
+            fmax   = S.sr/2,
+            xspace = 4,
+            ytitle = &quot;Power (\\muV²)&quot;)
+
+    b=f2b(fmax, S.sr, S.wl)
+    xticstring=[&quot;$(xspace*i)&quot; for i=1:fmax÷xspace]
+    pushfirst!(xticstring, &quot;$(fres(S.sr, S.wl))&quot;)
+    xticrange=[1:S.wl/S.sr*xspace:b+1;]
+    for i=2:length(xticrange) xticrange[i]=xticrange[i]-1 end
+
+    legend         --&gt; false
+    dpi            --&gt; 300
+    xlabel         --&gt; &quot;Frequency (Hz)&quot;
+    xticks         --&gt; (xticrange, xticstring)
+    ylabel         --&gt; ytitle
+    delete!(plotattributes, :fmax)
+    delete!(plotattributes, :xspace)
+    delete!(plotattributes, :ytitle)
+    S.y[1:(f2b(fmax, S.sr, S.wl; DC=S.DC)), :]
+end</code></pre><p>Plot the data in a <a href="../spectra/#Spectra">Spectra</a> object, <em>e.g.</em>, plot all its spectra with separate lines.</p><p>Optional keyword argument <code>fmax</code> limits the plot on the right to the given frequency (in Hz).</p><p>Optional keyword argument <code>xspace</code> (in Hz) determines the spacing between frequency ticks (x-axis).</p><p>Optional keyword argument <code>ytitle</code> specifies a title for the y axis. The default is &quot;Power (\muV²)&quot;</p><p>The function allows to pass any other optional keyword argument of the standard Julia plot function.</p><p>Useful attributes for plotting spectra are:</p><ul><li><code>xtickfont      = font(11, &quot;Times&quot;))</code></li><li><code>ytickfont      = font(11, &quot;Times&quot;))</code></li><li><code>left_margin    = 2mm</code></li><li><code>bottom_margin  = 2mm</code></li><li><code>xaxis          = (&quot;My x axis title&quot;, font(11, &quot;Courier New&quot;))</code></li><li><code>yaxis          = (&quot;My y axis title&quot;, font(11, &quot;Courier New&quot;))</code></li><li><code>linecolor      = :grey</code></li></ul><div class="admonition is-info" id="Nota-Bene-e621c5503755214c"><header class="admonition-header">Nota Bene<a class="admonition-anchor" href="#Nota-Bene-e621c5503755214c" title="Permalink"></a></header><div class="admonition-body"><p>In order to use the <code>mm</code> measure for margins you need to add <code>using Plots.Measures</code> in your script.</p></div></div><p><strong>Examples</strong>:</p><pre><code class="language-julia hljs">using FourierAnalysis, Plots, Plots.Measures
+
+sr, t, f, a = 128, 128, 16, 0.5
+# create a sinusoidal at 16Hz superimposed to white noise
+v=sinusoidal(a, f, sr, t*16, 0) + randn(t*16)
+# create a data matrix
+X=broadcast(+, v, randn(t*16, 3)) * randn(3, 3)
+
+# compute spectra using hamming tapering window
+S=spectra(X, sr, t; tapering=hann)
+
+# plot spectra
+
+plot(S) # quick and dirt
+
+# gather useful attributes to make nicer plots
+spectraArgs=(fmax=32,
+             xspace=4,
+             left_margin = 2mm,
+             bottom_margin = 2mm,
+             xtickfont = font(11, &quot;Times&quot;),
+             ytickfont = font(11, &quot;Times&quot;))
+
+plot(S; spectraArgs...)
+
+# compute and plot amplitude spectra
+S=spectra(X, sr, t; tapering=riesz, func=√)
+plot(S; ytitle=&quot;Amplitude (\\muV)&quot;, spectraArgs...)
+</code></pre><h2 id="plot-time-frequency-objects"><a class="docs-heading-anchor" href="#plot-time-frequency-objects">plot time-frequency objects</a><a id="plot-time-frequency-objects-1"></a><a class="docs-heading-anchor-permalink" href="#plot-time-frequency-objects" title="Permalink"></a></h2><p>Plots of data held by <a href="../timefrequency/#TFAnalyticSignal">TFAnalyticSignal</a>, <a href="../timefrequency/#TFAmplitude">TFAmplitude</a> and <a href="../timefrequency/#TFPhase">TFPhase</a> objects can be obtained with a simple call to the <code>heatmap</code> function of the <a href="https://github.com/JuliaPlots/Plots.jl">Plots.jl</a> package. The <a href="#FourierAnalysis.tfAxes"><code>tfAxes</code></a> function provides automatic labeling of the axes and is passed as the first argument.</p><p>The second argument is the data matrix to be plotted. The matrix held in <a href="../timefrequency/#TFAmplitude">TFAmplitude</a> and <a href="../timefrequency/#TFPhase">TFPhase</a> objects is real, therefore it can be passed directly as argument. The matrix held in <a href="../timefrequency/#TFAnalyticSignal">TFAnalyticSignal</a> objects holds the analytic signal (AS), therefore it is complex. A function should be specified so as to transform it into a real matrix. Typical functions are:</p><ul><li><code>real</code>: return the real part of the AS</li><li><code>imag</code>: return the imaginary part of the AS</li><li><code>amplitude</code>: return the AS <a href="../tools/#FourierAnalysis.amplitude"><code>amplitude</code></a></li><li><code>phase</code>: return the AS <a href="../tools/#FourierAnalysis.phase"><code>phase</code></a></li></ul><p><strong>Note</strong>:</p><p>Appropriate colors for plotting the real and imaginary part of the analytic signal, as well as the phase, are <code>:pu_or</code>, <code>:bluesreds</code>.</p><p>Appropriate colors for plotting amplitude and unwraped phase are <code>:amp</code>, <code>:fire</code>, <code>:dimgray</code>, <code>:gwv</code>.</p><p>Useful attributes for plotting time-frequency objects are:</p><ul><li><code>xtickfont      = font(10, &quot;Times&quot;))</code></li><li><code>ytickfont      = font(10, &quot;Times&quot;))</code></li><li><code>right_margin   = 2mm</code></li><li><code>top_margin     = 2mm</code></li></ul><p><strong>Examples</strong>:</p><pre><code class="language-julia hljs">using FourierAnalysis, Plots, Plots.PlotMeasures
+sr, t, f, a, s = 128, 128, 8, 2.5, sinusoidal
+# create a sinusoidal at 8Hz modulated by a sinusoidal at 0.125Hz
+# and superimpose white noise
+v=s(a, f, sr, t*4, 0) .* s(a, 0.125, sr, t*4, 0) + randn(t*4)
+plot(v)
+
+# generate a times series with two frequencies
+# and a clear envelope
+sr, t, bandwidth=128, 512, 2
+h=taper(harris4, t)
+x1=sinusoidal(10, 8, sr, t, 0)
+x2=sinusoidal(10, 19, sr, t, 0)
+v=Vector((x1+x2).*h.y+randn(t))
+plot(v)
+
+# gather useful attributes to obtain nice heatmpap plots
+tfArgs=(right_margin = 2mm,
+        top_margin = 2mm,
+        xtickfont = font(10, &quot;Times&quot;),
+        ytickfont = font(10, &quot;Times&quot;))
+
+# compute the analytic signal (AS) of vector v
+Y=TFanalyticsignal(v, sr, t; fmax=32)
+
+# plot the real part of the AS
+heatmap(tfAxes(Y)..., real(Y.y); c=:pu_or, tfArgs...)
+
+# ...the imaginary part of the AS
+heatmap(tfAxes(Y)..., imag(Y.y); c=:bluesreds, tfArgs...)
+
+# ...the amplitude of the AS
+heatmap(tfAxes(Y)..., amplitude(Y.y); c=:amp, tfArgs...)
+
+# ...the amplitude of the AS smoothed in the freq. dim.
+heatmap(tfAxes(Y)...,
+        amplitude(smooth(hannSmoother, noSmoother, Y).y);
+        c=:amp, tfArgs...)
+
+# ...the amplitude of the AS smoothed in freq. and time
+heatmap(tfAxes(Y)...,
+        amplitude(smooth(hannSmoother, hannSmoother, Y).y);
+        c=:amp, tfArgs...)
+
+# ...the phase of the AS
+heatmap(tfAxes(Y)..., phase(Y.y); c=:bluesreds, tfArgs...)
+
+# ...the phase of the AS weighted by the amplitude
+heatmap(tfAxes(Y)..., phase(Y.y).*amplitude(Y.y);
+        c=:bluesreds, tfArgs...)
+
+# compute a TF Amplitude obejct
+A=TFamplitude(v, sr, t; fmax=32)
+
+# plot the amplitude
+heatmap(tfAxes(A)..., A.y; c=:amp, tfArgs...)
+
+# compute a TF Phase obejct
+ϴ=TFphase(v, sr, t; fmax=32)
+
+# plot the phase
+heatmap(tfAxes(ϴ)..., ϴ.y; c=:pu_or, tfArgs...)
+
+# compute a TF Phase obejct with the phase unwrapped
+uwϴ=TFphase(v, sr, t; unwrapped=true)
+
+# plot the unwrapped phase
+heatmap(tfAxes(uwϴ)..., uwϴ.y; c=:fire, tfArgs...)</code></pre><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="FourierAnalysis.tfAxes" href="#FourierAnalysis.tfAxes"><code>FourierAnalysis.tfAxes</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><p>Generate labels for the axes to be used in heatmap plots of <a href="../MainModule/#TFobjects">TFobjects</a>. On the y-axis the labels correspond to the center frequencies of the band-pass filter bank used to obtain the time-frequency representation, that is, to the <code>.flabels</code> field of the object.</p><p>See <a href="#plot-time-frequency-objects">plot time-frequency objects</a> for examples.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/03741eaa7cf36dc74fdfaa0d82d468160dcd73c3/src/recipes.jl#L49-L56">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../timefrequencybi/">« TF Bivariate Measures </a><a class="docs-footer-nextpage" href="../tools/">Tools »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Monday 18 August 2025 05:54">Monday 18 August 2025</span>. Using Julia version 1.11.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
