@@ -1,7 +1,7 @@
 name = "FourierAnalysis"
 uuid = "e7e9c730-dc46-11e9-3633-f1ab55cc17e1"
 authors = ["Marco-Congedo <marco.congedo@gmail.com>"]
-version = "1.2.5"
+version = "1.2.6"
 
 [deps]
 AbstractFFTs = "621f4979-c628-5d54-868e-fcf4e3e8185c"
