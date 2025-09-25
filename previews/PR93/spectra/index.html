@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Spectral Estimations · FourierAnalysis</title><meta name="title" content="Spectral Estimations · FourierAnalysis"/><meta property="og:title" content="Spectral Estimations · FourierAnalysis"/><meta property="twitter:title" content="Spectral Estimations · FourierAnalysis"/><meta name="description" content="Documentation for FourierAnalysis."/><meta property="og:description" content="Documentation for FourierAnalysis."/><meta property="twitter:description" content="Documentation for FourierAnalysis."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img class="docs-light-only" src="../assets/logo.png" alt="FourierAnalysis logo"/><img class="docs-dark-only" src="../assets/logo-dark.png" alt="FourierAnalysis logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">FourierAnalysis</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">FourierAnalysis Documentation</a></li><li><a class="tocitem" href="../MainModule/">Main Module</a></li><li><a class="tocitem" href="../tapers/">Tapering Windows</a></li><li><span class="tocitem">frequency domain</span><ul><li class="is-active"><a class="tocitem" href>Spectral Estimations</a><ul class="internal"><li><a class="tocitem" href="#Spectra"><span>Spectra</span></a></li></ul></li><li><a class="tocitem" href="../crossspectra/">Cross-Spectral Matrices</a></li><li><a class="tocitem" href="../coherence/">Coherence Matrices</a></li><li><a class="tocitem" href="../goertzel/">Goertzel&#39;s Algorithms</a></li></ul></li><li><span class="tocitem">time-frequency(TF) domain</span><ul><li><a class="tocitem" href="../timefrequency/">TF Representations</a></li><li><a class="tocitem" href="../timefrequencyuni/">TF Univariate Measures</a></li><li><a class="tocitem" href="../timefrequencybi/">TF Bivariate Measures </a></li></ul></li><li><span class="tocitem">utilities</span><ul><li><a class="tocitem" href="../recipes/">Plots</a></li><li><a class="tocitem" href="../tools/">Tools</a></li><li><a class="tocitem" href="../fftw/">FFTW planners</a></li><li><a class="tocitem" href="../filters/">Filter Banks</a></li><li><a class="tocitem" href="../hilbert/">Hilbert Transform</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">frequency domain</a></li><li class="is-active"><a href>Spectral Estimations</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Spectral Estimations</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/master/docs/src/spectra.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="spectra.jl"><a class="docs-heading-anchor" href="#spectra.jl">spectra.jl</a><a id="spectra.jl-1"></a><a class="docs-heading-anchor-permalink" href="#spectra.jl" title="Permalink"></a></h1><p>Spectra objects created by <em>FourierAnalysis</em> are incapsulated in the following structure:</p><h2 id="Spectra"><a class="docs-heading-anchor" href="#Spectra">Spectra</a><a id="Spectra-1"></a><a class="docs-heading-anchor-permalink" href="#Spectra" title="Permalink"></a></h2><p><strong>Categories</strong>: <a href="../MainModule/#data-objects">data objects</a>, <a href="../MainModule/#FDobjects">FDobjects</a></p><pre><code class="language-julia hljs">struct Spectra
+    y           :: AbstractArray{T} where T&lt;:Real
+    sr          :: Int
+    wl          :: Int
+    DC          :: Bool
+    taper       :: String
+    flabels     :: Vector{T} where T&lt;:Union{Real, Int}
+    func        :: Function
+    smoothing   :: Smoother
+end</code></pre><p><strong>Fields</strong>:</p><p><code>y</code>: a real vector holding one <em>spectrum</em>, or a real matrix holding several <em>spectra</em> in its columns.</p><p><code>sr</code>: the <em>sampling rate</em> of the data on which the spectra have been estimated.</p><p><code>wl</code>: the FFT <em>window length</em> used for estimating the spectra.</p><p><code>DC</code>: if true, the first row of <code>y</code> holds the <em>DC level</em>, otherwise it holds the first positive frequency. Thus, if <code>DC</code> is false, the first dimension of <code>y</code> is equal to <span>$wl÷2$</span> (integer division), otherwise it is equal to <span>$(wl÷2)+1$</span> (see <a href="../#Overview">Overview</a>). In all constructors it is false by default.</p><p><code>taper</code>: the time-domain <em>tapering window</em> used for FFT computation, as a string, with parameters in parentheses for Slepian&#39;s <em>dpss</em>. See <a href="../tapers/#tapers.jl">tapers.jl</a>.</p><p><code>flabels</code>: a vector holding all Fourier discrete frequencies in Hz. Those are the <em>frequency labels</em> for the rows of <code>y</code>. If <code>DC</code> is true, the first label is <span>$0$</span>, otherwise it is the first positive frequency, which is equal to the frequency resolution <span>$sr/wl$</span>.</p><p><code>func</code>: a <em>function</em> applied element-wise to the spectra. In all constructors the default is the <code>identity</code> (do-nothing) function.</p><p><code>smoothing</code>: a <a href="../MainModule/#Smoother">Smoother</a> flag indicating whether the spectra have been smoothed across adjacent frequencies. If no smoothing has been applied, it is equal to <code>noSmoother</code>, which is the default in all constructors.</p><p><strong>Note</strong>: In Julia the fields are accessed by the usual dot notation, e.g., you may verify that for <em>Spectra</em> object <code>S</code>,</p><pre><code class="language-julia hljs">length(S.flabels) == size(S.y, 1) == (S.wl/2)+S.DC</code></pre><p>A vector of <em>Spectra</em> objects is of type <a href="../MainModule/#SpectraVector">SpectraVector</a>.</p><p><strong>Methods for Spectra and SpectraVector objects</strong></p><table><tr><th style="text-align: left">method</th><th style="text-align: center">Spectra</th><th style="text-align: center">SpectraVector</th></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.bands"><code>bands</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.extract"><code>extract</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#Statistics.mean"><code>mean</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.smooth"><code>smooth</code></a></td><td style="text-align: center">✔</td><td style="text-align: center">✔</td></tr><tr><td style="text-align: left"><a href="../tools/#FourierAnalysis.sameParams"><code>sameParams</code></a></td><td style="text-align: center"></td><td style="text-align: center">✔</td></tr></table><p><strong>Generic Constructors</strong>:</p><p>In order to construct a <em>Spectra</em> object from univariate and multivariate data, <em>FourierAnalysis</em> provides two <a href="#FourierAnalysis.spectra"><code>spectra</code></a> constuctors, which is what you will use in practice most of the time.</p><p>Manual constructors are also possible, for which you have to provide appropriate arguments. The default manual constructor of <em>Spectra</em> objects is</p><pre><code class="language-julia hljs">Spectra(y, sr, wl, DC, taper, flabels, func, smoothing).</code></pre><p>Other constructors are also provided:</p><pre><code class="language-julia hljs">Spectra(y, sr, wl, DC, taper)</code></pre><p>generates the appropriate <code>flabels</code>, set <code>func</code> to <code>identity</code> (do-nothing) and <code>smoothing</code> to <code>noSmoother</code>;</p><pre><code class="language-julia hljs">Spectra(y, sr, wl, taper)</code></pre><p>is like the constructor here above, but also set <code>DC</code> to false;</p><pre><code class="language-julia hljs">Spectra(𝙎::CrossSpectra;
+        func::Function=identity)</code></pre><p>creates a <em>Spectra</em> object extracting the spectra from a <a href="../crossspectra/#CrossSpectra">CrossSpectra</a> object. If a function is provided with the <code>func</code> argument, this function is applied element-wise to the spectra. For instance,</p><ul><li><code>func=sqrt</code> will extract amplitude spectra,</li><li><code>func=log</code> will extract log-spectra,</li><li><code>func=decibel</code> will extract spectra in deciBels (see <a href="../tools/#FourierAnalysis.decibel"><code>decibel</code></a>).</li></ul><p>By default the <code>identity</code> (do-nothing) function is applied, thus (power) spectra are extracted;</p><div class="admonition is-info" id="Nota-Bene-6586532cb214d68d"><header class="admonition-header">Nota Bene<a class="admonition-anchor" href="#Nota-Bene-6586532cb214d68d" title="Permalink"></a></header><div class="admonition-body"><p>If the CrossSpectra object is non-linear, the spectra are uniformly equal to 1.0. See <a href="../crossspectra/#FourierAnalysis.crossSpectra"><code>crossSpectra</code></a>.</p></div></div><pre><code class="language-julia hljs">Spectra(𝙎::CrossSpectraVector;
+        func::Function=identity)</code></pre><p>create a <a href="../MainModule/#SpectraVector">SpectraVector</a> object from a <a href="../MainModule/#CrossSpectraVector">CrossSpectraVector</a> object, calling the constructor here above for all <a href="../crossspectra/#FourierAnalysis.crossSpectra"><code>crossSpectra</code></a> objects hold by <code>𝙎</code>.</p><p><strong>Constructors from data</strong>:</p><div class="admonition is-info" id="Goertzel&#39;s-algorithms-6f4b021745b3e57c"><header class="admonition-header">Goertzel&#39;s algorithms<a class="admonition-anchor" href="#Goertzel&#39;s-algorithms-6f4b021745b3e57c" title="Permalink"></a></header><div class="admonition-body"><p>When the spectrum is recquired only at one or a few discrete Fourier coefficients, Goertzel&#39;s algorithhms may be a more efficient option. See unit <a href="../goertzel/#goertzel.jl">goertzel.jl</a>.</p></div></div><article class="docstring"><header><a class="docstring-article-toggle-button fa-solid fa-chevron-down" href="javascript:;" title="Collapse docstring"></a><a class="docstring-binding" id="FourierAnalysis.spectra" href="#FourierAnalysis.spectra"><code>FourierAnalysis.spectra</code></a> — <span class="docstring-category">Function</span><span class="is-flex-grow-1 docstring-article-toggle-button" title="Collapse docstring"></span></header><section><div><pre><code class="language-julia hljs">(1)
+function spectra( X     :: Union{Vector{T}, Matrix{T}},
+                  sr    :: Int,
+                  wl    :: Int;
+            tapering  :: Union{Taper, TaperKind} = harris4,
+            planner   :: Planner                 = getplanner,
+            slide     :: Int                     = 0,
+            DC        :: Bool                    = false,
+            func      :: Function                = identity, # equal to x-&gt;x
+            smoothing :: Smoother                = noSmoother,
+            ⏩       :: Bool                    = true) where T&lt;:Real
+
+(2)
+function spectra( 𝐗   :: Union{Vector{Vector{T}}, Vector{Matrix{T}}},
+            &lt; same argument sr, ..., ⏩ of method (1) &gt; where T&lt;:Real</code></pre><p>(1)</p><p>Construct a <a href="#Spectra">Spectra</a> object from real univariate or multivariate data. Given sampling rate <code>sr</code> and epoch length <code>wl</code>, compute the Welch power spectra of a vector (univariate) or of a data matrix (multivariate) <code>X</code> of dimension <span>$t$</span>x<span>$n$</span>, where <span>$t$</span> is the number of samples (rows) and <span>$n$</span> is the number of time-series (columns).</p><p>The spectra are hold in the <code>.y</code> field of the created object. If <code>X</code> is a vector, <code>.y</code> is a vector, whereas if <code>X</code> is a matrix, <code>.y</code> is a matrix holding in its columns the spectra of the signals in the columns of <code>X</code>. The size of the spectra depends on the <code>DC</code> optional keyword argument (see below), as reported in the documentation of the <a href="#Spectra">Spectra</a> structure.</p><p><strong>Optional Keyword Arguments</strong>:</p><p><code>tapering</code>: this is a tapering object of type <a href="../tapers/#Taper">Taper</a> or a tapering window kind of type <a href="../tapers/#TaperKind">TaperKind</a>. By default the <em>harris4</em> tapering window is used. If no tapering is sought, pass as argument <code>tapering=rectangular</code>. This same syntax is the most convenient way to specify all simple tapering window, e.g., <code>tapering=hann</code>, <code>tapering=hamming</code>, etc. For <em>discrete prolate spheroidal sequences (dpss)</em> multi-tapering, use instead the <a href="../tapers/#FourierAnalysis.slepians"><code>slepians</code></a> constructor, e.g., pass as argument something like <code>tapering=slepians(sr, wl, 2)</code>.</p><p><code>planner</code>: this is an instance of the <a href="../fftw/#FourierAnalysis.Planner"><code>Planner</code></a> object, holding the forward FFTW plan used to compute the FFTs. By default the planner is computed by this method, but it can be passed as an argumet here if it is pre-computed. This is interesting if this function is to be invoked repeatedly.</p><p><code>slide</code>: this is the number of samples the windows slide on (Welch method). By default the number of samples is chosen to allow 50% overlap.</p><p><code>DC</code>: if true, the spectrum/a of the DC level is returned in the first row of <code>y</code> (see the fields of the <a href="#Spectra">Spectra</a> object), otherwise (default) the rows in <code>y</code> start with the first positive discrete frequency, that is, <span>$sr/wl$</span> Hz.</p><p><code>func</code>: this is a function that operate element-wise to transfrom the power spectra before returning them, including anonymous functions. Common choices are:</p><ul><li><code>func=sqrt</code> return the amplitude spectra,</li><li><code>func=log</code> return the log-power spectra,</li><li><code>func=decibel</code> return the power spectra in deciBels (see <a href="../tools/#FourierAnalysis.decibel"><code>decibel</code></a>),</li></ul><p>By default no function is applied and the power spectra are returned. If smoothing has been requested (see below), it is applied after the function.</p><p><code>smoothing</code>: it applies a smoothing function of type <a href="../MainModule/#Smoother">Smoother</a> to the spectra across adjacent frequencies. By default no smoothing is applied.</p><p><code>⏩</code>: if true (default), the method run in multi-threaded mode across the series in <code>X</code> if the number of series is at least twice the number of threads Julia is instructed to use. See <a href="../MainModule/#Threads">Threads</a>.</p><p>(2)</p><p>Construct a <a href="../MainModule/#SpectraVector">SpectraVector</a> object from a vector of real univariate (vectors) or multivariate data (matrices). Compute the spectra as per method (1) for all <span>$k$</span> data vectors or data matrices in <code>𝐗</code>.</p><p>If <code>𝐗</code> holds data matrices, the <span>$k$</span> matrices in <code>𝐗</code> must have the same number of columns (i.e., the same number of time series), but may have any number of (at least <code>wl</code>) rows (samples). All other arguments have the same meaning as in method (1), with the following differences:</p><ul><li><p><code>⏩</code>: if true (default), the method run in multi-threaded mode across the   <span>$k$</span> data matrices if <span>$k$</span> is at least twice the number of threads Julia   is instructed to use, otherwise this method attempts to run each spectra   estimation in multi-threaded mode across series as per method (1).   See <a href="../MainModule/#Threads">Threads</a>.</p></li><li><p>If a <code>planner</code> is not explicitly passed as an argument,   the FFTW plan is computed once and applied for all spectral estimations.</p></li></ul><p><strong>See</strong>: <a href="#Spectra">Spectra</a>, <a href="../recipes/#plot-spectra">plot spectra</a>.</p><p><strong>See also</strong>: <a href="../crossspectra/#FourierAnalysis.crossSpectra"><code>crossSpectra</code></a>, <a href="../coherence/#DSP.Periodograms.coherence"><code>coherence</code></a>, <a href="../goertzel/#goertzel.jl">goertzel.jl</a>.</p><p><strong>Examples</strong>:</p><pre><code class="language-julia hljs">using FourierAnalysis
+
+###################################################################
+
+# (1)
+
+# Check that correct amplitude spectra is returned at all discrete
+# Fourier Frequency (using a rectangular taper).
+# Sinusoids are created at all frequencies with amplitude 10 at the
+# first frequency and then incrementing by 10 units along frequencies.
+# NB when t is even, correct amplitude for the last frequency is obtained
+# only if the sinusoidal has a particular phase.
+
+sr, t, wl= 16, 32, 16
+V=Matrix{Float64}(undef, t, wl)
+for i=1:wl V[:, i]=sinusoidal(10*i, b2f(i, sr, t), sr, t, π/6) end
+
+# using FFTW.jl only
+using FFTW
+P=plan_rfft(V, 1)*(2/t);
+Σ=abs.(P*V)
+using Plots
+bar(Σ[brange(t, DC=true), :], labels=&quot;&quot;)
+
+# using FourierAnalysis.jl
+Σ2=spectra(V, sr, t; tapering=rectangular, func=√, DC=true)
+using Plots
+bar(Σ2.y[brange(t, DC=true), :], labels=&quot;&quot;)
+
+#############################################################################
+
+### Check amplitude spectra on long signals obtained by welch methods
+# one sinusoidal is at an exact discrete Fourier Frequency and the other not
+# Rectangular window
+sr, t, f, a = 128, 128, 10, 0.5
+v=sinusoidal(a, f, sr, t*16)+sinusoidal(a, f*3.5+0.5, sr, t*16)+randn(t*16);
+Σ=spectra(v, sr, t; tapering=rectangular, func=√)
+bar(Σ.y, labels=&quot;rectangular&quot;)
+
+# harris4 window (default)
+Σ2=spectra(v, sr, t; func=√)
+bar!(Σ2.y, labels=&quot;harris4&quot;)
+
+#smooth spectra
+Σ3=smooth(blackmanSmoother, Σ2)
+bar!(Σ3.y, labels=&quot;smoothed&quot;)
+
+#############################################################################
+
+function generateSomeData(sr::Int, t::Int; noise::Real=1.)
+    # four sinusoids of length t samples and sr sampling rate
+    # peak amplitude: 0.7, 0.6, 0.5, 0.4
+    # frequency:        5,   7,  13,  27
+    # phase:            0, π/4, π/2,   π
+    v1=sinusoidal(0.7, 5,  sr, t, 0)
+    v2=sinusoidal(0.6, 7,  sr, t, π/4)
+    v3=sinusoidal(0.5, 13, sr, t, π/2)
+    v4=sinusoidal(0.4, 27, sr, t, π)
+    return hcat(v1, v2, v3, v4) + (randn(t, 4)*noise)
+end
+
+sr, wl, t = 128, 512, 8192
+X=generateSomeData(sr, t)
+# multivariate data matrix 8192x4
+
+# compute spectra
+S=spectra(X, sr, wl)
+
+# check the spectrum of first series
+S.y[:, 1]
+
+# gather some plot attributes to get nice plots
+using Plots.Measures
+spectraArgs=(fmax = 32,
+             left_margin = 2mm,
+             bottom_margin = 2mm,
+             xtickfont = font(11, &quot;Times&quot;),
+             ytickfont = font(11, &quot;Times&quot;))
+plot(S; spectraArgs...)
+plot(S; xspace=2, spectraArgs...)
+
+# use a custom simple taperig window
+S=spectra(X, sr, wl; tapering=riesz)
+
+# use Slepian&#39;s multi-tapering
+S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.5))
+
+# construct with smoothing
+S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.5), smoothing=hannSmoother)
+
+# compute Amplitude Spectra instead
+S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.5), func=√)
+
+# plot Aplitude spectra
+plot(S; ytitle=&quot;Amplitude&quot;, spectraArgs...)
+
+# smooth the spectra a-posteriori
+S=smooth(blackmanSmoother, S)
+
+# extract spectra in range (8Hz to 12Hz)
+e=extract(S, (8, 12))
+
+# extract spectra in range (8Hz to 12Hz) for series 1 and 2
+e=extract(S, (8, 12))[:, 1:2]
+
+# extract the spectra at 10Hz only (1 bin per series)
+e=extract(S, 10)
+
+# average spectra in the 8Hz-12Hz range
+bar(mean(S, (8.0, 12.0)))
+
+# average across series of the average spectra in the 8Hz-12Hz range
+mean(mean(S, (8.0, 12.0)))
+
+# average spectrum across all frequencies for each series
+bar(mean(S, :))
+
+# average spectra in equally-spaced 2Hz-band-pass regions for all series
+plot(bands(S, 2))
+
+# average spectra in equally-spaced 2Hz-band-pass regions for series 1 and 2
+plot(bands(S, 2)[:, 1:2])
+
+# (2)
+
+# generate 3 multivariate data matrices 8192x4
+X=[generateSomeData(sr, t) for i=1:3]
+
+# Now the call to the spectra function will generate 3 Spectra objects
+S=spectra(X, sr, wl)
+plot(S[1]; spectraArgs...)
+plot(S[2]; spectraArgs...)
+plot(S[3]; spectraArgs...)
+
+# when you want to compute the spectra of many data matrices you may want
+# to do it using a fast FFTW plan (wait up to 10s for computing the plan)
+plan=Planner(plan_exhaustive, 10.0, wl)
+S=spectra(X, sr, wl; planner=plan)
+
+# how faster is this?
+using BenchmarkTools
+@benchmark(spectra(X, sr, wl))
+@benchmark(spectra(X, sr, wl; planner=plan))
+
+
+# average spectra in range (8Hz-12Hz) for all series of all objects
+M=mean(S, (8, 12))
+
+# plot the average spectrum across all series for the three objects
+# using Julia standard mean function
+plot(mean(S[1].y[:, i] for i=1:size(S[1].y, 2)))
+plot!(mean(S[2].y[:, i] for i=1:size(S[2].y, 2)))
+plot!(mean(S[3].y[:, i] for i=1:size(S[3].y, 2)))
+
+# average spectra in range (4Hz-32.5Hz) across objects for the 4 series
+plot(mean(mean(S, (4, 32.5))))
+
+# extract spectra in range (8Hz-12Hz) for all series and all subjects
+extract(S, (8, 12))
+
+# if you enter en illegal range, nothing will be done and you will get
+# an error in the REPL explaining what is wrong in your argument
+extract(S, (0, 12))
+mean(S, (1, 128))
+
+# extract 4Hz-band-pass average spectra for all series and all objects
+bands(S, 4)
+
+# Apply smoothing in the spectra computations
+S=spectra(X, sr, t; smoothing=blackmanSmoother)
+plot(S[1]; spectraArgs...)
+plot(S[2]; spectraArgs...)
+plot(S[3]; spectraArgs...)
+
+# plot spectra in in 1Hz band-pass regions for all series in S[1]
+plot(bands(S[1], 1))
+
+# use slepian multi-tapering
+S=spectra(X, sr, wl; tapering=slepians(sr, wl, 1.))
+plot(S[1]; spectraArgs...)
+
+# average spectra across objects
+plot(mean(s.y for s ∈ S))
+
+</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/Marco-Congedo/FourierAnalysis.jl/blob/a4230df7e525576dd12e31333fe3ae49b41b3eb2/src/spectra.jl#L36-L327">source</a></section></article></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tapers/">« Tapering Windows</a><a class="docs-footer-nextpage" href="../crossspectra/">Cross-Spectral Matrices »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.14.1 on <span class="colophon-date" title="Thursday 25 September 2025 19:50">Thursday 25 September 2025</span>. Using Julia version 1.11.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
