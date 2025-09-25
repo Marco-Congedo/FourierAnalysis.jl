@@ -48,7 +48,7 @@ function spectra( X     :: Union{Vector{T}, Matrix{T}},
             ⏩       :: Bool                    = true) where T<:Real
 
 (2)
-function spectra( 𝐗   :: Vector{Matrix{T}},
+function spectra( 𝐗   :: Union{Vector{Vector{T}}, Vector{Matrix{T}}},
             < same argument sr, ..., ⏩ of method (1) > where T<:Real
 ```
 
@@ -367,7 +367,7 @@ end
 
 
 
-function spectra( 𝐗   :: Vector{Matrix{T}},
+function spectra( 𝐗   :: Union{Vector{Vector{T}}, Vector{Matrix{T}}},
                   sr  :: Int,
                   wl  :: Int;
             tapering  ::  Union{Taper, TaperKind} = harris4,
@@ -390,7 +390,7 @@ function spectra( 𝐗   :: Vector{Matrix{T}},
     # allocate memory for spectra : 𝗦 is a k-Vector of Spectra objects
     𝗦 = SpectraVector(undef, k)
 
-    # function to compute spectra for the ith input data matrix `𝐗[i]`
+    # function to compute spectra for the ith input data vector or matrix `𝐗[i]`
     sp!(i, ⏩) = 𝗦[i]=spectra(𝐗[i],
                               sr,
                               wl;
