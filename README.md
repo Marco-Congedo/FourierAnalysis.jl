@@ -31,11 +31,6 @@ Execute the following command in Julia's REPL:
 
     ]add FourierAnalysis
 
-## Disclaimer
-
-Although fully functional, this package is still in a pre-release stage. It needs throughout testing.
-Independent reviewers are more then welcome.
-
 ## About the Author
 
 [Marco Congedo](https://sites.google.com/site/marcocongedo) is
@@ -62,7 +57,8 @@ plot(S; fmax=24)
 
 # The same syntax applies in the case of multivariate data (e.g., 4 time-series):
 V = randn(wl*16, 4)
-S = spectra(V, sr, wl; tapering=hamming)
+# avoid conflict with DSP.hamming
+S = spectra(V, sr, wl; tapering=FourierAnalysis.hamming)
 plot(S)
 
 # Get the analytic amplitude in the time-Frequency domain:
@@ -70,6 +66,8 @@ A = TFamplitude(v, sr, wl; fmax=24)
 
 # plot the analytic amplitude:
 heatmap(A.y)
+
+# et cetera.
 
 ```
 
