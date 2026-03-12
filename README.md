@@ -6,6 +6,8 @@
 |:------------------:|:-------------------:|
 | [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) | [paper](https://hal.science/hal-01868538v2/document) |
 
+---
+
 **FourierAnalysis** is a signal-processing [**Julia**](https://julialang.org/) package for
 performing the analysis of *real multivariate data* (e.g., multivariate time series)
 in the *frequency* domain and in the *time-frequency* domain. It is based upon the
