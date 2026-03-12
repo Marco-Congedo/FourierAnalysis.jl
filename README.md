@@ -1,11 +1,10 @@
-| **Documentation**  | 
-|:---------------------------------------:|
-| [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |
+# FourierAnalysis.jl
 
-**Related Publications**
-[Technical report](https://hal.science/hal-01868538/document)
+![FourierAnalysis gif](https://github.com/user-attachments/assets/b77c4f13-615e-4337-beeb-4abaa1cd808a)
 
-![](/docs/src/assets/Fig1.jpg)
+| **Documentation**  | **Technical Details** 
+|:------------------:|:-------------------:|
+| [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) | [paper](https://hal.science/hal-01868538v2/document) |
 
 **FourierAnalysis** is a signal-processing [**Julia**](https://julialang.org/) package for
 performing the analysis of *real multivariate data* (e.g., multivariate time series)
@@ -25,8 +24,9 @@ This way *FourierAnalysis* computes the **analytic signal**, from which the **in
 - **comodulation**
 - **coherence** (the non-linear version of which is known as *phase-locking values* or *phase coherence*).
 
-All these measures are provided in a simple and unified fashion, following the conceptual approach previously illustrated in
-in the context of electroencephalography ([Congedo, 2018](https://hal.archives-ouvertes.fr/hal-01868538v2/document)), for which all default settings have been tailored. The package has been written with the *do-it-with-one-line* spirit, but without sacrificing full control over relevant options.
+![](/docs/src/assets/Fig1.jpg)
+
+All these measures are provided in a simple and unified fashion. 
 
 ## Installation
 
@@ -74,8 +74,8 @@ heatmap(A.y)
 
 ```
 
-| **Documentation**  | 
-|:---------------------------------------:|
-| [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) |
+---
 
-
+| **Documentation**  | **Technical Details** 
+|:------------------:|:-------------------:|
+| [![](https://img.shields.io/badge/docs-stable-blue.svg)](https://Marco-Congedo.github.io/FourierAnalysis.jl/stable) | [paper](https://hal.science/hal-01868538v2/document) |
