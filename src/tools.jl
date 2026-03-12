@@ -870,11 +870,11 @@ function smooth(smoothing::Smoother,
 function smooth(smoothing::Smoother,
                 X::Matrix{R}; dims::Int=1) where R<:RealOrComplex
 
-(2)
+(3)
 function smooth(smoother :: Smoother,
                 S :: Union{FDobjects, FDobjectsVector})
 
-(3)
+(4)
 function smooth(fsmoothing :: Smoother,
                 tsmoothing :: Smoother,
                 Y :: Union{TFobjects, TFobjectsVector})
@@ -1185,7 +1185,7 @@ Legend: ¹ *each column refers to a time-series on which the spectra have been c
 ² *depending on how the objects has been created, the matrices may be either
 Hermitian or LowerTriangular. See the documentation of [CrossSpectra](@ref) and [Coherence](@ref).
 
-Note that depending on the arguments the type of the output may loose one or two dimensions.
+Note that, depending on the arguments, the type of the output may loose one or two dimensions.
 For instance,
 - if the [Spectra](@ref) object holds only one spectrum, (1.1) will output a column vector and (2.1) a vector of column vectors.
 - if `frange` points to a single frequency, (1.1) will output a row vector and (2.1) a vector of row vectors.
