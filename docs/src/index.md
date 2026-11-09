@@ -2,7 +2,7 @@
 
 ## Requirements & Installation
 
-**Julia** version ≥ 1.3
+**Julia** version ≥ 1.10
 
 **Packages:** see the [dependencies](@ref) of the main module.
 
